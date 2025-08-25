@@ -1,0 +1,17 @@
+@font-face {
+	font-family: 'Industry Test Ultra';
+	src: url(../../assets/fonts/Industry-Ultra.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-Ultra.woff) format('woff');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test Ultra';
+	src: url(../../assets/fonts/Industry-UltraItalic.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-UltraItalic.woff) format('woff');
+	font-weight: 900;
+	font-style: italic;
+	font-display: swap;
+}

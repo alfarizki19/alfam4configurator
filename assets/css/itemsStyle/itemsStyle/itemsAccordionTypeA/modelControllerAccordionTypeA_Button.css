@@ -1,0 +1,59 @@
+/* Model Controller Accordion Type A Button Styles */
+
+/* Base button styles */
+
+.modelControllerAccordionTypeA_button {
+  width: 125px;
+  height: 55px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  margin: 4px;
+  background-color: #BDBDBD;
+}
+
+.modelControllerAccordionTypeA_button_active {
+  width: 125px;
+  height: 55px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  margin: 4px;
+  background-color: #219FFF;
+}
+
+/* Button states */
+
+.modelControllerAccordionTypeA_button:hover {
+  border: none;
+  background-color: #219FFF;
+  outline: none;
+  transition: background-color 0.6s ease-in-out;
+}
+
+.modelControllerAccordionTypeA_button:focus {
+  border: none;
+  outline: none;
+}
+
+.modelControllerAccordionTypeA_button:active {
+  border: none;
+  outline: none;
+}
+
+/* Button Fonts */
+
+.modelControllerAccordionTypeA_Font_H1 {
+  font-family: 'Industry Test', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 992.4px) {
+  .modelControllerAccordionTypeA_Font_H1 {
+    margin-bottom: 3px;
+    font-size: 14px;
+  }
+}
+

@@ -1,0 +1,79 @@
+/* Header text */
+
+#menuAreaTextHeader {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Industry Test', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #151010;
+  text-align: right;
+}
+
+/* Tombol untuk mobile only */
+
+/* Tombol Hide */
+
+#menuAreaHeaderButtonHideMenuItem {
+  position: absolute;
+  left: 21px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  background-color: #EF0E50;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#menuAreaHeaderButtonHideMenuItem img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+/* Tombol Open */
+
+#menuAreaHeaderButtonOpenMenuItem {
+  position: absolute;
+  left: 21px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  background-color: #EF0E50;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#menuAreaHeaderButtonOpenMenuItem img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  margin-bottom: 7px;
+}
+
+/* Sembunyikan tombol di desktop */
+
+@media (min-width: 992px) {
+  #menuAreaHeaderButtonHideMenuItem {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  #menuAreaHeaderButtonOpenMenuItem {
+    display: none;
+  }
+}
+

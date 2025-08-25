@@ -1,0 +1,68 @@
+#summaryArea {
+  position: relative;
+  height: auto;
+}
+
+/* Text "TOTAL" */
+
+#summaryTextTotal {
+  position: absolute;
+  top: 6px;
+  left: 14px;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #F3F3F3;
+  text-align: left;
+}
+
+/* Text total belanja (angka) */
+
+#summaryTextTotalBelanja {
+  position: absolute;
+  top: 15px;
+  left: 14px;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 34px;
+  color: #FFFFFF;
+  text-align: left;
+}
+
+/* Text exclude shipping */
+
+#summaryTextExcludeShipping {
+  position: absolute;
+  top: 55px;
+  left: 14px;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  color: #BDBDBD;
+  text-align: left;
+}
+
+/* Tombol chart */
+
+#summaryChartButton {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  background-color: #EF0E50;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#summaryChartButton img {
+  width: 40px;
+  height: 40px;
+}
+

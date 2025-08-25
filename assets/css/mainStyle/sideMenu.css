@@ -1,0 +1,111 @@
+/* Side menu dasar dan animasi */
+
+#sideMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 0;
+  background-color: rgba(79, 79, 79, 0.6);
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 9999;
+  overflow: hidden;
+  transition: width 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#sideMenu.active {
+  width: 100vw;
+  pointer-events: auto;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Content area */
+
+#sideMenuContentArea {
+  background-color: #000000;
+  width: 350px;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Header area */
+
+#sideMenuHeaderArea {
+  height: 94px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Logo */
+
+#sideMenuHeaderArea img {
+  margin-left: 18px;
+  display: block;
+}
+
+/* Tombol close */
+
+#buttonCloseSideMenu {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: none;
+  color: white;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+/* Tombol menu di side menu */
+
+.sideMenuButton {
+  width: 100%;
+  background-color: #EF0E50;
+  border: none;
+  color: white;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 50px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#buttonGuideSideMenu {
+  background-color: #8B8B8B;
+}
+
+/* Tombol open di navbar */
+
+#buttonOpenSideMenu {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Hide sideMenu dan tombol open di desktop */
+
+@media (min-width: 993px) {
+  #sideMenu, #buttonOpenSideMenu {
+    display: none !important;
+  }
+}
+

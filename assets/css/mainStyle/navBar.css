@@ -1,0 +1,113 @@
+/* --------------------------------------- */
+
+/* navBar.css kamu (bagian awal tetap sama) */
+
+/* --------------------------------------- */
+
+#bossArmsLogo {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Mobile: <= lg (<992px) */
+
+@media (max-width: 991.98px) {
+  #bossArmsLogo {
+    width: 75px;
+    height: 75px;
+    left: 20px;
+  }
+}
+
+/* Desktop: > lg (≥992px) */
+
+@media (min-width: 992px) {
+  #bossArmsLogo {
+    width: 90px;
+    height: 90px;
+    left: 100px;
+  }
+}
+
+#navBarArea {
+  position: relative;
+}
+
+/* Button GUIDE and STORE for Desktop Version */
+
+#guideButton, #storeButton {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  #guideButton, #storeButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Industry Test Demi', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 20px;
+    line-height: normal;
+    text-align: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+@media (min-width: 992px) {
+  #guideButton {
+    width: 120px;
+    height: 39px;
+    background-color: #000000;
+    right: calc(60px + 95px + 40px);
+  }
+}
+
+@media (min-width: 992px) {
+  #storeButton {
+    width: 125px;
+    height: 42px;
+    background-color: #EF0E50;
+    border-radius: 19.5px;
+    right: 60px;
+  }
+}
+
+/* Side Menu Button */
+
+/* Tombol open menu (mobile only) */
+
+#buttonOpenSideMenu {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  width: 43px;
+  height: 43px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Responsive: tampil hanya di <= lg (maks 991.98px) */
+
+@media (max-width: 991.98px) {
+  #buttonOpenSideMenu {
+    display: block;
+  }
+}
+
+/* Side Menu sembunyi awal */
+
+.sideMenu.hidden {
+  display: none;
+}
+

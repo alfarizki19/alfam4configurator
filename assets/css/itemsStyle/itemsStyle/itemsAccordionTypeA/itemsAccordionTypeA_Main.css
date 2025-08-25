@@ -1,0 +1,174 @@
+/* itemsAccordionTypeA_Main.css */
+
+.itemsAccordionTypeA_Container {
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 14px;
+}
+
+.itemsAccordionTypeA_HeaderContainer {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease-out;
+  position: relative;
+  z-index: 999;
+}
+
+.itemsAccordionTypeA_ContentContainer {
+  margin: 0 auto;
+  margin-top: -14px;
+  min-height: 55px;
+  width: 99.5%;
+  background-color: rgba(189, 189, 189, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  border-radius: 0px 0px 6px 6px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease-out;
+}
+
+/* ===== CLASS ANIMASI ACCORDION ===== */
+
+.itemsAccordionTypeA_ContentContainer.accordion-closed {
+  opacity: 1;
+  transform: translateY(-84px);
+  display: none;
+}
+
+.itemsAccordionTypeA_ContentContainer.accordion-opening {
+  opacity: 1;
+  transform: translateY(-84px);
+  display: block;
+}
+
+.itemsAccordionTypeA_ContentContainer.accordion-open {
+  opacity: 1;
+  transform: translateY(0);
+  display: block;
+}
+
+.itemsAccordionTypeA_ContentContainer.accordion-closing {
+  opacity: 1;
+  transform: translateY(-84px);
+  display: block;
+}
+
+/* ===== ANIMASI ICON BUTTON ===== */
+
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default {
+  transition: transform 0.5s ease-out;
+}
+
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default.accordion-icon-open {
+  transform: rotate(180deg);
+}
+
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default.accordion-icon-closed {
+  transform: rotate(0deg);
+}
+
+/* itemsAccordionTypeA_Main.css */
+
+.itemsAccordionTypeA_Container {
+  height: auto;
+  width: calc(100% - 60px);
+  margin: 0 auto;
+  margin-bottom: 14px;
+}
+
+.itemsAccordionTypeA_HeaderContainer {
+  height: 110px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease-out;
+  position: relative;
+  z-index: 999;
+}
+
+.itemsAccordionTypeA_ContentContainer {
+  margin: 0 auto;
+  margin-top: -14px;
+  min-height: 55px;
+  width: 99.5%;
+  background-color: rgba(189, 189, 189, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  border-radius: 0px 0px 6px 6px;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease-out;
+}
+
+/* ===== CLASS ANIMASI ACCORDION ===== */
+
+.itemsAccordionTypeA_ContentContainer.accordion-closed {
+  opacity: 1;
+  transform: translateY(-84px);
+  display: none;
+}
+
+.itemsAccordionTypeA_ContentContainer.accordion-opening {
+  opacity: 1;
+  transform: translateY(-84px);
+  display: block;
+}
+
+.itemsAccordionTypeA_ContentContainer.accordion-open {
+  opacity: 1;
+  transform: translateY(0);
+  display: block;
+}
+
+.itemsAccordionTypeA_ContentContainer.accordion-closing {
+  opacity: 1;
+  transform: translateY(-84px);
+  display: block;
+}
+
+/* ===== ANIMASI ICON BUTTON ===== */
+
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default {
+  transition: transform 0.5s ease-out;
+}
+
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default.accordion-icon-open {
+  transform: rotate(180deg);
+}
+
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default.accordion-icon-closed {
+  transform: rotate(0deg);
+}
+
+/* ===== Dekstop Version ===== */
+
+@media (min-width: 992.5px) {
+  .itemsAccordionTypeA_Container {
+    width: calc(100% - 44px);
+    margin-bottom: 22px;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsAccordionTypeA_HeaderContainer {
+    height: 120px;
+  }
+}
+
+/* ===== Mobile Version ===== */
+
+@media (max-width: 992.5px) {
+  .itemsAccordionTypeA_Container {
+    width: calc(100% - 44px);
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsAccordionTypeA_HeaderContainer {
+    height: 95px;
+  }
+}
+

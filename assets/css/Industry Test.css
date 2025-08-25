@@ -1,0 +1,89 @@
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-Thin.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-Thin.woff) format('woff');
+	font-weight: 100;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-ThinItalic.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-ThinItalic.woff) format('woff');
+	font-weight: 100;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-Light.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-Light.woff) format('woff');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-LightItalic.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-LightItalic.woff) format('woff');
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-Medium.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-Medium.woff) format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-MediumItalic.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-MediumItalic.woff) format('woff');
+	font-weight: 500;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-Bold.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-Bold.woff) format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-BoldItalic.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-BoldItalic.woff) format('woff');
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-Black.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-Black.woff) format('woff');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test';
+	src: url(../../assets/fonts/Industry-BlackItalic.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-BlackItalic.woff) format('woff');
+	font-weight: 800;
+	font-style: italic;
+	font-display: swap;
+}

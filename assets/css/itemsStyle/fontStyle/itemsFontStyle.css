@@ -1,0 +1,186 @@
+/* Desktop: min-width >= 992.5px */
+
+@media (min-width: 992.5px) {
+  .itemsHeading1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+    width: 100%;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsHeading2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+    width: 100%;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsBrandFont1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 16px;
+    font-weight: 450;
+    text-align: left;
+    color: #BDBDBD;
+    width: 100%;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsBrandFont2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 20px;
+    font-weight: 450;
+    text-align: left;
+    color: #BDBDBD;
+    width: 100%;
+    margin-top: -8px;
+    margin-bottom: -6px;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsPricingFont1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsPricingFont2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsButtonFont1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    color: #EF0E50;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .itemsButtonFont2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    color: #EF0E50;
+  }
+}
+
+/* Mobile: max-width < 992.5px */
+
+@media (max-width: 992.5px) {
+  .itemsHeading1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsHeading2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+    width: 100%;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsBrandFont1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 12px;
+    font-weight: 450;
+    text-align: left;
+    color: #BDBDBD;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsBrandFont2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 14px;
+    font-weight: 450;
+    text-align: left;
+    color: #BDBDBD;
+    width: 100%;
+    margin-top: -2px;
+    margin-bottom: -6px;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsPricingFont1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsPricingFont2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    color: #151010;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsButtonFont1 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #EF0E50;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .itemsButtonFont2 {
+    font-family: 'Industry Test', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    color: #EF0E50;
+  }
+}
+
+.itemsHeading1, .itemsBrandFont1, .itemsPricingFont1, .itemsButtonFont1 {
+  width: 100%;
+}
+
+.ellipsis {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

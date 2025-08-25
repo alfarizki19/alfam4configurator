@@ -1,0 +1,280 @@
+/* Desktop: min-width >= 992.5px */
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionContainer {
+    width: calc(100% - 40px);
+    height: 120px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(0,0,0,0.26);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: -2px 2px 4px rgba(0,0,0,0.16);
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionContainerImageArea {
+    width: 175px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionDescriptionArea {
+    flex: 1 1 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionDescriptionHeadArea {
+    text-align: left;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 50%;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionDescriptionMiddleArea {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionButtonArea {
+    width: 98px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+/* Mobile: max-width < 992.5px */
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionContainer {
+    width: calc(100% - 40px);
+    height: 90px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(0,0,0,0.26);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: -2px 2px 4px rgba(0,0,0,0.16);
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionContainerImageArea {
+    width: 145px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionDescriptionArea {
+    flex: 1 1 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionDescriptionHeadArea, .mainMenuOptionDescriptionMiddleArea {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionButtonArea {
+    width: 70px;
+    flex: 0 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+/* Desktop: min-width >= 992.5px */
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionContainer {
+    width: calc(100% - 40px);
+    height: 120px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(0,0,0,0.26);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 18px;
+    box-shadow: -2px 2px 4px rgba(0,0,0,0.16);
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionContainerImageArea {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionDescriptionArea {
+    flex: 1 1 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionDescriptionHeadArea {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    margin-bottom: -4px;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 50%;
+    margin-top: -8px;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionDescriptionMiddleArea {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    margin-top: -8px;
+  }
+}
+
+@media (min-width: 992.5px) {
+  .mainMenuOptionButtonArea {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+/* Mobile: max-width < 992.5px */
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionContainer {
+    width: calc(100% - 40px);
+    height: 90px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(0,0,0,0.26);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 14px;
+    box-shadow: -2px 2px 4px rgba(0,0,0,0.16);
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionContainerImageArea {
+    width: 95px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionDescriptionArea {
+    flex: 1 1 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionDescriptionHeadArea {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionDescriptionMiddleArea {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    margin-top: -18px;
+  }
+}
+
+@media (max-width: 992.5px) {
+  .mainMenuOptionButtonArea {
+    width: 90px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
+
+.mainMenuOptionDescriptionHeadArea, .mainMenuOptionDescriptionMiddleArea {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+

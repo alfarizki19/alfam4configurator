@@ -1,0 +1,56 @@
+/* itemsAccordionTypeA_ColorVariant.css */
+
+/* Button Color Variants */
+
+.itemsAccordionTypeA_ColorVariant_Button_Default {
+  width: 54px;
+  height: 54px;
+  border-radius: 6px;
+  background: transparent;
+  border-color: transparent;
+  border: 1px solid transparent;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2px;
+  margin-right: 2px;
+  transition: background-color 0.8s ease-in-out;
+  outline: none;
+}
+
+.itemsAccordionTypeA_ColorVariant_Button_Default:hover {
+  background: rgba(255, 93, 107, 0.75);
+  border-color: transparent;
+  outline: none;
+}
+
+.itemsAccordionTypeA_ColorVariant_Button_Default:focus {
+  border-color: transparent;
+  outline: none;
+}
+
+.itemsAccordionTypeA_ColorVariant_Button_Default:active {
+  border-color: transparent;
+  outline: none;
+}
+
+.itemsAccordionTypeA_ColorVariant_Button_Active {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  background: rgba(255, 93, 107, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.itemsAccordionTypeA_ColorVariant_ButtonIcon {
+  width: 85%;
+  height: 70%;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF;
+  outline: none;
+}
+

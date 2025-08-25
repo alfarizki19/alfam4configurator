@@ -1,0 +1,77 @@
+/* itemsAccordionTypeA_Font.css */
+
+/* Desktop Styles */
+
+.additionalItemsTypeA_Font_H1 {
+  font-family: 'Industry Test', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #151010;
+}
+
+.additionalItemsTypeA_Font_P1 {
+  font-family: 'Industry Test', sans-serif;
+  font-size: 16px;
+  font-weight: 450;
+  color: #BDBDBD;
+}
+
+.additionalItemsTypeA_Font_ProductDetail {
+  font-family: 'Industry Test', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.additionalItemsTypeA_Font_ProductDetail :active {
+  border-color: transparent;
+}
+
+.additionalItemsTypeA_Font_PricingA {
+  font-family: 'Industry Test', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #151010;
+}
+
+.additionalItemsTypeA_buttonFont {
+  font-family: 'Industry Test', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 20px;
+  color: #EF0E50;
+}
+
+/* Mobile Styles (max-width < 992.5px) */
+
+@media screen and (max-width: 992.4px) {
+  .additionalItemsTypeA_Font_H1 {
+    margin-bottom: 3px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 992.4px) {
+  .additionalItemsTypeA_Font_P1 {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 992.4px) {
+  .additionalItemsTypeA_Font_PricingA {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 992.4px) {
+  .additionalItemsTypeA_buttonFont {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 992.4px) {
+  .additionalItemsTypeA_Font_ProductDetail {
+    font-size: 16px;
+  }
+}
+

@@ -1,0 +1,17 @@
+@font-face {
+	font-family: 'Industry Test Demi';
+	src: url(../../assets/fonts/Industry-Demi.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-Demi.woff) format('woff');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Industry Test Demi';
+	src: url(../../assets/fonts/Industry-DemiItalic.woff2) format('woff2'),
+	url(../../assets/fonts/Industry-DemiItalic.woff) format('woff');
+	font-weight: 600;
+	font-style: italic;
+	font-display: swap;
+}

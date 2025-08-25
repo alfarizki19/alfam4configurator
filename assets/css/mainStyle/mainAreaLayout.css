@@ -1,0 +1,235 @@
+#mainArea {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+#sketchfabViewerArea {
+  background: #F2F2F2;
+}
+
+#modelViewer {
+  background: #F2F2F2;
+}
+
+#featureArea {
+  background: #F2F2F2;
+}
+
+#menuArea {
+  background: #FFFFFF;
+  box-shadow: -2px -3px 3px rgba(0, 0, 0, 0.3);
+}
+
+#menuContentArea {
+  background: #DB2A2A;
+}
+
+/* ======================= Desktop (≥992px) ======================= */
+
+@media (min-width: 992px) {
+  #mainArea {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 992px) {
+  #sketchfabViewerArea {
+    flex: 1;
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  #modelViewer {
+    height: calc(100% - 98px);
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  #featureArea {
+    height: 98px;
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  #menuArea {
+    width: 550px;
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  #menuContentArea {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ======================= Mobile (≤992px) ======================= */
+
+@media (max-width: 991.98px) {
+  #mainArea {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #sketchfabViewerArea {
+    width: 100%;
+    transition: height 0.3s ease;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #modelViewer {
+    width: 100%;
+    transition: height 0.3s ease;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #featureArea {
+    width: 100%;
+    transition: height 0.3s ease;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #menuArea {
+    width: 100%;
+    transition: height 0.7s ease;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #menuContentArea {
+    width: 100%;
+    transition: height 0.7s ease;
+  }
+}
+
+/* Kondisi menu terbuka */
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #sketchfabViewerArea {
+    height: calc(100% - 440px);
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #modelViewer {
+    height: calc(100% - 85px);
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #featureArea {
+    height: 3px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #menuArea {
+    height: 525px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #menuContentArea {
+    height: auto;
+  }
+}
+
+/* Kondisi menu tertutup */
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #sketchfabViewerArea {
+    height: calc(100% - 140px);
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #modelViewer {
+    height: calc(100% - 85px);
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #featureArea {
+    height: 85px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #menuArea {
+    height: 140px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #menuContentArea {
+    height: 2px;
+  }
+}
+
+/* Tombol */
+
+@media (max-width: 991.98px) {
+  #menuAreaHeaderButtonOpenMenuItem, #menuAreaHeaderButtonHideMenuItem, #menuAreaHeaderButtonCloseHideMenuItem {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    z-index: 10;
+    background: none;
+    border: none;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #menuAreaHeaderButtonOpenMenuItem, #menuAreaHeaderButtonCloseHideMenuItem {
+    display: none;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #menuAreaHeaderButtonOpenMenuItem {
+    display: none;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #menuAreaHeaderButtonHideMenuItem {
+    display: inline;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #menuAreaHeaderButtonHideMenuItem {
+    display: none;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #menuAreaHeaderButtonCloseHideMenuItem {
+    display: inline;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-open #menuAreaHeaderButtonCloseHideMenuItem {
+    display: none;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #mainArea.menu-closed #menuAreaHeaderButtonOpenMenuItem {
+    display: inline;
+  }
+}
+

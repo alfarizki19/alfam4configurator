@@ -1,0 +1,58 @@
+/* Container utama */
+
+#featureArea {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Grup tombol */
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Semua tombol */
+
+.buttonGroup button {
+  width: 55px;
+  height: 55px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: #EF0E50;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Tombol VR dan AR */
+
+#buttonVR, #buttonAR {
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+}
+
+/* Tombol Screenshot (gambar) */
+
+#buttonScreenShoot img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+

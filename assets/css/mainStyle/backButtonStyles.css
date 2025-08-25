@@ -1,0 +1,54 @@
+.backButton {
+  width: 125px;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  outline: none;
+}
+
+.backButton:focus {
+  border-color: transparent;
+  outline: none;
+}
+
+.backButton:active {
+  border-color: transparent;
+  outline: none;
+}
+
+.backButton:hover {
+  outline: none;
+}
+
+.backButtonButtonIcon {
+  width: 8px;
+  height: 0.461 / 1;
+  object-fit: contain;
+  margin-top: 6px;
+  margin-left: 14px;
+  transform: rotate(180deg);
+}
+
+.backButtonText {
+  font-family: 'Industry Test', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 6px;
+  color: #EF0E50;
+}
+
+.backButton_Image {
+  margin-left: 8px;
+  width: 65%;
+  height: 58%;
+}
+

@@ -1,0 +1,58 @@
+.menuArea {
+  position: relative;
+}
+
+/* Mobile first */
+
+#summaryArea {
+  height: 80px;
+  width: 100%;
+  background: #000000;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#menuContentHeaderArea {
+  height: 60px;
+  width: 100%;
+  background: #FFFFFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#menuContentArea {
+  position: absolute;
+  top: 60px;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+}
+
+/* Desktop version (> 992px) */
+
+@media (min-width: 992px) {
+  #summaryArea {
+    height: 85px;
+    background: #000000;
+  }
+}
+
+@media (min-width: 992px) {
+  #menuContentHeaderArea {
+    height: 60px;
+  }
+}
+
+@media (min-width: 992px) {
+  #menuContentArea {
+    top: 60px;
+    bottom: 85px;
+  }
+}
+
+.mainMenuItemsDescriptionText {
+}
+
