@@ -1,0 +1,86 @@
+/* Font Classes for Modal Summary */
+
+/* Import Industry Test font (you may need to add the actual font file or use a web font service) */
+
+/* Fallback font if Industry Test is not available */
+
+/* Class modalSummary_h1white */
+
+.modalSummary_h1white {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+/* Desktop h1white */
+
+@media screen and (min-width: 768px) {
+  .modalSummary_h1white {
+    font-size: 28px;
+  }
+}
+
+/* Mobile h1white */
+
+@media screen and (max-width: 767px) {
+  .modalSummary_h1white {
+    font-size: 22px;
+  }
+}
+
+/* Class modalSummary_h1black */
+
+.modalSummary_h1black {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* Desktop h1black */
+
+@media screen and (min-width: 768px) {
+  .modalSummary_h1black {
+    font-size: 28px;
+  }
+}
+
+/* Mobile h1black */
+
+@media screen and (max-width: 767px) {
+  .modalSummary_h1black {
+    font-size: 22px;
+  }
+}
+
+/* Class modalSummary_h2 */
+
+.modalSummary_h2 {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+/* Additional utility font classes for consistency */
+
+.modalSummary_h1 {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Desktop h1 */
+
+@media screen and (min-width: 768px) {
+  .modalSummary_h1 {
+    font-size: 28px;
+  }
+}
+
+/* Mobile h1 */
+
+@media screen and (max-width: 767px) {
+  .modalSummary_h1 {
+    font-size: 22px;
+  }
+}
+

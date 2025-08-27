@@ -33,11 +33,18 @@
     <link rel="stylesheet" href="assets/css/menuArea/mainMenuStyle/mainMenuLayout.css">
     <link rel="stylesheet" href="assets/css/menuArea/menuAreaMainLayout/menuAreaMainLayoutStyle.css">
     <link rel="stylesheet" href="assets/css/menuArea/menuLayoutStyle/menuLayoutStyle.css">
+    <link rel="stylesheet" href="assets/css/menuArea/modalProductDetailTypeA/modalProductDetailTypeA.css">
+    <link rel="stylesheet" href="assets/css/menuArea/modalProductDetailTypeA/productDetailContainerTypeA_Font.css">
+    <link rel="stylesheet" href="assets/css/menuArea/modalSummary/modalSummary_Fonts.css">
+    <link rel="stylesheet" href="assets/css/menuArea/modalSummary/modalSummary_Main.css">
 </head>
 
 <body style="width: 100%;min-width: 100%;max-width: 100%;height: 100%;min-height: 100%;max-height: 100%;"><div>
     <script src="uiMenuController/baseMenu/navBarController.js"></script>
     <script src="uiMenuController/baseMenu/sideMenu.js"></script>
+
+    <script type="module" src="uiModalProductDetailController/modalProductDetailTypeA.js"></script>
+    <script type="module" src="uiMenuUpperController.js"></script>
 </div><!-- Side Menu -->
 <nav id="sideMenu" aria-hidden="true" role="navigation">
   <div id="sideMenuContentArea">
@@ -57,6 +64,34 @@
     </button>
   </div>
 </nav>
+    <div id="productDetailContainerTypeA" class="productDetailOverlay">
+        <div class="productDetailContainer">
+            <div class="productDetailContainerTypeA_HeaderArea"><img src="assets/img/Logo/bossArmsLogo.png" alt="Boss Arms Logo" class="productDetailContainerTypeA_imgLogo">
+            <h1 class="productDetailContainerTypeA_h1white">PRODUCT DETAIL</h1>
+            <button id="buttonClose_ModalProductDetail" class="productDetailContainerTypeA_tombolClose">
+                <span class="productDetailContainerTypeA_tombolCloseIcon">x</span>
+            </button></div>
+            <div class="productDetailContainerTypeA_ContentArea"><div style="padding: 20px;">
+                <h2 class="productDetailContainerTypeA_h2">Product Information</h2>
+                <p class="productDetailContainerTypeA_h1black">In Progress . . . . . </p>
+                <p class="productDetailContainerTypeA_h1black">waiting for product data</p>
+            </div></div>
+            <div class="productDetailContainerTypeA_FooterArea"><span class="productDetailContainerTypeA_h1white">gosellery.com</span></div>
+        </div>
+    </div>
+    <div id="modalSummary" class="productDetailOverlay">
+        <div class="modalSummaryContainer">
+            <div class="modalSummary_HeaderArea"><img src="assets/img/Logo/bossArmsLogo.png" alt="Boss Arms Logo" class="modalSummary_imgLogo">
+            <h1 class="modalSummary_h1white">SUMMARY</h1>
+            <button id="buttonClose_ModalSummary" class="modalSummary_tombolClose">
+                <span class="modalSummary_tombolCloseIcon">x</span>
+            </button></div>
+            <div class="modalSummary_ContentArea"><div style="padding: 20px;">
+    <h2 class="productDetailContainerTypeA_h2">Summary Area</h2>
+</div></div>
+            <div class="modalSummary_FooterArea"><span class="productDetailContainerTypeA_h1white">gosellery.com</span></div>
+        </div>
+    </div>
     <div id="navBarArea" class="navBarArea"><img id="bossArmsLogo" src="assets/img/Logo/bossArmsLogo.png" alt="Boss Arms Logo" /><!-- Tombol GUIDE -->
 <button id="guideButton">GUIDE</button><!-- Tombol STORE -->
 <button id="storeButton">STORE</button><button id="buttonOpenSideMenu">
@@ -497,7 +532,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_boltCarrierGroup00100101" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_boltCarrierGroup00200101" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div>
@@ -624,7 +659,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_chargingHandle001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_chargingHandle002001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div>
@@ -680,7 +715,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_chargingHandle001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_chargingHandle003001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div>
@@ -766,7 +801,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_chargingHandle001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_chargingHandle004001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div></div>
@@ -1544,7 +1579,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_endPlate001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_endPlate002001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div></div>
@@ -1957,7 +1992,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_pistolGrip001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_pistolGrip002001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div></div>
@@ -2385,7 +2420,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_takedownPinSet001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_takedownPinSet002001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div>
@@ -2421,7 +2456,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_takedownPinSet001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_takedownPinSet003001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div></div>
@@ -2461,7 +2496,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_trigger00100101" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_trigger001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div>
@@ -2517,7 +2552,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_takedownPinSet001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_trigger002001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div></div>
@@ -2797,7 +2832,7 @@ such as bipods, optic sight and etc.
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_bipod00100101" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_bipod001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div></div>
@@ -2995,14 +3030,12 @@ such as bipods, optic sight and etc.
     <!-- Content Container -->
     <div class="itemsAccordionTypeA_ContentContainer"style="z-index: -4;">
         <div class="itemsAccordionTypeA_ContentDiv">
-            <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">variant</div>
-
             <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">other variant not available</div>
 
         </div>
 
         <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_frontSight001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+            <button id="buttonProductDetail_mlokAndKeymodRail001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
         </div>        
     </div>
 </div>
@@ -3034,8 +3067,6 @@ such as bipods, optic sight and etc.
     <!-- Content Container -->
     <div class="itemsAccordionTypeA_ContentContainer"style="z-index: -4;">
         <div class="itemsAccordionTypeA_ContentDiv">
-            <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">variant</div>
-
             <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">other variant not available</div>
 
         </div>
@@ -3340,6 +3371,9 @@ such as bipods, optic sight and etc.
     <script src="assets/js/uiMenuController/baseMenu/sideMenu.js"></script>
     <script src="assets/js/uiMenuController/mainMenuController/mainMenuUIController.js"></script>
     <script src="assets/js/uiMenuController/uiControllerAntarMenu/uiControllerAntarMenu.js"></script>
+    <script src="assets/js/uiMenuPartController/uiMenuUpperPartController.js"></script>
+    <script src="assets/js/uiModalProductDetailController/modalProductDetailTypeA.js"></script>
+    <script src="assets/js/uiSummaryController/uiSummaryController.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,228 @@
+/* Background Overlay */
+
+.productDetailOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(71, 71, 71, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: -999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.productDetailOverlay.open {
+  z-index: 9999;
+  opacity: 1;
+}
+
+/* Main Container */
+
+.productDetailContainer {
+  background-color: transparent;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop Styles */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainer {
+    width: 871px;
+    height: 672px;
+  }
+}
+
+/* Mobile Styles */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainer {
+    width: calc(100% - 53px);
+    height: calc(100% - 103px);
+  }
+}
+
+/* Header Area */
+
+.productDetailContainerTypeA_HeaderArea {
+  background-color: #000000;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: relative;
+}
+
+/* Desktop Header */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_HeaderArea {
+    width: 100%;
+    height: 98px;
+  }
+}
+
+/* Mobile Header */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_HeaderArea {
+    width: 100%;
+    height: 67px;
+  }
+}
+
+/* Logo Image */
+
+.productDetailContainerTypeA_imgLogo {
+  object-fit: contain;
+}
+
+/* Desktop Logo */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_imgLogo {
+    width: 76px;
+    height: 76px;
+  }
+}
+
+/* Mobile Logo */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_imgLogo {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+/* Close Button */
+
+.productDetailContainerTypeA_tombolClose {
+  background-color: #EF0E50;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+.productDetailContainerTypeA_tombolClose:hover {
+  background-color: #d00d45;
+}
+
+/* Desktop Close Button */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_tombolClose {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Mobile Close Button */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_tombolClose {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Close Button Icon */
+
+.productDetailContainerTypeA_tombolCloseIcon {
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 1;
+  margin-top: -6px;
+}
+
+@media screen and (max-width: 768px) {
+  .productDetailContainerTypeA_tombolCloseIcon {
+    font-size: 22px;
+    margin-top: -6px;
+  }
+}
+
+/* Content Area */
+
+.productDetailContainerTypeA_ContentArea {
+  background-color: #FFFFFF;
+  overflow: auto;
+  flex: 1;
+}
+
+/* Desktop Content */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_ContentArea {
+    width: 100%;
+    height: calc(672px - 196px);
+  }
+}
+
+/* Mobile Content */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_ContentArea {
+    width: 100%;
+    height: calc(100% - 134px);
+  }
+}
+
+/* Footer Area */
+
+.productDetailContainerTypeA_FooterArea {
+  background-color: #000000;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop Footer */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_FooterArea {
+    width: 100%;
+    height: 98px;
+  }
+}
+
+/* Mobile Footer */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_FooterArea {
+    width: 100%;
+    height: 67px;
+  }
+}
+
+/* Additional Utility Classes */
+
+.productDetailContainerTypeA_h1black {
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.productDetailContainerTypeA_h1white {
+  margin: 0;
+  text-align: center;
+}
+
+.productDetailContainerTypeA_h2 {
+  margin: 0 0 15px 0;
+}
+

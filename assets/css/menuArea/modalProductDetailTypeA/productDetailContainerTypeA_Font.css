@@ -1,0 +1,86 @@
+/* Font Classes for Product Detail Container Type A */
+
+/* Import Industry Test font (you may need to add the actual font file or use a web font service) */
+
+/* Fallback font if Industry Test is not available */
+
+/* Class productDetailContainerTypeA_h1white */
+
+.productDetailContainerTypeA_h1white {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+/* Desktop h1white */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_h1white {
+    font-size: 28px;
+  }
+}
+
+/* Mobile h1white */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_h1white {
+    font-size: 22px;
+  }
+}
+
+/* Class productDetailContainerTypeA_h1black */
+
+.productDetailContainerTypeA_h1black {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* Desktop h1black */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_h1black {
+    font-size: 28px;
+  }
+}
+
+/* Mobile h1black */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_h1black {
+    font-size: 22px;
+  }
+}
+
+/* Class productDetailContainerTypeA_h2 */
+
+.productDetailContainerTypeA_h2 {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+/* Additional utility font classes for consistency */
+
+.productDetailContainerTypeA_h1 {
+  font-family: 'Industry Test', Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Desktop h1 */
+
+@media screen and (min-width: 768px) {
+  .productDetailContainerTypeA_h1 {
+    font-size: 28px;
+  }
+}
+
+/* Mobile h1 */
+
+@media screen and (max-width: 767px) {
+  .productDetailContainerTypeA_h1 {
+    font-size: 22px;
+  }
+}
+
