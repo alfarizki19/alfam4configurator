@@ -2,8 +2,6 @@
 // Empty file - uiControllerAntarMenu.js
 
 // Export fungsi dan variabel yang dibutuhkan
-export { menuController, menuID_menuPart_Barel, menuID };
-
 //menentukan menu mana yang muncul
 var menuID = "A";
 
@@ -282,11 +280,10 @@ function menuController() {
 
     //Additional Part
     if (menuID === menuID_menuPart_MlokForBipod) {
-        document.getElementById(menuID_menuPart_MlokForBipod).style.display = "flex";
-        document.getElementById(menuID_menuPart_MlokForBipod).style.overflow = "auto";
+    document.getElementById(menuID_menuPart_MlokForBipod).style.display = "flex";
+    document.getElementById(menuID_menuPart_MlokForBipod).style.overflow = "auto";
     }
 }
-
 
 //main menu
 //item upper group
@@ -723,3 +720,8 @@ document.getElementById("backButton_MlokForBipod").addEventListener("click", fun
     menuID = menuID_menuPart_Bipod;
     menuController();
 });
+
+// Fungsi untuk mengubah nilai menuID
+function setMenuID(newMenuID) {
+    menuID = newMenuID;
+}
