@@ -1,9 +1,8 @@
 .modalSummary_itemsHeaderContainer {
   width: calc(100% + 20px);
-  height: 75px;
   background-color: transparent;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 24px;
+  margin-bottom: 10px;
   justify-content: left;
   display: flex;
   align-items: center;

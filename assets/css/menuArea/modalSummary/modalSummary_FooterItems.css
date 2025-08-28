@@ -1,0 +1,156 @@
+/* modalSummary_FooterItems.css */
+
+/* Footer Area */
+
+.modalSummary_FooterArea {
+  background-color: #000000;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  box-shadow: 0 -2px 3px rgba(58, 58, 58, 0.6);
+  position: relative;
+  height: auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Desktop Footer */
+
+@media screen and (min-width: 768px) {
+  .modalSummary_FooterArea {
+    width: 100%;
+    height: 98px;
+  }
+}
+
+/* Mobile Footer */
+
+@media screen and (max-width: 767px) {
+  .modalSummary_FooterArea {
+    width: 100%;
+    height: 67px;
+  }
+}
+
+/* Cost Total Container */
+
+#modalSummary_CostTotalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  margin-right: 16px;
+}
+
+/* Text "TOTAL" */
+
+#modalSummaryTextTotal {
+  font-family: 'Industry Test', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #F3F3F3;
+  text-align: left;
+  margin-bottom: 0px;
+  line-height: 1.2;
+  margin-bottom: -4px;
+}
+
+/* Text total belanja (angka) */
+
+#modalSummaryTotalBelanja {
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 34px;
+  color: #FFFFFF;
+  text-align: left;
+  margin: 0;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin-bottom: 2px;
+}
+
+/* Text exclude shipping */
+
+#modalSummaryTextExcludeShipping {
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #BDBDBD;
+  text-align: left;
+  margin-top: -4px;
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Tombol Buy Now */
+
+#modalSummaryBuyNowButton {
+  width: 120px;
+  height: 60px;
+  background-color: #EF0E50;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+#modalSummaryBuyNowButton:hover {
+  background-color: #d00d45;
+}
+
+/* Text Buy Now */
+
+#modalSummaryBuyNowText {
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+/* Responsive adjustments for mobile */
+
+@media screen and (max-width: 767px) {
+  #modalSummaryTextTotal {
+    font-size: 14px;
+    margin-bottom: -4px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryTotalBelanja {
+    margin-bottom: 0px;
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryTextExcludeShipping {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryBuyNowButton {
+    width: 100px;
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryBuyNowText {
+    font-size: 16px;
+  }
+}
+
