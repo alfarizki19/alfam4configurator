@@ -16,10 +16,6 @@ document.getElementById('buttonClose_ModalProductDetail').addEventListener('clic
 /* ----------- Upper Part ----------- */
 
 //Barel
-document.getElementById('buttonProductDetail_barel001001').addEventListener('click', function() {
-    showModal_ProductDetail();
-});
-
 document.getElementById('buttonProductDetail_barel002001').addEventListener('click', function() {
     showModal_ProductDetail();
 });
@@ -237,5 +233,20 @@ document.getElementById('buttonProductDetail_rearSight001001').addEventListener(
 });
 
 document.getElementById('buttonProductDetail_rearSight002001').addEventListener('click', function() {
+    showModal_ProductDetail();
+});
+
+//Additional Part
+//warden
+document.getElementById('buttonProductDetail_muzzleDevice001003').addEventListener('click', function() {
+    showModal_ProductDetail();
+});
+
+//mlok for bipod
+document.getElementById('buttonProductDetail_mlokAndKeymodRail001001_forbipod').addEventListener('click', function() {
+    showModal_ProductDetail();
+});
+
+document.getElementById('buttonProductDetail_mlokAndKeymodRail002001_forbipod').addEventListener('click', function() {
     showModal_ProductDetail();
 });

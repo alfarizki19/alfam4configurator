@@ -48,6 +48,12 @@
     <script src="uiMenuController/baseMenu/navBarController.js"></script>
     <script src="uiMenuController/baseMenu/sideMenu.js"></script>
 
+    <!-- Load uiControllerAntarMenu.js terlebih dahulu -->
+    <script type="module" src="uiMenuController/uiControllerAntarMenu/uiControllerAntarMenu.js"></script>
+
+    <!-- Kemudian load uiControllerAntarMenuFromSummary.js -->
+    <script type="module" src="uiMenuController/uiControllerAntarMenu/uiControllerAntarMenuFromSummary.js"></script>
+
     <script type="module" src="uiModalProductDetailController/modalProductDetailTypeA.js"></script>
     <script type="module" src="uiMenuUpperController.js"></script>
 </div><!-- Side Menu -->
@@ -74,7 +80,7 @@
             <div class="productDetailContainerTypeA_HeaderArea"><img src="assets/img/Logo/bossArmsLogo.png" alt="Boss Arms Logo" class="productDetailContainerTypeA_imgLogo">
             <h1 class="productDetailContainerTypeA_h1white">PRODUCT DETAIL</h1>
             <button id="buttonClose_ModalProductDetail" class="productDetailContainerTypeA_tombolClose">
-                <span class="productDetailContainerTypeA_tombolCloseIcon">x</span>
+                <img src="assets/img/Icon/iconClose.png" style="width: 140%;height: 100%;">
             </button></div>
             <div class="productDetailContainerTypeA_ContentArea"><div style="padding: 20px;">
                 <h2 class="productDetailContainerTypeA_h2">Product Information</h2>
@@ -2419,43 +2425,7 @@ such as bipods, optic sight and etc.
 </button></div>
                 </div>
                 <div id="menuPart_Barel" class="menuGroupContainer" style="background: rgba(255,255,255,0.94);">
-                    <div class="menuGroupItemsArea" style="background: #ffffff4d;"><!-- barel00100101 -->
-<div id="productContainer_barel001001" class="itemsAccordionTypeA_Container">        
-    <!-- Header -->
-    <div id="productHeader_barel001001" class="itemsAccordionTypeA_HeaderContainer">
-        <!-- Image Area -->
-        <div class="itemsAccordionTypeA_Header_ImageArea">        
-            <Image src="assets/img/productCatImage/upperImg/barel001001/imageID_barel_00100101.png" style="width: 110%;height: 1 / 1;"></Image>            
-        </div>
-            
-        <!-- Detail Area -->
-        <div class="itemsAccordionTypeA_Header_DetailArea" style="z-index: 15;">
-            <div id="productName_barel001001" class="itemsAccordionTypeA_Header_DetailArea_Header itemsAccordionTypeA_Font_H1">PRODUCT NAME</div>
-            <div class="itemsAccordionTypeA_Header_DetailArea_Middle itemsAccordionTypeA_Font_P1">BSF</div>
-            <div id="productPricing_barel001001" class="itemsAccordionTypeA_Header_DetailArea_Footer itemsAccordionTypeA_Font_PricingA">----- USD</div>
-        </div>
-
-        <!-- Button Area -->
-        <div class="itemsAccordionTypeA_Header_ButtonArea">
-            <button id="buttonItems_barel001001" class="itemsAccordionTypeA_OpenAccordion_Button">
-                <div class="itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default"></div>
-            </button>
-        </div>
-    </div>
-        
-    <!-- Content Container -->
-    <div class="itemsAccordionTypeA_ContentContainer"style="z-index: -4;">
-        <div class="itemsAccordionTypeA_ContentDiv">
-            <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">other variant not available</div>
-        </div>
-
-        <div class="itemsContentContainer_ProductDetailButtonArea">
-            <button id="buttonProductDetail_barel001001" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
-        </div>        
-    </div>
-</div>
-
-<!-- barel00200101 -->
+                    <div class="menuGroupItemsArea" style="background: #ffffff4d;"><!-- barel00200101 -->
 <div id="productContainer_barel002001" class="itemsAccordionTypeA_Container">        
     <!-- Header -->
     <div id="productHeader_barel002001" class="itemsAccordionTypeA_HeaderContainer">
@@ -3145,7 +3115,7 @@ such as bipods, optic sight and etc.
                     </div>
 
                     <div class="additionalItemsTypeA_ButtonArea">
-                        <button id="buttonAdditionalItems_muzzleDevice001001" class="additionalItemsTypeA_Button additionalItemsTypeA_buttonFont" type="button">EDIT</button>
+                        <button id="buttonKeMenuWarden_muzzleDevice001001" class="additionalItemsTypeA_Button additionalItemsTypeA_buttonFont" type="button">EDIT</button>
                     </div>
                 </div>
 
@@ -3204,7 +3174,7 @@ such as bipods, optic sight and etc.
                     </div>
 
                     <div class="additionalItemsTypeA_ButtonArea">
-                        <button id="buttonAdditionalItems_muzzleDevice001002" class="additionalItemsTypeA_Button additionalItemsTypeA_buttonFont" type="button">EDIT</button>
+                        <button id="buttonKeMenuWarden_muzzleDevice001002" class="additionalItemsTypeA_Button additionalItemsTypeA_buttonFont" type="button">EDIT</button>
                     </div>
                 </div>
 
@@ -3268,6 +3238,93 @@ such as bipods, optic sight and etc.
     </div>
 </div></div>
                     <div class="menuGroupBackMenuArea" style="background: #ffffff4d;"><button id="backButton_MuzzleDevice" class="backButton" type="button" aria-label="Back">
+  <img class="backButton_Image" src="assets/img/Icon/backButton_Icon.png">
+</button></div>
+                </div>
+                <div id="menuPart_Warden" class="menuGroupContainer" style="background: rgba(255,255,255,0.94);">
+                    <div class="menuGroupItemsArea" style="background: #ffffff4d;"><!-- no Warden -->
+<div id="productContainer_noWarden" class="itemsAccordionTypeA_Container">        
+    <!-- Header -->
+    <div id="productHeader_noWarden" class="itemsAccordionTypeA_HeaderContainer">
+        <!-- Image Area -->
+        <div class="itemsAccordionTypeA_Header_ImageArea">        
+            <Image src="assets/img/Icon/icon_NoSelected.png" style="width: 85%;height: 1 / 1;"></Image>            
+        </div>
+            
+        <!-- Detail Area -->
+        <div class="itemsAccordionTypeA_Header_DetailArea" style="z-index: 15;">
+            <div id="productName_noWarden" class="itemsAccordionTypeA_Header_DetailArea_Header itemsAccordionTypeA_Font_H1"></div>
+            <div class="itemsAccordionTypeA_Header_DetailArea_Middle itemsAccordionTypeA_Font_H1">No Selected</div>
+            <div id="productPricing_noWarden" class="itemsAccordionTypeA_Header_DetailArea_Footer itemsAccordionTypeA_Font_PricingA"></div>
+        </div>
+
+        <!-- Button Area -->
+        <div class="itemsAccordionTypeA_Header_ButtonArea">
+            <button id="buttonItems_noWarden" class="itemsAccordionTypeA_OpenAccordion_Button">
+                <div class="itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default"></div>
+            </button>
+        </div>
+    </div>
+        
+    <!-- Content Container -->
+    <div class="itemsAccordionTypeA_ContentContainer"style="z-index: -4;">
+        <div class="itemsAccordionTypeA_ContentDiv">
+            <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">for delete Warden Part</div>
+        </div>
+    </div>
+</div>
+
+<!-- muzzleDevice00100301 -->
+<div id="productContainer_muzzleDevice001003" class="itemsAccordionTypeA_Container">        
+    <!-- Header -->
+    <div id="productHeader_muzzleDevice001003" class="itemsAccordionTypeA_HeaderContainer">
+        <!-- Image Area -->
+        <div class="itemsAccordionTypeA_Header_ImageArea">        
+            <Image src="assets/img/productCatImage/upperImg/muzzleDevice001003/imageID_muzzleDevice00100301.png" style="width: 100%;height: 1 / 1;"></Image>            
+        </div>
+            
+        <!-- Detail Area -->
+        <div class="itemsAccordionTypeA_Header_DetailArea" style="z-index: 15;">
+            <div id="productName_muzzleDevice001003" class="itemsAccordionTypeA_Header_DetailArea_Header itemsAccordionTypeA_Font_H1">PRODUCT NAME</div>
+            <div class="itemsAccordionTypeA_Header_DetailArea_Middle itemsAccordionTypeA_Font_P1">Sure Fire</div>
+            <div id="productPricing_muzzleDevice001003" class="itemsAccordionTypeA_Header_DetailArea_Footer itemsAccordionTypeA_Font_PricingA">---- USD</div>
+        </div>
+
+        <!-- Button Area -->
+        <div class="itemsAccordionTypeA_Header_ButtonArea">
+            <button class="itemsAccordionTypeA_OpenAccordion_Button">
+                <div class="itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default"></div>
+            </button>
+        </div>
+    </div>
+        
+    <!-- Content Container -->
+    <div class="itemsAccordionTypeA_ContentContainer"style="z-index: -4;">
+        <div class="itemsAccordionTypeA_ContentDiv">
+            <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">Color Variant</div>
+            <div class="itemsAccordionTypeA_ContentDiv_ContentArea">
+                
+                <!-- Color Variant-->
+
+                <!-- Black-->
+                <button id="buttonItems_muzzleDevice00100301" class="itemsAccordionTypeA_ColorVariant_Button_Default" type="button">
+                    <span class="itemsAccordionTypeA_ColorVariant_ButtonIcon" style="background-color: black;"></span>
+                </button>
+
+                <!-- FDE -->
+                <button id="buttonItems_muzzleDevice00100302" class="itemsAccordionTypeA_ColorVariant_Button_Default" type="button">
+                    <span class="itemsAccordionTypeA_ColorVariant_ButtonIcon" style="background-color: #cbb994;"></span>
+                </button>
+                
+            </div>
+        </div>
+
+        <div class="itemsContentContainer_ProductDetailButtonArea">
+            <button id="buttonProductDetail_muzzleDevice001003" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+        </div>        
+    </div>
+</div></div>
+                    <div class="menuGroupBackMenuArea" style="background: #ffffff4d;"><button id="backButton_Warden" class="backButton" type="button" aria-label="Back">
   <img class="backButton_Image" src="assets/img/Icon/backButton_Icon.png">
 </button></div>
                 </div>
@@ -4836,13 +4893,13 @@ such as bipods, optic sight and etc.
                     </div>                    
 
                     <div class="additionalItemsTypeA_DescriptionArea">
-                        <div id="additionalItemsName_muzzleDevice001001" class="additionalItemsTypeA_DescriptionHeadArea additionalItemsTypeA_Font_H1">no parts selected</div>
-                        <div id="additionalItemsBrand_muzzleDevice001001" class="additionalItemsTypeA_BrandMiddleArea additionalItemsTypeA_Font_P1">--- ---</div>
-                        <div id="additionalItemsPricing_muzzleDevice001001" class="additionalItemsTypeA_PricingArea additionalItemsTypeA_Font_PricingA">----- USD</div>
+                        <div id="additionalItemsName_bipod001001" class="additionalItemsTypeA_DescriptionHeadArea additionalItemsTypeA_Font_H1">no parts selected</div>
+                        <div id="additionalItemsBrand_bipod001001" class="additionalItemsTypeA_BrandMiddleArea additionalItemsTypeA_Font_P1">--- ---</div>
+                        <div id="additionalItemsPricing_bipod001001" class="additionalItemsTypeA_PricingArea additionalItemsTypeA_Font_PricingA">----- USD</div>
                     </div>
 
                     <div class="additionalItemsTypeA_ButtonArea">
-                        <button id="buttonAdditionalItems_muzzleDevice001001" class="additionalItemsTypeA_Button additionalItemsTypeA_buttonFont" type="button">EDIT</button>
+                        <button id="buttonKeMenuMlokForBipod_bipod001001" class="additionalItemsTypeA_Button additionalItemsTypeA_buttonFont" type="button">EDIT</button>
                     </div>
                 </div>
             </div>
@@ -5107,6 +5164,83 @@ such as bipods, optic sight and etc.
     </div>
 </div></div>
                     <div class="menuGroupBackMenuArea" style="background: #ffffff4d;"><button id="backButton_MlokAndKeymodRail" class="backButton" type="button" aria-label="Back">
+  <img class="backButton_Image" src="assets/img/Icon/backButton_Icon.png">
+</button></div>
+                </div>
+                <div id="menuPart_MlokForBipod" class="menuGroupContainer" style="background: rgba(255,255,255,0.94);">
+                    <div class="menuGroupItemsArea" style="background: #ffffff4d;"><!-- mlokAndKeymodRail001001_forbipod -->
+<div id="productContainer_mlokAndKeymodRail001001_forbipod" class="itemsAccordionTypeA_Container">        
+    <!-- Header -->
+    <div id="productHeader_mlokAndKeymodRail001001_forbipod" class="itemsAccordionTypeA_HeaderContainer">
+        <!-- Image Area -->
+        <div class="itemsAccordionTypeA_Header_ImageArea">        
+            <Image src="assets/img/productCatImage/gearAndAccImg/mlokAndKeymodRail001001/imageID_mlokAndKeymodRail00100101.png" style="width: 95%;height: 1 / 1;"></Image>            
+        </div>
+            
+        <!-- Detail Area -->
+        <div class="itemsAccordionTypeA_Header_DetailArea" style="z-index: 15;">
+            <div id="productName_mlokAndKeymodRail001001_forbipod" class="itemsAccordionTypeA_Header_DetailArea_Header itemsAccordionTypeA_Font_H1">PRODUCT NAME</div>
+            <div class="itemsAccordionTypeA_Header_DetailArea_Middle itemsAccordionTypeA_Font_P1">Magpul</div>
+            <div id="productPricing_mlokAndKeymodRail001001_forbipod" class="itemsAccordionTypeA_Header_DetailArea_Footer itemsAccordionTypeA_Font_PricingA">---- USD</div>
+        </div>
+
+        <!-- Button Area -->
+        <div class="itemsAccordionTypeA_Header_ButtonArea">
+            <button id="buttonItems_mlokAndKeymodRail00100101_forbipod" class="itemsAccordionTypeA_OpenAccordion_Button">
+                <div class="itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default"></div>
+            </button>
+        </div>
+    </div>
+        
+    <!-- Content Container -->
+    <div class="itemsAccordionTypeA_ContentContainer"style="z-index: -4;">
+        <div class="itemsAccordionTypeA_ContentDiv">
+            <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">other variant not available</div>
+
+        </div>
+
+        <div class="itemsContentContainer_ProductDetailButtonArea">
+            <button id="buttonProductDetail_mlokAndKeymodRail001001_forbipod" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+        </div>        
+    </div>
+</div>
+
+<!-- mlokAndKeymodRail002001_forbipod -->
+<div id="productContainer_mlokAndKeymodRail002001_forbipod" class="itemsAccordionTypeA_Container">        
+    <!-- Header -->
+    <div id="productHeader_mlokAndKeymodRail002001_forbipod" class="itemsAccordionTypeA_HeaderContainer">
+        <!-- Image Area -->
+        <div class="itemsAccordionTypeA_Header_ImageArea">        
+            <Image src="assets/img/productCatImage/gearAndAccImg/mlokAndKeymodRail002001/imageID_mlokAndKeymodRail00200101.png" style="width: 80%;height: 1 / 1;"></Image>            
+        </div>
+            
+        <!-- Detail Area -->
+        <div class="itemsAccordionTypeA_Header_DetailArea" style="z-index: 15;">
+            <div id="productName_mlokAndKeymodRail002001_forbipod" class="itemsAccordionTypeA_Header_DetailArea_Header itemsAccordionTypeA_Font_H1">PRODUCT NAME</div>
+            <div class="itemsAccordionTypeA_Header_DetailArea_Middle itemsAccordionTypeA_Font_P1">Midwest Industries</div>
+            <div id="productPricing_mlokAndKeymodRail002001_forbipod" class="itemsAccordionTypeA_Header_DetailArea_Footer itemsAccordionTypeA_Font_PricingA">---- USD</div>
+        </div>
+
+        <!-- Button Area -->
+        <div class="itemsAccordionTypeA_Header_ButtonArea">
+            <button id="buttonItems_mlokAndKeymodRail00200101_forbipod" class="itemsAccordionTypeA_OpenAccordion_Button">
+                <div class="itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default"></div>
+            </button>
+        </div>
+    </div>
+        
+    <!-- Content Container -->
+    <div class="itemsAccordionTypeA_ContentContainer"style="z-index: -4;">
+        <div class="itemsAccordionTypeA_ContentDiv">
+            <div class="itemsAccordionTypeA_ContentDiv_Header itemsAccordionTypeA_Font_H1">other variant not available</div>
+        </div>
+
+        <div class="itemsContentContainer_ProductDetailButtonArea">
+            <button id="buttonProductDetail_mlokAndKeymodRail002001_forbipod" class="itemsAccordionTypeA_OpenAccordion_Button itemsAccordionTypeA_Font_ProductDetail">PRODUCT DETAIL</button>
+        </div>        
+    </div>
+</div></div>
+                    <div class="menuGroupBackMenuArea" style="background: #ffffff4d;"><button id="backButton_MlokForBipod" class="backButton" type="button" aria-label="Back">
   <img class="backButton_Image" src="assets/img/Icon/backButton_Icon.png">
 </button></div>
                 </div>
@@ -5401,6 +5535,7 @@ such as bipods, optic sight and etc.
     <script src="assets/js/uiMenuController/baseMenu/sideMenu.js"></script>
     <script src="assets/js/uiMenuController/mainMenuController/mainMenuUIController.js"></script>
     <script src="assets/js/uiMenuController/uiControllerAntarMenu/uiControllerAntarMenu.js"></script>
+    <script src="assets/js/uiMenuController/uiControllerAntarMenu/uiControllerAntarMenuFromSummary.js"></script>
     <script src="assets/js/uiMenuPartController/uiMenuUpperPartController.js"></script>
     <script src="assets/js/uiModalProductDetailController/modalProductDetailTypeA.js"></script>
     <script src="assets/js/uiSummaryController/uiSummaryController.js"></script>

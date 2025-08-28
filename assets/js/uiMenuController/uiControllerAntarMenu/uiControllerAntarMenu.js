@@ -1,4 +1,8 @@
+// uiControllerAntarMenu.js
 // Empty file - uiControllerAntarMenu.js
+
+// Export fungsi dan variabel yang dibutuhkan
+export { menuController, menuID_menuPart_Barel, menuID };
 
 //menentukan menu mana yang muncul
 var menuID = "A";
@@ -53,6 +57,14 @@ var menuID_menuPart_RearSight ="menuPart_RearSight";
 var menuID_menuPart_Scope ="menuPart_Scope";
 var menuID_menuPart_VerticalGrip ="menuPart_VerticalGrip";
 
+//Menu Addional Part
+
+//Warden
+var menuID_menuPart_Warden ="menuPart_Warden";
+
+//Mlok For Bipod
+var menuID_menuPart_MlokForBipod ="menuPart_MlokForBipod";
+
 window.onload = function() {
     menuID = menuID_menuMainMenu;
     menuController();
@@ -103,7 +115,11 @@ function menuController() {
     document.getElementById(menuID_menuPart_Scope).style.display = "none";
     document.getElementById(menuID_menuPart_VerticalGrip).style.display = "none";
 
+    //Additional Part
+    document.getElementById(menuID_menuPart_Warden).style.display = "none";
+    document.getElementById(menuID_menuPart_MlokForBipod).style.display = "none";
     
+
     // Tampilkan menu yang dipilih
 
     //Main Menu
@@ -256,6 +272,18 @@ function menuController() {
     if (menuID === menuID_menuPart_VerticalGrip) {
         document.getElementById(menuID_menuPart_VerticalGrip).style.display = "flex";
         document.getElementById(menuID_menuPart_VerticalGrip).style.overflow = "auto";
+    }
+
+    //Additional Part
+    if (menuID === menuID_menuPart_Warden) {
+        document.getElementById(menuID_menuPart_Warden).style.display = "flex";
+        document.getElementById(menuID_menuPart_Warden).style.overflow = "auto";
+    }
+
+    //Additional Part
+    if (menuID === menuID_menuPart_MlokForBipod) {
+        document.getElementById(menuID_menuPart_MlokForBipod).style.display = "flex";
+        document.getElementById(menuID_menuPart_MlokForBipod).style.overflow = "auto";
     }
 }
 
@@ -663,5 +691,35 @@ document.getElementById("button_menuPart_VerticalGrip").addEventListener("click"
 //back button
 document.getElementById("backButton_VerticalGrip").addEventListener("click", function() {
     menuID = menuID_menuGearAndAccecoriesMenu;
+    menuController();
+});
+
+//Additional Part
+//ke menu Warden
+document.getElementById("buttonKeMenuWarden_muzzleDevice001001").addEventListener("click", function() {
+    menuID = menuID_menuPart_Warden;
+    menuController();
+});
+
+document.getElementById("buttonKeMenuWarden_muzzleDevice001002").addEventListener("click", function() {
+    menuID = menuID_menuPart_Warden;
+    menuController();
+});
+
+//back button
+document.getElementById("backButton_Warden").addEventListener("click", function() {
+    menuID = menuID_menuPart_MuzzleDevice;
+    menuController();
+});
+
+//ke menu mlok for bipod
+document.getElementById("buttonKeMenuMlokForBipod_bipod001001").addEventListener("click", function() {
+    menuID = menuID_menuPart_MlokForBipod;
+    menuController();
+});
+
+//back button
+document.getElementById("backButton_MlokForBipod").addEventListener("click", function() {
+    menuID = menuID_menuPart_Bipod;
     menuController();
 });
