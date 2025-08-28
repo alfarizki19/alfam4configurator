@@ -1,0 +1,22 @@
+.modalSummary_itemsHeaderContainer {
+  width: calc(100% + 20px);
+  height: 75px;
+  background-color: transparent;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  justify-content: left;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.modalSummary_itemsHeaderText {
+  text-align: left;
+  justify-self: flex-start;
+  align-self: center;
+  margin-left: 0;
+  padding-left: 0;
+  width: auto;
+  display: block;
+}
+

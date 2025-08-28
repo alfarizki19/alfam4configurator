@@ -34,8 +34,9 @@
 
 @media screen and (min-width: 768px) {
   .modalSummaryContainer {
-    width: 871px;
-    height: 672px;
+    width: 75%;
+    max-width: 925px;
+    height: 90%;
   }
 }
 
@@ -160,7 +161,8 @@
 
 .modalSummary_ContentArea {
   background-color: #F2F2F2;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   flex: 1;
 }
 
@@ -188,8 +190,6 @@
   background-color: #000000;
   border-radius: 0 0 8px 8px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: 0 -2px 3px rgba(58, 58, 58, 0.6);
 }
 

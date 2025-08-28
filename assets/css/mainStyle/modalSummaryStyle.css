@@ -1,0 +1,142 @@
+/* Footer Area */
+
+.modalSummary_FooterArea {
+  background-color: #000000;
+  border-radius: 0 0 8px 8px;
+  display: flex;
+  box-shadow: 0 -2px 3px rgba(58, 58, 58, 0.6);
+  position: relative;
+  height: auto;
+}
+
+/* Desktop Footer */
+
+@media screen and (min-width: 768px) {
+  .modalSummary_FooterArea {
+    width: 100%;
+    height: 98px;
+  }
+}
+
+/* Mobile Footer */
+
+@media screen and (max-width: 767px) {
+  .modalSummary_FooterArea {
+    width: 100%;
+    height: 67px;
+  }
+}
+
+/* Text "TOTAL" */
+
+#modalSummaryTextTotal {
+  position: absolute;
+  top: 6px;
+  left: 14px;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #F3F3F3;
+  text-align: left;
+  margin-top: 8px;
+}
+
+/* Text total belanja (angka) */
+
+#modalSummaryTotalBelanja {
+  position: absolute;
+  top: 15px;
+  left: 14px;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 34px;
+  color: #FFFFFF;
+  text-align: left;
+  margin-top: 10px;
+}
+
+/* Text exclude shipping */
+
+#modalSummaryTextExcludeShipping {
+  position: absolute;
+  top: 55px;
+  left: 14px;
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #BDBDBD;
+  text-align: left;
+  margin-top: 10px;
+}
+
+/* Tombol Buy Now */
+
+#modalSummaryBuyNowButton {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 140px;
+  height: 60px;
+  background-color: #EF0E50;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  outline-color: none;
+}
+
+#modalSummaryBuyNowButton:hover {
+  background-color: #d00d45;
+}
+
+/* Text Buy Now */
+
+#modalSummaryBuyNowText {
+  font-family: 'Industry Test', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+/* Responsive adjustments for mobile */
+
+@media screen and (max-width: 767px) {
+  #modalSummaryTextTotal {
+    margin-top: 8px;
+    font-size: 14px;
+    top: 4px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryTotalBelanja {
+    font-size: 28px;
+    top: 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryTextExcludeShipping {
+    font-size: 10px;
+    top: 45px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryBuyNowButton {
+    width: 100px;
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #modalSummaryBuyNowText {
+    font-size: 14px;
+  }
+}
+
