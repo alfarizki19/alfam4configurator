@@ -28,3 +28,9 @@
   background-color: transparent;
 }
 
+@media (max-width: 991.98px) {
+  .menuGroupBackMenuArea {
+    flex: 0 0 40px;
+  }
+}
+

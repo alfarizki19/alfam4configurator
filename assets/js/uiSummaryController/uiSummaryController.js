@@ -4,7 +4,7 @@ function showModal_Summary() {
     modalSummary.classList.add ("open");
 }
 
-function closeModal_Summary() {
+export function closeModal_Summary() {
     modalSummary.classList.remove ("open");
 }
 

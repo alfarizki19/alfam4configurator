@@ -14,6 +14,12 @@
   outline: none;
 }
 
+@media (max-width: 991.98px) {
+  .backButton {
+    width: 95px;
+  }
+}
+
 .backButton:focus {
   border-color: transparent;
   outline: none;

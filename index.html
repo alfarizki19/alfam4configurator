@@ -49,10 +49,21 @@
     <script src="uiMenuController/baseMenu/sideMenu.js"></script>
 
     <!-- Load uiControllerAntarMenu.js terlebih dahulu -->
-    <script type="module" src="uiMenuController/uiControllerAntarMenu/uiControllerAntarMenu.js"></script>
+    <script type="module" src="uiControllerAntarMenu/uiAntarMenuMainController.js"></script>
 
-    <script type="module" src="uiModalProductDetailController/modalProductDetailTypeA.js"></script>
-    <script type="module" src="uiMenuUpperController.js"></script>
+    <script type="module" src="uiControllerAntarMenu/uiAntarMenuMainMenu.js"></script>
+
+    <script type="module" src="uiControllerAntarMenu/uiAntarMenuUpperMenu.js"></script>
+    <script type="module" src="uiControllerAntarMenu/uiAntarMenuLowerMenu.js"></script>
+    <script type="module" src="uiControllerAntarMenu/uiAntarMenuGearAndAccMenu.js"></script>
+    <script type="module" src="uiControllerAntarMenu/uiAntarMenuAdditionalPart.js"></script>
+
+
+    <script type="module" src="uiSummaryController/uiSummaryEditPartUpper.js"></script>
+    <script type="module" src="uiSummaryController/uiSummaryEditPartLower.js"></script>
+    <script type="module" src="uiSummaryController/uiSummaryEditPartGearAndAcc.js"></script>
+
+    <script type="module" type="module" src="uiModalProductDetailController/modalProductDetailTypeA.js"></script>
 </div><!-- Side Menu -->
 <nav id="sideMenu" aria-hidden="true" role="navigation">
   <div id="sideMenuContentArea">
@@ -143,7 +154,7 @@
         <div id="summaryItemsPricing_boltCarrierGroup00200201" class="menuPartOptionPricingArea itemsPricingFont2 ellipsisText">----- USD</div>
     </div>
     <div class="menuPartOptionButtonArea">
-        <button id="summaryItemsButton_boltCarrierGroup00200101" class="btn btn-primary itemsButtonFont2" type="button" style="width: 100%;height: 100%;background: #ffffff00;color: #ef0e50;text-align: center;border-color: #ffffff00;">CHANGE</button>
+        <button id="summaryItemsButton_boltCarrierGroup00200201" class="btn btn-primary itemsButtonFont2" type="button" style="width: 100%;height: 100%;background: #ffffff00;color: #ef0e50;text-align: center;border-color: #ffffff00;">CHANGE</button>
     </div>
 </div><!-- Charging Handle -->
 
@@ -2074,6 +2085,33 @@
     </div>
     <div class="menuPartOptionButtonArea">
         <button id="summaryItemsButton_mlokAndKeymodRail00200101" class="btn btn-primary itemsButtonFont2" type="button" style="width: 100%;height: 100%;background: #ffffff00;color: #ef0e50;text-align: center;border-color: #ffffff00;">CHANGE</button>
+    </div>
+</div>
+
+<!-- MLOK And Keymod Rail For Bipod -->
+<!-- mlokAndKeymodRail00100101_forBipod -->
+<div id="summaryItems_mlokAndKeymodRail00100101_forBipod" class="summaryItems_partContainer">
+    <div class="menuPartMenuOptionImageArea"><img src="assets/img/productCatImage/gearAndAccImg/mlokAndKeymodRail001001/imageID_mlokAndKeymodRail00100101.png" style="width: 80%;height: auto;" width="60" height="60" /></div>
+    <div class="menuPartOptionDescriptionArea">
+        <div id="summaryItemsName_mlokAndKeymodRail00100101_forBipod" class="menuPartOptionDescriptionHeadArea itemsHeading2 ellipsisText"> --- --- --- </div>
+        <div class="menuPartOptionBrandMiddleArea itemsBrandFont2 ellipsisText">MLOK And Keymod Rail</div>
+        <div id="summaryItemsPricing_mlokAndKeymodRail00100101_forBipod" class="menuPartOptionPricingArea itemsPricingFont2 ellipsisText">----- USD</div>
+    </div>
+    <div class="menuPartOptionButtonArea">
+        <button id="summaryItemsButton_mlokAndKeymodRail00100101_forBipod" class="btn btn-primary itemsButtonFont2" type="button" style="width: 100%;height: 100%;background: #ffffff00;color: #ef0e50;text-align: center;border-color: #ffffff00;">CHANGE</button>
+    </div>
+</div>
+
+<!-- mlokAndKeymodRail00200101 -->
+<div id="summaryItems_mlokAndKeymodRail00200101_forBipod" class="summaryItems_partContainer">
+    <div class="menuPartMenuOptionImageArea"><img src="assets/img/productCatImage/gearAndAccImg/mlokAndKeymodRail002001/imageID_mlokAndKeymodRail00200101.png" style="width: 75%;height: auto;" width="60" height="60" /></div>
+    <div class="menuPartOptionDescriptionArea">
+        <div id="summaryItemsName_mlokAndKeymodRail00200101_forBipod" class="menuPartOptionDescriptionHeadArea itemsHeading2 ellipsisText"> --- --- --- </div>
+        <div class="menuPartOptionBrandMiddleArea itemsBrandFont2 ellipsisText">MLOK And Keymod Rail</div>
+        <div id="summaryItemsPricing_mlokAndKeymodRail00200101_forBipod" class="menuPartOptionPricingArea itemsPricingFont2 ellipsisText">----- USD</div>
+    </div>
+    <div class="menuPartOptionButtonArea">
+        <button id="summaryItemsButton_mlokAndKeymodRail00200101_forBipod" class="btn btn-primary itemsButtonFont2" type="button" style="width: 100%;height: 100%;background: #ffffff00;color: #ef0e50;text-align: center;border-color: #ffffff00;">CHANGE</button>
     </div>
 </div><!-- Optic Sight -->
 <!-- opticSight00100101 -->
@@ -5527,15 +5565,22 @@ such as bipods, optic sight and etc.
     <script src="assets/js/itemsDataInventory/itemsInventory.js"></script>
     <script src="assets/js/itemsElementController/itemsAccordionTypeAController/itemsAccordionTypeA.js"></script>
     <script src="assets/js/loadSystem/loadInventoryData.js"></script>
+    <script src="assets/js/uiControllerAntarMenu/uiAntarMenuAdditionalPart.js"></script>
+    <script src="assets/js/uiControllerAntarMenu/uiAntarMenuGearAndAccMenu.js"></script>
+    <script src="assets/js/uiControllerAntarMenu/uiAntarMenuLowerMenu.js"></script>
+    <script src="assets/js/uiControllerAntarMenu/uiAntarMenuMainController.js"></script>
+    <script src="assets/js/uiControllerAntarMenu/uiAntarMenuMainMenu.js"></script>
+    <script src="assets/js/uiControllerAntarMenu/uiAntarMenuUpperMenu.js"></script>
     <script src="assets/js/uiMenuController/baseMenu/hideMenuController.js"></script>
     <script src="assets/js/uiMenuController/baseMenu/navBarController.js"></script>
     <script src="assets/js/uiMenuController/baseMenu/sideMenu.js"></script>
     <script src="assets/js/uiMenuController/mainMenuController/mainMenuUIController.js"></script>
-    <script src="assets/js/uiMenuController/uiControllerAntarMenu/uiControllerAntarMenu.js"></script>
-    <script src="assets/js/uiMenuController/uiControllerAntarMenu/uiControllerAntarMenuFromSummary.js"></script>
     <script src="assets/js/uiMenuPartController/uiMenuUpperPartController.js"></script>
     <script src="assets/js/uiModalProductDetailController/modalProductDetailTypeA.js"></script>
     <script src="assets/js/uiSummaryController/uiSummaryController.js"></script>
+    <script src="assets/js/uiSummaryController/uiSummaryEditPartGearAndAcc.js"></script>
+    <script src="assets/js/uiSummaryController/uiSummaryEditPartLower.js"></script>
+    <script src="assets/js/uiSummaryController/uiSummaryEditPartUpper.js"></script>
 </body>
 
 </html>
