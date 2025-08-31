@@ -1,7 +1,7 @@
 // uiSummaryEditPartGearAndAcc.js
 // Summary Edit Part Gear and Accessories Controller for M4 Rifle Builder
 
-import { gearPartMenuID, additionalPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from '../uiControllerAntarMenu/uiAntarMenuMainController.js';
+import { gearPartMenuID, additionalPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from '../uiControllerAntarMenu/uiAntarMenuMainController.mjs';
 import { closeModal_Summary } from './uiSummaryController.js';
 
 // Summary edit part gear and accessories navigation event listeners

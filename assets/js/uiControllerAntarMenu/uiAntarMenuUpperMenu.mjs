@@ -1,7 +1,7 @@
 // uiAntarMenuUpperMenu.js
 // Upper Menu Controller for M4 Rifle Builder
 
-import { mainMenuID, upperPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from './uiAntarMenuMainController.js';
+import { mainMenuID, upperPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from './uiAntarMenuMainController.mjs';
 
 // Upper menu navigation event listeners
 

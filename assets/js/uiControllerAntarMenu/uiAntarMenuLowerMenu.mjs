@@ -1,7 +1,7 @@
 // uiAntarMenuLowerMenu.js
 // Lower Menu Controller for M4 Rifle Builder
 
-import { mainMenuID, lowerPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from './uiAntarMenuMainController.js';
+import { mainMenuID, lowerPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from './uiAntarMenuMainController.mjs';
 
 // Lower menu navigation event listeners
 

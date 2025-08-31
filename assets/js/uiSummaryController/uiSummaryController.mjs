@@ -15,4 +15,3 @@ document.getElementById('buttonClose_ModalSummary').addEventListener('click', fu
 document.getElementById('summaryChartButton').addEventListener('click', function() {
     showModal_Summary();
 });
-

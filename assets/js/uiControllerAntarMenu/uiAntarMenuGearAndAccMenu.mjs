@@ -1,7 +1,7 @@
 // uiAntarMenuGearAndAccMenu.js
 // Gear and Accessories Menu Controller for M4 Rifle Builder
 
-import { mainMenuID, gearPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from './uiAntarMenuMainController.js';
+import { mainMenuID, gearPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from './uiAntarMenuMainController.mjs';
 
 // Gear and accessories menu navigation event listeners
 

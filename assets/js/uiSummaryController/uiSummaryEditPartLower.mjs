@@ -1,7 +1,7 @@
 // uiSummaryEditPartLower.js
 // Summary Edit Part Lower Controller for M4 Rifle Builder
 
-import { lowerPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from '../uiControllerAntarMenu/uiAntarMenuMainController.js';
+import { lowerPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from '../uiControllerAntarMenu/uiAntarMenuMainController.mjs';
 import { closeModal_Summary } from './uiSummaryController.js';
 
 // Summary edit part lower navigation event listeners

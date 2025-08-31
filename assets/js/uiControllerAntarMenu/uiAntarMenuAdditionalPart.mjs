@@ -1,7 +1,7 @@
 // uiAntarMenuAdditionalPart.js
 // Additional Part Menu Controller for M4 Rifle Builder
 
-import { upperPartMenuID, gearPartMenuID, additionalPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from '../uiControllerAntarMenu/uiAntarMenuMainController.js';
+import { upperPartMenuID, gearPartMenuID, additionalPartMenuID, closeAllMenu, openMenu, setMenuOpenedID } from '../uiControllerAntarMenu/uiAntarMenuMainController.mjs';
 
 // Additional part menu navigation event listeners
 
