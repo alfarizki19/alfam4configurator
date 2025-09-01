@@ -22,6 +22,14 @@ document.getElementById("summaryItemsButton_frontSight00100101").addEventListene
     openMenu();
 });
 
+//Laser Sight
+document.getElementById("summaryItemsButton_laserSight00100101").addEventListener("click", function() {
+    setMenuOpenedID(gearPartMenuID.menuPart_LaserSight);
+    closeModal_Summary();
+    closeAllMenu();
+    openMenu();
+});
+
 document.getElementById("summaryItemsButton_frontSight00200101").addEventListener("click", function() {
     setMenuOpenedID(gearPartMenuID.menuPart_FrontSight);
     closeModal_Summary();

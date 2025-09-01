@@ -45,6 +45,7 @@ export const gearPartMenuID = {
     //Menu Gear And Accecories
     menuPart_Bipod: "menuPart_Bipod",
     menuPart_FrontSight: "menuPart_FrontSight",
+    menuPart_LaserSight: "menuPart_LaserSight",
     menuPart_MLOKandKeymodRail: "menuPart_MlokAndKeymodRail",
     menuPart_OpticSight: "menuPart_OpticSight",
     menuPart_RearSight: "menuPart_RearSight",
@@ -100,6 +101,7 @@ export function closeAllMenu() {
     //Gear And Accecories Part Menu
     document.getElementById(gearPartMenuID.menuPart_Bipod).style.display = "none";
     document.getElementById(gearPartMenuID.menuPart_FrontSight).style.display = "none";
+    document.getElementById(gearPartMenuID.menuPart_LaserSight).style.display = "none";
     document.getElementById(gearPartMenuID.menuPart_MLOKandKeymodRail).style.display = "none";
     document.getElementById(gearPartMenuID.menuPart_OpticSight).style.display = "none";
     document.getElementById(gearPartMenuID.menuPart_RearSight).style.display = "none";
@@ -237,6 +239,12 @@ export function openMenu(){
     if (menuOpened_ID === gearPartMenuID.menuPart_FrontSight) {
         document.getElementById(gearPartMenuID.menuPart_FrontSight).style.display = "flex";
         document.getElementById(gearPartMenuID.menuPart_FrontSight).style.overflow = "auto";
+    }
+
+    //MLOK and Keymod Rail
+    if (menuOpened_ID === gearPartMenuID.menuPart_LaserSight) {
+        document.getElementById(gearPartMenuID.menuPart_LaserSight).style.display = "flex";
+        document.getElementById(gearPartMenuID.menuPart_LaserSight).style.overflow = "auto";
     }
 
     //MLOK and Keymod Rail

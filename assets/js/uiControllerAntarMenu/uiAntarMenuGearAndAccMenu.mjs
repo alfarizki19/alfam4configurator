@@ -33,6 +33,20 @@ document.getElementById("backButton_FrontSight").addEventListener("click", funct
     openMenu();
 });
 
+//Laser Sight
+document.getElementById("button_menuPart_LaserSight").addEventListener("click", function() {
+    setMenuOpenedID(gearPartMenuID.menuPart_LaserSight);
+    closeAllMenu();
+    openMenu();
+});
+
+//back button
+document.getElementById("backButton_LaserSight").addEventListener("click", function() {
+    setMenuOpenedID(mainMenuID.menuGearAndAccecoriesMenu);
+    closeAllMenu();
+    openMenu();
+});
+
 //MLOK and Keymod Rail
 document.getElementById("button_menuPart_MlokAndKeymodRail").addEventListener("click", function() {
     setMenuOpenedID(gearPartMenuID.menuPart_MLOKandKeymodRail);

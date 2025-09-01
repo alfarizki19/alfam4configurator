@@ -211,6 +211,10 @@ document.getElementById('buttonProductDetail_frontSight002001').addEventListener
     showModal_ProductDetail();
 });
 
+//Laser Sight
+document.getElementById('buttonProductDetail_laserSight00100101').addEventListener('click', function() {
+    showModal_ProductDetail();
+});
 
 //mlok and keymod rail
 document.getElementById('buttonProductDetail_mlokAndKeymodRail001001').addEventListener('click', function() {
