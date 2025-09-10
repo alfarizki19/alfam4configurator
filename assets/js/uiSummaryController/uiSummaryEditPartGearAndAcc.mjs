@@ -53,14 +53,14 @@ document.getElementById("summaryItemsButton_mlokAndKeymodRail00200101").addEvent
 });
 
 //Mlok for Bipod
-document.getElementById("summaryItemsButton_mlokAndKeymodRail00100101_forBipod").addEventListener("click", function() {
+document.getElementById("summaryItemsButton_mlokAndKeymodRail00100101_ForBipod").addEventListener("click", function() {
     setMenuOpenedID(additionalPartMenuID.menuPart_MlokForBipod);
     closeModal_Summary();
     closeAllMenu();
     openMenu();
 });
 
-document.getElementById("summaryItemsButton_mlokAndKeymodRail00200101_forBipod").addEventListener("click", function() {
+document.getElementById("summaryItemsButton_mlokAndKeymodRail00200101_ForBipod").addEventListener("click", function() {
     setMenuOpenedID(additionalPartMenuID.menuPart_MlokForBipod);
     closeModal_Summary();
     closeAllMenu();

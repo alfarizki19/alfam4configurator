@@ -13,7 +13,7 @@
 }
 
 #featureArea {
-  background: #F2F2F2;
+  background: transparent;
 }
 
 #menuArea {
@@ -42,7 +42,7 @@
 
 @media (min-width: 992px) {
   #modelViewer {
-    height: calc(100% - 98px);
+    height: 100%;
     width: auto;
   }
 }
@@ -51,6 +51,7 @@
   #featureArea {
     height: 98px;
     width: auto;
+    margin-top: -98px;
   }
 }
 
@@ -156,13 +157,14 @@
 
 @media (max-width: 991.98px) {
   #mainArea.menu-closed #modelViewer {
-    height: calc(100% - 85px);
+    height: 100%;
   }
 }
 
 @media (max-width: 991.98px) {
   #mainArea.menu-closed #featureArea {
     height: 85px;
+    margin-top: -85px;
   }
 }
 

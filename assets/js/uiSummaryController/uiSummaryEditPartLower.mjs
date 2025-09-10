@@ -8,6 +8,7 @@ import { closeModal_Summary } from './uiSummaryController.mjs';
 
 //Bolt Catch
 document.getElementById("summaryItemsButton_boltCatch00100101").addEventListener("click", function() {
+    
     setMenuOpenedID(lowerPartMenuID.menuPart_BoltCatch);
     closeModal_Summary();
     closeAllMenu();

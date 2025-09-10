@@ -76,7 +76,7 @@ document.getElementById("backButton_ForwardAssistMenu").addEventListener("click"
 });
 
 //Handguard Rail System
-document.getElementById("button_menuPart_HandguardRailSystem").addEventListener("click", function() {
+document.getElementById("button_menuPart_Handguard").addEventListener("click", function() {
     setMenuOpenedID(upperPartMenuID.menuPart_HandguardRailSystem);
     closeAllMenu();
     openMenu();

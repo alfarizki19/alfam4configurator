@@ -17,6 +17,10 @@
   z-index: 999;
 }
 
+.itemsAccordionTypeA_HeaderContainer.active {
+  background-color: rgb(33, 159, 225, 0.75);
+}
+
 .itemsAccordionTypeA_ContentContainer {
   margin: 0 auto;
   margin-top: -14px;
@@ -130,15 +134,15 @@
 
 /* ===== ANIMASI ICON BUTTON ===== */
 
-.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default {
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon {
   transition: transform 0.5s ease-out;
 }
 
-.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default.accordion-icon-open {
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon.accordion-icon-open {
   transform: rotate(180deg);
 }
 
-.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default.accordion-icon-closed {
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon.accordion-icon-closed {
   transform: rotate(0deg);
 }
 

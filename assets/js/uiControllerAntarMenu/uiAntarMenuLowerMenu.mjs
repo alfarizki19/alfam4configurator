@@ -20,7 +20,7 @@ document.getElementById("backButton_BoltCatch").addEventListener("click", functi
 });
 
 //Buffer Spring Kit
-document.getElementById("button_menuPart_BufferSpringKit").addEventListener("click", function() {
+document.getElementById("button_menuPart_BufferAndSpring").addEventListener("click", function() {
     setMenuOpenedID(lowerPartMenuID.menuPart_BufferAndSpringKit);
     closeAllMenu();
     openMenu();

@@ -1,6 +1,6 @@
 /* itemsAccordionTypeA_Icon.css */
 
-.itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default {
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon {
   width: 32px;
   height: 32px;
   margin-left: 56px;
@@ -10,8 +10,12 @@
   transition: transform 0.3s ease-in-out;
 }
 
+.itemsAccordionTypeA_OpenAccordion_ButtonIcon.active {
+  background-color: #EF0E50;
+}
+
 @media (min-width: 992.5px) {
-  .itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default {
+  .itemsAccordionTypeA_OpenAccordion_ButtonIcon {
     width: 32px;
     height: 32px;
     margin-left: 58px;
@@ -19,7 +23,7 @@
 }
 
 @media (max-width: 992.5px) {
-  .itemsAccordionTypeA_OpenAccordion_ButtonIcon_Default {
+  .itemsAccordionTypeA_OpenAccordion_ButtonIcon {
     width: 24px;
     height: 24px;
     margin-left: 30px;

@@ -250,14 +250,14 @@ document.getElementById("summaryItemsButton_handguardRailSystem00100102").addEve
     openMenu();
 });
 
-document.getElementById("summaryItemsButton_handguardRailSystem00200101").addEventListener("click", function() {
+document.getElementById("summaryItemsButton_handguardRailSystem00100201").addEventListener("click", function() {
     setMenuOpenedID(upperPartMenuID.menuPart_HandguardRailSystem);
     closeModal_Summary();
     closeAllMenu();
     openMenu();
 });
 
-document.getElementById("summaryItemsButton_handguardRailSystem00200102").addEventListener("click", function() {
+document.getElementById("summaryItemsButton_handguardRailSystem00100202").addEventListener("click", function() {
     setMenuOpenedID(upperPartMenuID.menuPart_HandguardRailSystem);
     closeModal_Summary();
     closeAllMenu();

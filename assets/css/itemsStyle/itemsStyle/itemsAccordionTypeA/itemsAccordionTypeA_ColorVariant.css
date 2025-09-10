@@ -2,7 +2,7 @@
 
 /* Button Color Variants */
 
-.itemsAccordionTypeA_ColorVariant_Button_Default {
+.itemsAccordionTypeA_ColorVariant_Button {
   width: 54px;
   height: 54px;
   border-radius: 6px;
@@ -17,33 +17,30 @@
   margin-right: 2px;
   transition: background-color 0.8s ease-in-out;
   outline: none;
+  outline-color: none;
 }
 
-.itemsAccordionTypeA_ColorVariant_Button_Default:hover {
+.itemsAccordionTypeA_ColorVariant_Button.active {
+  background: rgba(255, 93, 107, 0.75);
+}
+
+.itemsAccordionTypeA_ColorVariant_Button:hover {
   background: rgba(255, 93, 107, 0.75);
   border-color: transparent;
   outline: none;
+  outline-color: none;
 }
 
-.itemsAccordionTypeA_ColorVariant_Button_Default:focus {
+.itemsAccordionTypeA_ColorVariant_Button:focus {
   border-color: transparent;
   outline: none;
+  outline-color: none;
 }
 
-.itemsAccordionTypeA_ColorVariant_Button_Default:active {
+.itemsAccordionTypeA_ColorVariant_Button:active {
   border-color: transparent;
   outline: none;
-}
-
-.itemsAccordionTypeA_ColorVariant_Button_Active {
-  width: 56px;
-  height: 56px;
-  border-radius: 6px;
-  background: rgba(255, 93, 107, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
+  outline-color: none;
 }
 
 .itemsAccordionTypeA_ColorVariant_ButtonIcon {

@@ -66,7 +66,7 @@ document.getElementById('buttonProductDetail_handguardRailSystem001001').addEven
     showModal_ProductDetail();
 });
 
-document.getElementById('buttonProductDetail_handguardRailSystem002001').addEventListener('click', function() {
+document.getElementById('buttonProductDetail_handguardRailSystem001002').addEventListener('click', function() {
     showModal_ProductDetail();
 });
 
