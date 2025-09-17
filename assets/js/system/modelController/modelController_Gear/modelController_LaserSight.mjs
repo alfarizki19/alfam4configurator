@@ -1,74 +1,79 @@
-// Model Controller for Laser Sight (Gear)
+// Model Controller for Laser Sight - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Laser Sight parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_laserSight() {
-    const root = window?.part?.laserSight;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Laser Sight model controller loaded (implemented version)');
 
-// Reset Laser Sight Models
-export function resetModel_LaserSight() {
-    const modelIDs = ['laserSight001'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Laser Sight Models
+// Update Laser Sight model based on current selection
 export function updateModel_LaserSight() {
-    const variants = collectVariants_laserSight();
-    resetModel_LaserSight();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Laser Sight model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific laser sight selection
-export function handleLaserSightSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Laser Sight model update - checking current selection');
+  
+  // Get current selected laser sight from dataController
+  const selected = getSelectedLaserSight();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_LaserSight();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Laser Sight selected: ${itemsID} -> ${modelID}`);
+      // Hide all laser sight variants first
+      hideAllLaserSightVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Laser Sight: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllLaserSightVariants();
+    console.log('👁️‍🗨️ No Laser Sight selected - hiding all variants');
+  }
 }
 
-window.resetModel_LaserSight = resetModel_LaserSight;
+// Handle Laser Sight selection from UI
+export function handleLaserSightSelection(itemsID) {
+  console.log(`🎯 Laser Sight selection: ${itemsID}`);
+  
+  // Hide all laser sight variants first
+  hideAllLaserSightVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Laser Sight: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Laser Sight: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all laser sight variants
+function hideAllLaserSightVariants() {
+  const laserSightModels = [
+    // Single variant
+    'modelID_laserSight00100101'
+  ];
+  
+  laserSightModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected laser sight (from dataController)
+function getSelectedLaserSight() {
+  if (window.part && window.part.laserSight) {
+    // Check laser sight product
+    const product = window.part.laserSight["001"];
+    if (product && product.products && product.products["001"]) {
+      const variants = product.products["001"].variants;
+      for (const [key, variant] of Object.entries(variants)) {
+        if (variant.quantity === 1) {
+          return variant;
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_LaserSight = updateModel_LaserSight;
 window.handleLaserSightSelection = handleLaserSightSelection;

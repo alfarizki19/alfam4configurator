@@ -1,6 +1,9 @@
 // === dataController_TriggerGuard.mjs ===
 // Trigger Guard UI Controller (Lower Category)
 
+// Import model controller functions
+import { updateModel_TriggerGuard, handleTriggerGuardSelection } from '../../modelController/modelController_Lower/modelController_TriggerGuard.mjs';
+
 // Helpers
 function tg_setText(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
 function tg_addClass(id,c){ const el=document.getElementById(id); if(el) el.classList.add(c); }
@@ -23,11 +26,27 @@ export function uiReset_triggerGuard002001(){ const p=window.part.triggerGuard['
 export function uiData_TriggerGuard(){ let sel=null,g=null,title=''; { const v=window.part.triggerGuard['001'].products['001'].variants; for(const k of ['01','02','03','04','05','06','07']){ if(v[k]&&v[k].quantity===1){ sel=v[k]; g='001001'; title=window.part.triggerGuard['001'].products['001'].productTitle; } } } { const v=window.part.triggerGuard['002'].products['001'].variants; for(const k of ['01','02','03','04','05','06','07','08','09','10']){ if(v[k]&&v[k].quantity===1){ sel=v[k]; g='002001'; title=window.part.triggerGuard['002'].products['001'].productTitle; } } } if(!sel) return; tg_setText('productPricing_triggerGuard'+g, sel.price+' USD'); tg_addClass('productHeader_triggerGuard'+g,'active'); tg_hideHeaderImages(g); let h=document.getElementById('productImgID_'+sel.id); if(!h){ const container=document.getElementById('productContainer_triggerGuard'+g); if(container){ h=Array.from(container.querySelectorAll('img, image, Image')).find(function(el){ const src=(el.getAttribute('src')||''); return src.indexOf(sel.id)!==-1; }); } } if(h) h.style.display='flex'; ['001001','002001'].forEach(function(x){ if(x!==g){ tg_hideHeaderImages(x); tg_showHeaderDefault(x); }}); const suffix=(sel.variantTitle&&sel.variantTitle.toLowerCase()!=='no variant')?(' - '+sel.variantTitle):''; tg_setText('productName_triggerGuard'+g, title+suffix); tg_hideLowerImages(); let lower=document.getElementById('partImgID_'+sel.id); if(!lower){ lower=document.getElementById('partImgID_TriggerGuard'+g+sel.id.slice(-2)); } if(!lower){ const wrap=tg_getLowerWrap(); if(wrap){ lower=Array.from(wrap.querySelectorAll('img, image, Image')).find(function(el){ const src=(el.getAttribute('src')||''); return src.indexOf(sel.id)!==-1; }); } } if(!lower){ lower=document.getElementById('partImgID_TriggerGuard'+g+'01'); } if(lower) lower.style.display='flex'; tg_setText('partName_TriggerGuard', title+suffix); tg_setText('partPrice_TriggerGuard', sel.price+' USD'); tg_clearHeaderIcons(); tg_setHeaderIconActive(g); tg_clearVariantButtons(g); const vb=document.getElementById('buttonItems_'+sel.id); if(vb) vb.classList.add('active'); }
 
 // Start default: 00100101
-{ const btn=document.getElementById('buttonModalStartMenu_StartButton'); if(btn) btn.addEventListener('click', function(){ uiReset_triggerGuard001001(); uiReset_triggerGuard002001(); tg_hideHeaderImages('001001'); tg_hideHeaderImages('002001'); tg_showHeaderDefault('001001'); tg_showHeaderDefault('002001'); tg_hideLowerImages(); const d=document.getElementById('partImgID_triggerGuard00100101'); if(d) d.style.display='flex'; window.part.triggerGuard['001'].products['001'].variants['01'].quantity=1; uiData_TriggerGuard(); }); }
+{ const btn=document.getElementById('buttonModalStartMenu_StartButton'); if(btn) btn.addEventListener('click', function(){ uiReset_triggerGuard001001(); uiReset_triggerGuard002001(); tg_hideHeaderImages('001001'); tg_hideHeaderImages('002001'); tg_showHeaderDefault('001001'); tg_showHeaderDefault('002001'); tg_hideLowerImages(); const d=document.getElementById('partImgID_triggerGuard00100101'); if(d) d.style.display='flex'; window.part.triggerGuard['001'].products['001'].variants['01'].quantity=1; uiData_TriggerGuard(); 
+    
+    // Update 3D model after UI update
+    updateModel_TriggerGuard();
+    }); }
 
 // Selection listeners
-{ ['01','02','03','04','05','06','07'].forEach(function(v){ const b=document.getElementById('buttonItems_triggerGuard001001'+v); if(b) b.addEventListener('click', function(){ uiReset_triggerGuard001001(); uiReset_triggerGuard002001(); window.part.triggerGuard['001'].products['001'].variants[v].quantity=1; uiData_TriggerGuard(); }); }); }
-{ ['01','02','03','04','05','06','07','08','09','10'].forEach(function(v){ const b=document.getElementById('buttonItems_triggerGuard002001'+v); if(b) b.addEventListener('click', function(){ uiReset_triggerGuard001001(); uiReset_triggerGuard002001(); window.part.triggerGuard['002'].products['001'].variants[v].quantity=1; uiData_TriggerGuard(); }); }); }
+{ ['01','02','03','04','05','06','07'].forEach(function(v){ const b=document.getElementById('buttonItems_triggerGuard001001'+v); if(b) b.addEventListener('click', function(){ uiReset_triggerGuard001001(); uiReset_triggerGuard002001(); window.part.triggerGuard['001'].products['001'].variants[v].quantity=1; uiData_TriggerGuard(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "triggerGuard001001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleTriggerGuardSelection(itemsID);
+    }); }); }
+{ ['01','02','03','04','05','06','07','08','09','10'].forEach(function(v){ const b=document.getElementById('buttonItems_triggerGuard002001'+v); if(b) b.addEventListener('click', function(){ uiReset_triggerGuard001001(); uiReset_triggerGuard002001(); window.part.triggerGuard['002'].products['001'].variants[v].quantity=1; uiData_TriggerGuard(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "triggerGuard002001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleTriggerGuardSelection(itemsID);
+    }); }); }
 
 export function getSelectedTriggerGuard(){ const a=window.part.triggerGuard['001'].products['001'].variants; for(const k of ['01','02','03','04','05','06','07']){ if(a[k]&&a[k].quantity===1) return a[k]; } const b=window.part.triggerGuard['002'].products['001'].variants; for(const k of ['01','02','03','04','05','06','07','08','09','10']){ if(b[k]&&b[k].quantity===1) return b[k]; } return null; }
 export function getTriggerGuardTotalPrice(){ const v=getSelectedTriggerGuard(); return v? v.price:0; }

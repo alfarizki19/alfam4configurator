@@ -1,6 +1,9 @@
 // === dataController_OpticSight.mjs ===
 // Gear & Acc: Optic Sight controller
 
+// Import model controller functions
+import { updateModel_OpticSight, handleOpticSightSelection } from '../../modelController/modelController_Gear/modelController_OpticSight.mjs';
+
 function os_get(id){ return document.getElementById(id); }
 function os_setText(id,t){ const el=os_get(id); if(el) el.textContent=t; }
 function os_addClass(id,c){ const el=os_get(id); if(el) el.classList.add(c); }
@@ -23,9 +26,23 @@ export function uiData_OpticSight(){ const p=os_getProduct(); const sel=p && p.v
  os_setText('productName_opticSight001001', title + suffix); os_setText('productPricing_opticSight001001', sel.price+' USD'); // part menu active states
  os_addClass('productHeader_opticSight001001','active'); os_addClass('productButtonIcon_opticSight00100101','active'); os_removeClass('productHeader_noOpticSight','active'); os_removeClass('productButtonIcon_noOpticSight','active'); }
 
-(function(){ const start=os_get('buttonModalStartMenu_StartButton'); if(start){ start.addEventListener('click', function(){ uiReset_opticSight(); uiData_OpticSight(); }); }
- const noBtn=os_get('buttonItems_noOpticSight'); if(noBtn){ noBtn.addEventListener('click', function(){ uiReset_opticSight(); uiData_OpticSight(); }); }
- const pick=os_get('buttonItems_opticSight00100101'); if(pick){ pick.addEventListener('click', function(){ const p=os_getProduct(); if(p){ p.variants['01'].quantity=1; } uiData_OpticSight(); }); }
+(function(){ const start=os_get('buttonModalStartMenu_StartButton'); if(start){ start.addEventListener('click', function(){ uiReset_opticSight(); uiData_OpticSight(); 
+    
+    // Update 3D model after UI update
+    updateModel_OpticSight();
+    }); }
+ const noBtn=os_get('buttonItems_noOpticSight'); if(noBtn){ noBtn.addEventListener('click', function(){ uiReset_opticSight(); uiData_OpticSight(); 
+    
+    // Update 3D model after UI update
+    updateModel_OpticSight();
+    }); }
+ const pick=os_get('buttonItems_opticSight00100101'); if(pick){ pick.addEventListener('click', function(){ const p=os_getProduct(); if(p){ p.variants['01'].quantity=1; } uiData_OpticSight(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "opticSight00100101";
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleOpticSightSelection(itemsID);
+    }); }
 })();
 
 export function getSelectedOpticSight(){ const p=os_getProduct(); if(p && p.variants['01'].quantity===1) return p.variants['01']; return null; }

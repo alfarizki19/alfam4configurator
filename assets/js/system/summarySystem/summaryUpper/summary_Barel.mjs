@@ -1,33 +1,9 @@
-// Summary visibility controller for Barel (Barrel)
+// Summary System for Barrel (Upper)
 
-function getQuantityById_Barel(variantId) {
+function getBarrelVariantsFromInventory() {
     const root = window?.part?.barrel;
-    if (!root) return 0;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const variants = products[productKey]?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (v?.id === variantId) return Number(v.quantity) || 0;
-            }
-        }
-    }
-    return 0;
-}
-
-export function resetSummary_Barel() {
-    const ids = ["barel00200101"]; // extend if more variants exist
-    ids.forEach(id => {
-        const el = document.getElementById(`summaryItems_${id}`);
-        if (el) el.style.display = "none";
-    });
-}
-
-function getTitleAndPriceById_Barel(variantId) {
-    const root = window?.part?.barrel;
-    if (!root) return { title: "", price: undefined };
+    const results = [];
+    if (!root) return results;
     for (const brandKey in root) {
         const brandNode = root[brandKey];
         const products = brandNode?.products || {};
@@ -37,43 +13,33 @@ function getTitleAndPriceById_Barel(variantId) {
             const variants = productNode?.variants || {};
             for (const vKey in variants) {
                 const v = variants[vKey];
-                if (v?.id === variantId) {
-                    return { title: productTitle, price: Number(v.price) };
-                }
+                if (!v?.id) continue;
+                results.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
             }
         }
     }
-    return { title: "", price: undefined };
+    return results;
 }
 
-function formatUsd(amount) {
-    const n = Number(amount);
-    if (!isFinite(n)) return "";
-    return `${n.toFixed(2)} USD`;
-}
+export function renderBarrelSummary() {
+    const variants = getBarrelVariantsFromInventory();
 
-function composeName(productTitle, variantTitle) {
-    const vt = (variantTitle || "").trim();
-    if (!vt || vt.toLowerCase() === "no variant") return productTitle || "";
-    return `${productTitle || ""} - ${vt}`;
-}
+    // Hide all containers by default to avoid showing placeholders for non-existent IDs
+    try {
+        const allContainers = document.querySelectorAll('[id^="summaryItems_barrel"]');
+        allContainers.forEach(el => { el.style.display = "none"; });
+    } catch (_) { /* noop */ }
 
-export function updateSummary_Barel() {
-    const ids = ["barel00200101"]; // extend if more variants exist
-    ids.forEach(id => {
-        const qty = getQuantityById_Barel(id);
-        if (qty > 0) {
-            const el = document.getElementById(`summaryItems_${id}`);
-            if (el) el.style.display = "";
+    variants.forEach(variant => {
+        const containerId = `summaryItems_${variant.id}`;
 
-            const meta = getTitleAndPriceById_Barel(id);
-            const nameEl = document.getElementById(`summaryItemsName_${id}`);
-            const priceEl = document.getElementById(`summaryItemsPricing_${id}`);
-            if (nameEl && meta.title) nameEl.textContent = composeName(meta.title, meta.variantTitle);
-            if (priceEl && meta.price !== undefined) priceEl.textContent = formatUsd(meta.price);
-        }
+        const containerEl = document.getElementById(containerId);
+        if (!containerEl) return; // Skip elements not defined in template
+
+        const show = variant.quantity > 0;
+        containerEl.style.display = show ? "" : "none";
     });
 }
 
-window.resetSummary_Barel = resetSummary_Barel;
-window.updateSummary_Barel = updateSummary_Barel;
+// Expose to window only (core will trigger this)
+window.renderBarrelSummary = renderBarrelSummary;

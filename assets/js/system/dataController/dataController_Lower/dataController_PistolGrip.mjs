@@ -1,6 +1,9 @@
 // === dataController_PistolGrip.mjs ===
 // Pistol Grip UI Controller (Lower Category) — two products with variants
 
+// Import model controller functions
+import { updateModel_PistolGrip, handlePistolGripSelection } from '../../modelController/modelController_Lower/modelController_PistolGrip.mjs';
+
 function pg_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function pg_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function pg_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -18,7 +21,7 @@ function pg_hideHeaderImages(group) {
 }
 
 function pg_showHeaderDefault(group) {
-    const def = group === "001001" ? "productImgID_pistolGrip00100101" : "productImgID_pistolGrip00200101";
+    const def = group === "001001" ? "productImgID_pistolGrip00100101" : "productImgID_pistolGrip00200102";
     const el = document.getElementById(def); if (el) el.style.display = "flex";
 }
 
@@ -93,15 +96,18 @@ export function uiData_PistolGrip() {
     if (btn) btn.classList.add("active");
 }
 
-// Start default: pistolGrip002001 01
+// Start default: pistolGrip002001 02
 {
     const btn = document.getElementById("buttonModalStartMenu_StartButton");
     if (btn) {
         btn.addEventListener("click", function () {
             uiReset_pistolGrip001001(); uiReset_pistolGrip002001();
-            // Set default pistol grip to 00200101
-            try { window.part.pistolGrip["002"].products["001"].variants["01"].quantity = 1; } catch(_) {}
+            // Set default pistol grip to 00200102
+            try { window.part.pistolGrip["002"].products["001"].variants["02"].quantity = 1; } catch(_) {}
             uiData_PistolGrip();
+            
+            // Update 3D model after UI update
+            updateModel_PistolGrip();
             // Ensure Trigger Guard default is shown with 00100101
             try {
                 if (window.part && window.part.triggerGuard) {
@@ -126,6 +132,11 @@ export function uiData_PistolGrip() {
             uiReset_pistolGrip001001(); uiReset_pistolGrip002001();
             window.part.pistolGrip["001"].products["001"].variants[v].quantity = 1;
             uiData_PistolGrip();
+            
+            // Update 3D model after UI update
+            const itemsID = "pistolGrip001001" + v;
+            console.log(`🎯 Part button clicked: ${itemsID}`);
+            handlePistolGripSelection(itemsID);
             // Hide Trigger Guard for pistolGrip001001** (no trigger guard needed)
             try {
                 // Reset all Trigger Guard quantities to 0
@@ -146,6 +157,11 @@ export function uiData_PistolGrip() {
             uiReset_pistolGrip001001(); uiReset_pistolGrip002001();
             window.part.pistolGrip["002"].products["001"].variants[v].quantity = 1;
             uiData_PistolGrip();
+            
+            // Update 3D model after UI update
+            const itemsID = "pistolGrip002001" + v;
+            console.log(`🎯 Part button clicked: ${itemsID}`);
+            handlePistolGripSelection(itemsID);
             // Show Trigger Guard for pistolGrip002001** (requires trigger guard default)
             try {
                 // Reset all Trigger Guard quantities to 0

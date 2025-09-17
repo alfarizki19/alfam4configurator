@@ -1,74 +1,83 @@
-// Model Controller for Trigger (Lower)
+// Model Controller for Trigger - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Trigger parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_trigger() {
-    const root = window?.part?.trigger;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Trigger model controller loaded (implemented version)');
 
-// Reset Trigger Models
-export function resetModel_Trigger() {
-    const modelIDs = ['trigger001', 'trigger002'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Trigger Models
+// Update Trigger model based on current selection
 export function updateModel_Trigger() {
-    const variants = collectVariants_trigger();
-    resetModel_Trigger();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Trigger model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific trigger selection
-export function handleTriggerSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Trigger model update - checking current selection');
+  
+  // Get current selected trigger from dataController
+  const selected = getSelectedTrigger();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_Trigger();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Trigger selected: ${itemsID} -> ${modelID}`);
+      // Hide all trigger variants first
+      hideAllTriggerVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Trigger: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllTriggerVariants();
+    console.log('👁️‍🗨️ No Trigger selected - hiding all variants');
+  }
 }
 
-window.resetModel_Trigger = resetModel_Trigger;
+// Handle Trigger selection from UI
+export function handleTriggerSelection(itemsID) {
+  console.log(`🎯 Trigger selection: ${itemsID}`);
+  
+  // Hide all trigger variants first
+  hideAllTriggerVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Trigger: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Trigger: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all trigger variants
+function hideAllTriggerVariants() {
+  const triggerModels = [
+    // Group 001001 (1 variant)
+    'modelID_trigger00100101',
+    // Group 002001 (3 variants)
+    'modelID_trigger00200101',
+    'modelID_trigger00200102',
+    'modelID_trigger00200103'
+  ];
+  
+  triggerModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected trigger (from dataController)
+function getSelectedTrigger() {
+  if (window.part && window.part.trigger) {
+    // Check all brands and products for trigger
+    for (const [brandKey, brand] of Object.entries(window.part.trigger)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_Trigger = updateModel_Trigger;
 window.handleTriggerSelection = handleTriggerSelection;

@@ -1,7 +1,7 @@
-// Script to fix all Model IDs based on partData.txt
-// This will update all model controllers with correct Model IDs
+// Script to update all model controllers with correct mesh names
+// This script will fix all model controllers to use the correct mesh names from namaMeshModelBlender.txt
 
-// Model ID mapping from namaMeshModelBlender.txt M4_v4_01 (FINAL - Updated with correct mesh names)
+// Model ID mapping from namaMeshModelBlender.txt (FINAL - Updated with correct mesh names)
 const correctModelIDs = {
     // Barrel
     'barel00200101': 'modelID_barel00200101',
@@ -21,7 +21,7 @@ const correctModelIDs = {
     'bufferTube00100101': 'modelID_bufferTube00100101',
     
     // Buffer and Spring Kit
-    'bufferAndSpringKit00100101': 'modelID_bufferAndSpringKit0010011',
+    'bufferAndSpringKit00100101': 'modelID_bufferAndSpringKit00100101',
     
     // Charging Handle
     'chargingHandle00100101': 'modelID_chargingHandle00100101',
@@ -54,8 +54,8 @@ const correctModelIDs = {
     'ejectionPortCover00100110': 'modelID_ejectionPortCover00100110',
     
     // End Plate
-    'endPlate00100101': 'modelID_endPlate001001',
-    'endPlate00200101': 'modelID_endPlate002001',
+    'endPlate00100101': 'modelID_endPlate00100101',
+    'endPlate00200101': 'modelID_endPlate00200101',
     
     // Forward Assist
     'forwardAssists00100101': 'modelID_forwardAssists00100101',
@@ -110,11 +110,11 @@ const correctModelIDs = {
     'muzzleDevice00200202': 'modelID_muzzleDevice00200202',
     
     // Optic Sight
-    'opticSight00100101': 'modelID_opticSight001001',
+    'opticSight00100101': 'modelID_opticSight00100101',
     
     // Pistol Grip
-    'pistolGrip00100101': 'modelID_pistolGrip001001',
-    'pistolGrip00200101': 'modelID_pistolGrip002001',
+    'pistolGrip00100101': 'modelID_pistolGrip00100101',
+    'pistolGrip00200101': 'modelID_pistolGrip00200101',
     
     // Rear Sight
     'rearSight00100101': ['modelID_rearSight00100101_A', 'modelID_rearSight00100101_B'],
@@ -215,3 +215,7 @@ export function getAllModelIDsForPart(partName) {
     
     return Array.from(modelIDs);
 }
+
+console.log('✅ Model ID mapping updated with correct Blender mesh names');
+console.log('📋 Available model IDs:', Object.keys(correctModelIDs).length);
+console.log('🔧 Use getCorrectModelID(itemsID) to get the correct model ID for any items ID');

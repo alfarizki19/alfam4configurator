@@ -1,6 +1,9 @@
 // === dataController_ChargingHandle.mjs ===
 // Charging Handle UI Controller for M4 Rifle Configurator (Upper Category)
 
+// Import model controller functions
+import { updateModel_ChargingHandle, handleChargingHandleSelection } from '../../modelController/modelController_Upper/modelController_ChargingHandle.mjs';
+
 // Utility helpers
 function ch_hideAllUpperImages() {
 	const ids = [
@@ -209,12 +212,31 @@ export function uiData_ChargingHandle() {
 	const btn = document.getElementById("buttonModalStartMenu_StartButton");
 	if (btn) {
 		btn.addEventListener("click", function () {
+			// Hide all product images then show default variant image (01) for each product group
+			ch_hideAllProductImages();
+			const defaults = [
+				"productImgID_chargingHandle00100101",
+				"productImgID_chargingHandle00200101",
+				"productImgID_chargingHandle00300101",
+				"productImgID_chargingHandle00400101",
+			];
+			defaults.forEach(function (id) {
+				const el = document.getElementById(id);
+				if (el) el.style.display = "flex";
+			});
+
+			// Reset UI states
 			uiReset_chargingHandle001001();
 			uiReset_chargingHandle002001();
 			uiReset_chargingHandle003001();
 			uiReset_chargingHandle004001();
+
+			// Select default variant: Geissele 00100101
 			window.part.chargingHandle["001"].products["001"].variants["01"].quantity = 1;
 			uiData_ChargingHandle();
+			
+			// Update 3D model after UI update
+			updateModel_ChargingHandle();
 		});
 	}
 }
@@ -230,6 +252,11 @@ export function uiData_ChargingHandle() {
 		uiReset_chargingHandle004001();
 		window.part.chargingHandle["001"].products["001"].variants["01"].quantity = 1;
 		uiData_ChargingHandle();
+		
+		// Update 3D model after UI update
+		const itemsID = "chargingHandle00100101";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleChargingHandleSelection(itemsID);
 	});
 	const gDdc = document.getElementById("buttonItems_chargingHandle00100102");
 	if (gDdc) gDdc.addEventListener("click", function () {
@@ -239,6 +266,11 @@ export function uiData_ChargingHandle() {
 		uiReset_chargingHandle004001();
 		window.part.chargingHandle["001"].products["001"].variants["02"].quantity = 1;
 		uiData_ChargingHandle();
+		
+		// Update 3D model after UI update
+		const itemsID = "chargingHandle00100102";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleChargingHandleSelection(itemsID);
 	});
 
 	// Novoske
@@ -250,6 +282,11 @@ export function uiData_ChargingHandle() {
 		uiReset_chargingHandle004001();
 		window.part.chargingHandle["002"].products["001"].variants["01"].quantity = 1;
 		uiData_ChargingHandle();
+		
+		// Update 3D model after UI update
+		const itemsID = "chargingHandle00200101";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleChargingHandleSelection(itemsID);
 	});
 
 	// Radian: black, fde, red
@@ -261,6 +298,11 @@ export function uiData_ChargingHandle() {
 		uiReset_chargingHandle004001();
 		window.part.chargingHandle["003"].products["001"].variants["01"].quantity = 1;
 		uiData_ChargingHandle();
+		
+		// Update 3D model after UI update
+		const itemsID = "chargingHandle00300101";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleChargingHandleSelection(itemsID);
 	});
 	const rFde = document.getElementById("buttonItems_chargingHandle00300102");
 	if (rFde) rFde.addEventListener("click", function () {
@@ -270,6 +312,11 @@ export function uiData_ChargingHandle() {
 		uiReset_chargingHandle004001();
 		window.part.chargingHandle["003"].products["001"].variants["02"].quantity = 1;
 		uiData_ChargingHandle();
+		
+		// Update 3D model after UI update
+		const itemsID = "chargingHandle00300102";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleChargingHandleSelection(itemsID);
 	});
 	const rRed = document.getElementById("buttonItems_chargingHandle00300103");
 	if (rRed) rRed.addEventListener("click", function () {
@@ -279,6 +326,11 @@ export function uiData_ChargingHandle() {
 		uiReset_chargingHandle004001();
 		window.part.chargingHandle["003"].products["001"].variants["03"].quantity = 1;
 		uiData_ChargingHandle();
+		
+		// Update 3D model after UI update
+		const itemsID = "chargingHandle00300103";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleChargingHandleSelection(itemsID);
 	});
 
 	// Timber Creek (01..10)
@@ -293,6 +345,11 @@ export function uiData_ChargingHandle() {
 			uiReset_chargingHandle004001();
 			window.part.chargingHandle["004"].products["001"].variants[idx].quantity = 1;
 			uiData_ChargingHandle();
+			
+			// Update 3D model after UI update
+			const itemsID = "chargingHandle004001" + idx;
+			console.log(`🎯 Part button clicked: ${itemsID}`);
+			handleChargingHandleSelection(itemsID);
 		});
 	}
 }
@@ -316,37 +373,4 @@ export function getSelectedChargingHandle() {
 export function getChargingHandleTotalPrice() {
 	const v = getSelectedChargingHandle();
 	return v ? v.price : 0;
-}
-
-
-
-// Start button selects defaults and shows default product images (01) for each group
-{
-	const btn = document.getElementById("buttonModalStartMenu_StartButton");
-	if (btn) {
-		btn.addEventListener("click", function () {
-			// Hide all product images then show default variant image (01) for each product group
-			ch_hideAllProductImages();
-			const defaults = [
-				"productImgID_chargingHandle00100101",
-				"productImgID_chargingHandle00200101",
-				"productImgID_chargingHandle00300101",
-				"productImgID_chargingHandle00400101",
-			];
-			defaults.forEach(function (id) {
-				const el = document.getElementById(id);
-				if (el) el.style.display = "flex";
-			});
-
-			// Reset UI states
-			uiReset_chargingHandle001001();
-			uiReset_chargingHandle002001();
-			uiReset_chargingHandle003001();
-			uiReset_chargingHandle004001();
-
-			// Select default variant: Geissele 00100101
-			window.part.chargingHandle["001"].products["001"].variants["01"].quantity = 1;
-			uiData_ChargingHandle();
-		});
-	}
 }

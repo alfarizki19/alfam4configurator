@@ -1,6 +1,9 @@
 // === dataController_EndPlate.mjs ===
 // End Plate UI Controller (Lower Category) — two products with many variants
 
+// Import model controller functions
+import { updateModel_EndPlate, handleEndPlateSelection } from '../../modelController/modelController_Lower/modelController_EndPlate.mjs';
+
 function ep_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function ep_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function ep_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -62,9 +65,25 @@ export function uiData_EndPlate(){ let s=null,g=null,t=""; { const v=window.part
 
 { const btn=document.getElementById("buttonModalStartMenu_StartButton"); if(btn) btn.addEventListener("click", function(){ uiReset_endPlate001001(); uiReset_endPlate002001(); // default header images to 01 for both groups
     ep_resetHeaderImagesToDefault('001001'); ep_resetHeaderImagesToDefault('002001');
-    window.part.endPlate["001"].products["001"].variants["01"].quantity=1; uiData_EndPlate(); }); }
+    window.part.endPlate["001"].products["001"].variants["01"].quantity=1; uiData_EndPlate(); 
+    
+    // Update 3D model after UI update
+    updateModel_EndPlate();
+    }); }
 
-{ for(let i=1;i<=7;i++){const k=(""+i).padStart(2,"0"); const b=document.getElementById("buttonItems_endPlate001001"+k); if(b) b.addEventListener("click", function(){ uiReset_endPlate001001(); uiReset_endPlate002001(); window.part.endPlate["001"].products["001"].variants[k].quantity=1; uiData_EndPlate(); }); } for(let i=1;i<=10;i++){const k=(""+i).padStart(2,"0"); const b=document.getElementById("buttonItems_endPlate002001"+k); if(b) b.addEventListener("click", function(){ uiReset_endPlate001001(); uiReset_endPlate002001(); window.part.endPlate["002"].products["001"].variants[k].quantity=1; uiData_EndPlate(); }); } }
+{ for(let i=1;i<=7;i++){const k=(""+i).padStart(2,"0"); const b=document.getElementById("buttonItems_endPlate001001"+k); if(b) b.addEventListener("click", function(){ uiReset_endPlate001001(); uiReset_endPlate002001(); window.part.endPlate["001"].products["001"].variants[k].quantity=1; uiData_EndPlate(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "endPlate001001" + k;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleEndPlateSelection(itemsID);
+    }); } for(let i=1;i<=10;i++){const k=(""+i).padStart(2,"0"); const b=document.getElementById("buttonItems_endPlate002001"+k); if(b) b.addEventListener("click", function(){ uiReset_endPlate001001(); uiReset_endPlate002001(); window.part.endPlate["002"].products["001"].variants[k].quantity=1; uiData_EndPlate(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "endPlate002001" + k;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleEndPlateSelection(itemsID);
+    }); } }
 
 export function getSelectedEndPlate(){ const a=window.part.endPlate["001"].products["001"].variants; for(let i=1;i<=7;i++){const k=(""+i).padStart(2,"0"); if(a[k]&&a[k].quantity===1)return a[k];} const b=window.part.endPlate["002"].products["001"].variants; for(let i=1;i<=10;i++){const k=(""+i).padStart(2,"0"); if(b[k]&&b[k].quantity===1)return b[k];} return null; }
 export function getEndPlateTotalPrice(){ const v=getSelectedEndPlate(); return v? v.price:0; }

@@ -1,6 +1,9 @@
 // === dataController_EjectionPortCover.mjs ===
 // Ejection Port Cover UI Controller (Upper Category)
 
+// Import model controller functions
+import { updateModel_EjectionPortCover, handleEjectionPortCoverSelection } from '../../modelController/modelController_Upper/modelController_EjectionPortCover.mjs';
+
 function epc_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function epc_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function epc_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -27,6 +30,12 @@ function epc_clearVariantButtons() {
 		const btn = document.getElementById("buttonItems_ejectionPortCover001001" + idx);
 		if (btn) btn.classList.remove("active");
 	}
+}
+
+function epc_showDefaultProductImages() {
+	// Show default variant image (01) for product group
+	const defaultImg = document.getElementById("productImgID_ejectionPortCover00100101");
+	if (defaultImg) defaultImg.style.display = "flex";
 }
 
 export function uiReset_ejectionPortCover001001() {
@@ -79,9 +88,19 @@ export function uiData_EjectionPortCover() {
 	const btn = document.getElementById("buttonModalStartMenu_StartButton");
 	if (btn) {
 		btn.addEventListener("click", function () {
+			// Hide all product images then show default variant image (01)
+			epc_hideProductImages();
+			epc_showDefaultProductImages();
+			
+			// Reset UI states
 			uiReset_ejectionPortCover001001();
+			
+			// Select default variant: 00100101
 			window.part.ejectionPortCover["001"].products["001"].variants["01"].quantity = 1;
 			uiData_EjectionPortCover();
+			
+			// Update 3D model after UI update
+			updateModel_EjectionPortCover();
 		});
 	}
 }
@@ -93,9 +112,21 @@ export function uiData_EjectionPortCover() {
 		const b = document.getElementById("buttonItems_ejectionPortCover001001" + idx);
 		if (!b) continue;
 		b.addEventListener("click", function () {
+			// Hide all product images then show default variant image (01)
+			epc_hideProductImages();
+			epc_showDefaultProductImages();
+			
+			// Reset UI states
 			uiReset_ejectionPortCover001001();
+			
+			// Select variant
 			window.part.ejectionPortCover["001"].products["001"].variants[idx].quantity = 1;
 			uiData_EjectionPortCover();
+			
+			// Update 3D model after UI update
+			const itemsID = "ejectionPortCover001001" + idx;
+			console.log(`🎯 Part button clicked: ${itemsID}`);
+			handleEjectionPortCoverSelection(itemsID);
 		});
 	}
 }
@@ -110,5 +141,3 @@ export function getEjectionPortCoverTotalPrice() {
 	const v = getSelectedEjectionPortCover();
 	return v ? v.price : 0;
 }
-
-

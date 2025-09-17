@@ -1,15 +1,18 @@
 // === dataController_Barrel.mjs ===
 // Barrel UI Controller for M4 Rifle Configurator
 
+// Import model controller functions
+import { updateModel_Barel, handleBarelSelection } from '../../modelController/modelController_Upper/modelController_Barel.mjs';
+
 // Debug: Check if inventory data is loaded
 console.log("Barrel dataController loaded");
 console.log("window.part:", window.part);
-console.log("window.part.barrel:", window.part.barrel);
+console.log("window.part.barel:", window.part.barel);
 
 // Check if data is properly loaded
-if (window.part && window.part.barrel) {
+if (window.part && window.part.barel) {
     console.log("✅ Barrel inventory data loaded successfully");
-    const barrel = window.part.barrel["002"].products["001"].variants["01"];
+    const barrel = window.part.barel["002"].products["001"].variants["01"];
     console.log("Barrel data:", barrel);
 } else {
     console.error("❌ Barrel inventory data not loaded!");
@@ -17,10 +20,10 @@ if (window.part && window.part.barrel) {
 
 export function uiReset_barel002001() {
     // Reset quantity for KM Tactical 16 Barrel 223 Wylde (barel00200101)
-    window.part.barrel["002"].products["001"].variants["01"].quantity = 0;
+    window.part.barel["002"].products["001"].variants["01"].quantity = 0;
     
     // Update product name & pricing (use data from inventory)
-    const productNode = window.part.barrel["002"].products["001"];
+    const productNode = window.part.barel["002"].products["001"];
     const variantNode = productNode.variants["01"];
     document.getElementById("productName_barel002001").textContent = productNode.productTitle;
     document.getElementById("productPricing_barel002001").textContent = variantNode.price + " USD";
@@ -41,7 +44,7 @@ export function uiReset_barel002001() {
 
 export function uiData_Barrel() {
     // Check if KM Tactical 16 Barrel 223 Wylde is selected
-    const productNode = window.part.barrel["002"].products["001"];
+    const productNode = window.part.barel["002"].products["001"];
     const variantNode = productNode.variants["01"];
     console.log("uiData_Barrel called, barrel quantity:", variantNode.quantity);
     
@@ -85,8 +88,11 @@ if (startButton) {
         console.log("Start button clicked - Barrel");
         uiReset_barel002001();
         // Auto-select first barrel in inventory as default (KM Tactical 16 Barrel 223 Wylde)
-        window.part.barrel["002"].products["001"].variants["01"].quantity = 1;
+        window.part.barel["002"].products["001"].variants["01"].quantity = 1;
         uiData_Barrel();
+        
+        // Update 3D model after UI update
+        updateModel_Barel();
     });
 } else {
     console.error("Start button not found: buttonModalStartMenu_StartButton");
@@ -99,8 +105,13 @@ if (barrelButton) {
         console.log("Barrel button clicked");
         uiReset_barel002001();
         // Select KM Tactical 16 Barrel 223 Wylde
-        window.part.barrel["002"].products["001"].variants["01"].quantity = 1;
+        window.part.barel["002"].products["001"].variants["01"].quantity = 1;
         uiData_Barrel();
+        
+        // Update 3D model after UI update
+        const itemsID = "barel00200101";
+        console.log(`🎯 Part button clicked: ${itemsID}`);
+        handleBarelSelection(itemsID);
     });
 } else {
     console.error("Barrel button not found: buttonItems_barel00200101");
@@ -109,7 +120,7 @@ if (barrelButton) {
 
 // Helper function to get currently selected barrel
 export function getSelectedBarrel() {
-    const barrel = window.part.barrel["002"].products["001"].variants["01"];
+    const barrel = window.part.barel["002"].products["001"].variants["01"];
     return barrel.quantity === 1 ? barrel : null;
 }
 
@@ -123,8 +134,9 @@ export function getBarrelTotalPrice() {
 export function testBarrelSelection() {
     console.log("Testing barrel selection...");
     uiReset_barel002001();
-    window.part.barrel["002"].products["001"].variants["01"].quantity = 1;
+    window.part.barel["002"].products["001"].variants["01"].quantity = 1;
     uiData_Barrel();
+    updateModel_Barel();
     console.log("Test completed");
 }
 

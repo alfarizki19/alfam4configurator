@@ -1,6 +1,9 @@
 // === dataController_BufferAndSpringKit.mjs ===
 // Buffer And Spring Kit UI Controller (Lower Category) — single product, single variant
 
+// Import model controller functions
+import { updateModel_BufferAndSpringKit, handleBufferAndSpringKitSelection } from '../../modelController/modelController_Lower/modelController_BufferAndSpringKit.mjs';
+
 function bsk_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function bsk_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function bsk_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -32,12 +35,22 @@ export function uiData_BufferAndSpringKit() {
 
 // Start default
 {
-    const btn = document.getElementById("buttonModalStartMenu_StartButton"); if (btn) btn.addEventListener("click", function(){ uiReset_bufferAndSpringKit001001(); window.part.bufferAndSpringKit["001"].products["001"].variants["01"].quantity = 1; uiData_BufferAndSpringKit(); });
+    const btn = document.getElementById("buttonModalStartMenu_StartButton"); if (btn) btn.addEventListener("click", function(){ uiReset_bufferAndSpringKit001001(); window.part.bufferAndSpringKit["001"].products["001"].variants["01"].quantity = 1; uiData_BufferAndSpringKit(); 
+    
+    // Update 3D model after UI update
+    updateModel_BufferAndSpringKit();
+    });
 }
 
 // Selection
 {
-    const b = document.getElementById("buttonItems_bufferAndSpringKit00100101"); if (b) b.addEventListener("click", function(){ uiReset_bufferAndSpringKit001001(); window.part.bufferAndSpringKit["001"].products["001"].variants["01"].quantity = 1; uiData_BufferAndSpringKit(); });
+    const b = document.getElementById("buttonItems_bufferAndSpringKit00100101"); if (b) b.addEventListener("click", function(){ uiReset_bufferAndSpringKit001001(); window.part.bufferAndSpringKit["001"].products["001"].variants["01"].quantity = 1; uiData_BufferAndSpringKit(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "bufferAndSpringKit00100101";
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleBufferAndSpringKitSelection(itemsID);
+    });
 }
 
 export function getSelectedBufferAndSpringKit(){ const v=window.part.bufferAndSpringKit["001"].products["001"].variants["01"]; return v.quantity===1?v:null; }

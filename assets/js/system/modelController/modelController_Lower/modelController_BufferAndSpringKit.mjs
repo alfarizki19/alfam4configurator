@@ -1,74 +1,78 @@
-// Model Controller for Buffer and Spring Kit (Lower)
+// Model Controller for Buffer and Spring Kit - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Buffer and Spring Kit parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_bufferAndSpringKit() {
-    const root = window?.part?.bufferAndSpringKit;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Buffer and Spring Kit model controller loaded (implemented version)');
 
-// Reset Buffer and Spring Kit Models
-export function resetModel_BufferAndSpringKit() {
-    const modelIDs = ['bufferAndSpringKit001'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Buffer and Spring Kit Models
+// Update Buffer and Spring Kit model based on current selection
 export function updateModel_BufferAndSpringKit() {
-    const variants = collectVariants_bufferAndSpringKit();
-    resetModel_BufferAndSpringKit();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Buffer and Spring Kit model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific buffer and spring kit selection
-export function handleBufferAndSpringKitSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Buffer and Spring Kit model update - checking current selection');
+  
+  // Get current selected buffer and spring kit from dataController
+  const selected = getSelectedBufferAndSpringKit();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_BufferAndSpringKit();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Buffer and Spring Kit selected: ${itemsID} -> ${modelID}`);
+      // Hide all buffer and spring kit variants first
+      hideAllBufferAndSpringKitVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Buffer and Spring Kit: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllBufferAndSpringKitVariants();
+    console.log('👁️‍🗨️ No Buffer and Spring Kit selected - hiding all variants');
+  }
 }
 
-window.resetModel_BufferAndSpringKit = resetModel_BufferAndSpringKit;
+// Handle Buffer and Spring Kit selection from UI
+export function handleBufferAndSpringKitSelection(itemsID) {
+  console.log(`🎯 Buffer and Spring Kit selection: ${itemsID}`);
+  
+  // Hide all buffer and spring kit variants first
+  hideAllBufferAndSpringKitVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Buffer and Spring Kit: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Buffer and Spring Kit: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all buffer and spring kit variants
+function hideAllBufferAndSpringKitVariants() {
+  const bufferAndSpringKitModels = [
+    'modelID_bufferAndSpringKit00100101'
+  ];
+  
+  bufferAndSpringKitModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected buffer and spring kit (from dataController)
+function getSelectedBufferAndSpringKit() {
+  if (window.part && window.part.bufferAndSpringKit) {
+    // Check all brands and products for buffer and spring kit
+    for (const [brandKey, brand] of Object.entries(window.part.bufferAndSpringKit)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_BufferAndSpringKit = updateModel_BufferAndSpringKit;
 window.handleBufferAndSpringKitSelection = handleBufferAndSpringKitSelection;

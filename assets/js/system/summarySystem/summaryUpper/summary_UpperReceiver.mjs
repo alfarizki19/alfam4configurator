@@ -30,7 +30,7 @@ export function resetSummary_UpperReceiver() {
 
 function getTitleAndPriceById_UR(variantId) {
     const root = window?.part?.upperReceiver;
-    if (!root) return { title: "", price: undefined };
+    if (!root) return { title: "", price: undefined, variantTitle: "" };
     for (const brandKey in root) {
         const brandNode = root[brandKey];
         const products = brandNode?.products || {};
@@ -41,12 +41,16 @@ function getTitleAndPriceById_UR(variantId) {
             for (const vKey in variants) {
                 const v = variants[vKey];
                 if (v?.id === variantId) {
-                    return { title: productTitle, price: Number(v.price) };
+                    return { 
+                        title: productTitle, 
+                        price: Number(v.price),
+                        variantTitle: v?.variantTitle || ""
+                    };
                 }
             }
         }
     }
-    return { title: "", price: undefined };
+    return { title: "", price: undefined, variantTitle: "" };
 }
 
 function formatUsd(amount) {
@@ -83,5 +87,3 @@ export function updateSummary_UpperReceiver() {
 
 window.resetSummary_UpperReceiver = resetSummary_UpperReceiver;
 window.updateSummary_UpperReceiver = updateSummary_UpperReceiver;
-
-

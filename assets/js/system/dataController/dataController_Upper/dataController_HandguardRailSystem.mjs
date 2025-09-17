@@ -1,6 +1,9 @@
 // === dataController_HandguardRailSystem.mjs ===
 // Handguard Rail System UI Controller (Upper Category)
 
+// Import model controller functions
+import { updateModel_Handguard, handleHandguardSelection } from '../../modelController/modelController_Upper/modelController_Handguard.mjs';
+
 function hrs_setText(id, text) {
 	const el = document.getElementById(id);
 	if (el) el.textContent = text;
@@ -157,6 +160,9 @@ export function uiData_HandguardRailSystem() {
 			uiReset_handguardRailSystem001002();
 			window.part.handguardRailSystem["001"].products["001"].variants["01"].quantity = 1;
 			uiData_HandguardRailSystem();
+			
+			// Update 3D model after UI update
+			updateModel_Handguard();
 		});
 	}
 }
@@ -174,6 +180,11 @@ export function uiData_HandguardRailSystem() {
 			uiReset_handguardRailSystem001002();
 			window.part.handguardRailSystem["001"].products["001"].variants[v].quantity = 1;
 			uiData_HandguardRailSystem();
+			
+			// Update 3D model after UI update
+			const itemsID = "handguardRailSystem001001" + v;
+			console.log(`🎯 Part button clicked: ${itemsID}`);
+			handleHandguardSelection(itemsID);
 		});
 	});
 	// 001002 -> 01, 02
@@ -187,6 +198,11 @@ export function uiData_HandguardRailSystem() {
 			uiReset_handguardRailSystem001002();
 			window.part.handguardRailSystem["001"].products["002"].variants[v].quantity = 1;
 			uiData_HandguardRailSystem();
+			
+			// Update 3D model after UI update
+			const itemsID = "handguardRailSystem001002" + v;
+			console.log(`🎯 Part button clicked: ${itemsID}`);
+			handleHandguardSelection(itemsID);
 		});
 	});
 }
@@ -203,5 +219,3 @@ export function getHandguardRailSystemTotalPrice() {
 	const v = getSelectedHandguardRailSystem();
 	return v ? v.price : 0;
 }
-
-

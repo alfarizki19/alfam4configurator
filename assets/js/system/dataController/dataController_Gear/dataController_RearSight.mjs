@@ -1,6 +1,9 @@
 // === dataController_RearSight.mjs ===
 // Gear & Acc: Rear Sight controller
 
+// Import model controller functions
+import { updateModel_RearSight, handleRearSightSelection, handleRearSightToggle } from '../../modelController/modelController_Gear/modelController_RearSight.mjs';
+
 function rs_get(id){ return document.getElementById(id); }
 function rs_setText(id, t){ const el=rs_get(id); if(el) el.textContent=t; }
 function rs_addClass(id,c){ const el=rs_get(id); if(el) el.classList.add(c); }
@@ -20,10 +23,95 @@ export function uiData_RearSight(){ const {a,b}=rs_getProducts(); const aSel=a &
  rs_setText('productName_rearSight'+group, title + suffix); rs_setText('productPricing_rearSight'+group, chosen.price+' USD'); // clear both groups before set
  rs_removeClass('productHeader_rearSight001001','active'); rs_removeClass('productHeader_rearSight002001','active'); rs_removeClass('productButtonIcon_rearSight001001','active'); rs_removeClass('productButtonIcon_rearSight002001','active'); rs_removeClass('productHeader_noRearSight','active'); rs_removeClass('productButtonIcon_noRearSight','active'); rs_addClass('productHeader_rearSight'+group,'active'); rs_addClass('productButtonIcon_rearSight'+group,'active'); }
 
-(function(){ const start=rs_get('buttonModalStartMenu_StartButton'); if(start){ start.addEventListener('click', function(){ uiReset_rearSight(); uiData_RearSight(); }); }
- const noBtn=rs_get('buttonItems_noRearSight'); if(noBtn){ noBtn.addEventListener('click', function(){ uiReset_rearSight(); uiData_RearSight(); }); }
- const aBtn=rs_get('buttonItems_rearSight001001'); if(aBtn){ aBtn.addEventListener('click', function(){ const {a,b}=rs_getProducts(); if(b){ b.variants['01'].quantity=0; } if(a){ a.variants['01'].quantity=1; } uiData_RearSight(); }); }
- const bBtn=rs_get('buttonItems_rearSight002001'); if(bBtn){ bBtn.addEventListener('click', function(){ const {a,b}=rs_getProducts(); if(a){ a.variants['01'].quantity=0; } if(b){ b.variants['01'].quantity=1; } uiData_RearSight(); }); }
+(function(){ 
+  const start=rs_get('buttonModalStartMenu_StartButton'); 
+  if(start){ 
+    start.addEventListener('click', function(){ 
+      uiReset_rearSight(); 
+      uiData_RearSight(); 
+      
+      // Update 3D model after UI update
+      updateModel_RearSight();
+    }); 
+  }
+  
+  const noBtn=rs_get('buttonItems_noRearSight'); 
+  if(noBtn){ 
+    noBtn.addEventListener('click', function(){ 
+      uiReset_rearSight(); 
+      uiData_RearSight(); 
+      
+      // Update 3D model after UI update
+      updateModel_RearSight();
+    }); 
+  }
+  
+  const aBtn=rs_get('buttonItems_rearSight00100101'); 
+  if(aBtn){ 
+    aBtn.addEventListener('click', function(){ 
+      const {a,b}=rs_getProducts(); 
+      if(b){ b.variants['01'].quantity=0; } 
+      if(a){ a.variants['01'].quantity=1; } 
+      uiData_RearSight(); 
+      
+      // Update 3D model after UI update
+      const itemsID = "rearSight00100101";
+      console.log(`🎯 Part button clicked: ${itemsID}`);
+      handleRearSightSelection(itemsID);
+    }); 
+  }
+  
+  const bBtn=rs_get('buttonItems_rearSight00200101'); 
+  if(bBtn){ 
+    bBtn.addEventListener('click', function(){ 
+      const {a,b}=rs_getProducts(); 
+      if(a){ a.variants['01'].quantity=0; } 
+      if(b){ b.variants['01'].quantity=1; } 
+      uiData_RearSight(); 
+      
+      // Update 3D model after UI update
+      const itemsID = "rearSight00200101";
+      console.log(`🎯 Part button clicked: ${itemsID}`);
+      handleRearSightSelection(itemsID);
+    }); 
+  }
+  
+  // Add toggle button listeners for Open/Folded functionality
+  // Rear Sight 00100101 - Button A (Open)
+  const toggleBtn001A = rs_get('buttonModelController_rearSight00100101_A');
+  if(toggleBtn001A){
+    toggleBtn001A.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: rearSight00100101_A (open)`);
+      handleRearSightToggle('rearSight00100101');
+    });
+  }
+  
+  // Rear Sight 00100101 - Button B (Folded)
+  const toggleBtn001B = rs_get('buttonModelController_rearSight00100101_B');
+  if(toggleBtn001B){
+    toggleBtn001B.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: rearSight00100101_B (folded)`);
+      handleRearSightToggle('rearSight00100101');
+    });
+  }
+  
+  // Rear Sight 00200101 - Button A (Open)
+  const toggleBtn002A = rs_get('buttonModelController_rearSight00200101_A');
+  if(toggleBtn002A){
+    toggleBtn002A.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: rearSight00200101_A (open)`);
+      handleRearSightToggle('rearSight00200101');
+    });
+  }
+  
+  // Rear Sight 00200101 - Button B (Folded)
+  const toggleBtn002B = rs_get('buttonModelController_rearSight00200101_B');
+  if(toggleBtn002B){
+    toggleBtn002B.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: rearSight00200101_B (folded)`);
+      handleRearSightToggle('rearSight00200101');
+    });
+  }
 })();
 
 export function getSelectedRearSight(){ const {a,b}=rs_getProducts(); if(a && a.variants['01'].quantity===1) return a.variants['01']; if(b && b.variants['01'].quantity===1) return b.variants['01']; return null; }

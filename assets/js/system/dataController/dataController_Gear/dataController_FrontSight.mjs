@@ -1,6 +1,9 @@
 // === dataController_FrontSight.mjs ===
 // Gear & Acc: Front Sight controller
 
+// Import model controller functions
+import { updateModel_FrontSight, handleFrontSightSelection, handleFrontSightToggle } from '../../modelController/modelController_Gear/modelController_FrontSight.mjs';
+
 function fs_get(id){ return document.getElementById(id); }
 function fs_setText(id, t){ const el=fs_get(id); if(el) el.textContent=t; }
 function fs_addClass(id,c){ const el=fs_get(id); if(el) el.classList.add(c); }
@@ -36,10 +39,95 @@ export function uiData_FrontSight(){ const {a,b}=fs_getProducts(); const aSel=a 
  fs_addClass('productHeader_frontSight'+group,'active'); fs_addClass('productButtonIcon_frontSight'+group+'01','active');
 }
 
-(function(){ const start=fs_get('buttonModalStartMenu_StartButton'); if(start){ start.addEventListener('click', function(){ uiReset_frontSight(); uiData_FrontSight(); }); }
- const noBtn=fs_get('buttonItems_noFrontSight'); if(noBtn){ noBtn.addEventListener('click', function(){ uiReset_frontSight(); uiData_FrontSight(); }); }
- const aBtn=fs_get('buttonItems_frontSight00100101'); if(aBtn){ aBtn.addEventListener('click', function(){ const {a,b}=fs_getProducts(); if(b){ b.variants['01'].quantity=0; } if(a){ a.variants['01'].quantity=1; } uiData_FrontSight(); }); }
- const bBtn=fs_get('buttonItems_frontSight00200101'); if(bBtn){ bBtn.addEventListener('click', function(){ const {a,b}=fs_getProducts(); if(a){ a.variants['01'].quantity=0; } if(b){ b.variants['01'].quantity=1; } uiData_FrontSight(); }); }
+(function(){ 
+  const start=fs_get('buttonModalStartMenu_StartButton'); 
+  if(start){ 
+    start.addEventListener('click', function(){ 
+      uiReset_frontSight(); 
+      uiData_FrontSight(); 
+      
+      // Update 3D model after UI update
+      updateModel_FrontSight();
+    }); 
+  }
+  
+  const noBtn=fs_get('buttonItems_noFrontSight'); 
+  if(noBtn){ 
+    noBtn.addEventListener('click', function(){ 
+      uiReset_frontSight(); 
+      uiData_FrontSight(); 
+      
+      // Update 3D model after UI update
+      updateModel_FrontSight();
+    }); 
+  }
+  
+  const aBtn=fs_get('buttonItems_frontSight00100101'); 
+  if(aBtn){ 
+    aBtn.addEventListener('click', function(){ 
+      const {a,b}=fs_getProducts(); 
+      if(b){ b.variants['01'].quantity=0; } 
+      if(a){ a.variants['01'].quantity=1; } 
+      uiData_FrontSight(); 
+      
+      // Update 3D model after UI update
+      const itemsID = "frontSight00100101";
+      console.log(`🎯 Part button clicked: ${itemsID}`);
+      handleFrontSightSelection(itemsID);
+    }); 
+  }
+  
+  const bBtn=fs_get('buttonItems_frontSight00200101'); 
+  if(bBtn){ 
+    bBtn.addEventListener('click', function(){ 
+      const {a,b}=fs_getProducts(); 
+      if(a){ a.variants['01'].quantity=0; } 
+      if(b){ b.variants['01'].quantity=1; } 
+      uiData_FrontSight(); 
+      
+      // Update 3D model after UI update
+      const itemsID = "frontSight00200101";
+      console.log(`🎯 Part button clicked: ${itemsID}`);
+      handleFrontSightSelection(itemsID);
+    }); 
+  }
+  
+  // Add toggle button listeners for Open/Folded functionality
+  // Front Sight 00100101 - Button A (Folded)
+  const toggleBtn001A = fs_get('buttonModelController_frontSight00100101_A');
+  if(toggleBtn001A){
+    toggleBtn001A.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: frontSight00100101_A (folded)`);
+      handleFrontSightToggle('frontSight00100101');
+    });
+  }
+  
+  // Front Sight 00100101 - Button B (Open)
+  const toggleBtn001B = fs_get('buttonModelController_frontSight00100101_B');
+  if(toggleBtn001B){
+    toggleBtn001B.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: frontSight00100101_B (open)`);
+      handleFrontSightToggle('frontSight00100101');
+    });
+  }
+  
+  // Front Sight 00200101 - Button A (Folded)
+  const toggleBtn002A = fs_get('buttonModelController_frontSight00200101_A');
+  if(toggleBtn002A){
+    toggleBtn002A.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: frontSight00200101_A (folded)`);
+      handleFrontSightToggle('frontSight00200101');
+    });
+  }
+  
+  // Front Sight 00200101 - Button B (Open)
+  const toggleBtn002B = fs_get('buttonModelController_frontSight00200101_B');
+  if(toggleBtn002B){
+    toggleBtn002B.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: frontSight00200101_B (open)`);
+      handleFrontSightToggle('frontSight00200101');
+    });
+  }
 })();
 
 export function getSelectedFrontSight(){ const {a,b}=fs_getProducts(); if(a && a.variants['01'].quantity===1) return a.variants['01']; if(b && b.variants['01'].quantity===1) return b.variants['01']; return null; }

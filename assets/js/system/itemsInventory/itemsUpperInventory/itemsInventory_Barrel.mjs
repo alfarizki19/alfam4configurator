@@ -4,7 +4,7 @@
 // Initialize window.part if it doesn't exist
 window.part = window.part || {};
 
-window.part.barrel = {
+window.part.barel = {
     "002": {  // KM Tactical
         brand: "KM Tactical",
         products: {

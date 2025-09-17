@@ -1,6 +1,9 @@
 // === dataController_Bipod.mjs ===
 // Gear & Acc: Bipod controller (with MLOK-for-Bipod linkage)
 
+// Import model controller functions
+import { updateModel_Bipod, handleBipodSelection, handleBipodToggle } from '../../modelController/modelController_Gear/modelController_Bipod.mjs';
+
 function bp_get(id){ return document.getElementById(id); }
 function bp_setText(id, text){ const el=bp_get(id); if(el) el.textContent=text; }
 function bp_addClass(id, c){ const el=bp_get(id); if(el) el.classList.add(c); }
@@ -56,11 +59,84 @@ export function uiData_Bipod(){ const p=bp_getBipod(); if(!p) return; const v01=
  bp_incMlokA(); bp_updateAdditionalFromMlokA(); }
 
 // Wiring buttons
-(function(){ const start=bp_get('buttonModalStartMenu_StartButton'); if(start){ start.addEventListener('click', function(){ uiReset_bipod(); uiData_Bipod(); }); }
- // no bipod
- const noBtn = bp_get('buttonItems_noBipod'); if(noBtn){ noBtn.addEventListener('click', function(){ const p=bp_getBipod(); if(p){ p.variants['01'].quantity=0; } uiReset_bipod(); uiData_Bipod(); }); }
- // select bipod 00100101
- const pick = bp_get('buttonItems_bipod00100101'); if(pick){ pick.addEventListener('click', function(){ const p=bp_getBipod(); if(!p) return; p.variants['01'].quantity=1; uiData_Bipod(); }); }
+(function(){ 
+  const start=bp_get('buttonModalStartMenu_StartButton'); 
+  if(start){ 
+    start.addEventListener('click', function(){ 
+      uiReset_bipod(); 
+      uiData_Bipod(); 
+      
+      // Update 3D model after UI update
+      updateModel_Bipod();
+    }); 
+  }
+  
+  // no bipod
+  const noBtn = bp_get('buttonItems_noBipod'); 
+  if(noBtn){ 
+    noBtn.addEventListener('click', function(){ 
+      const p=bp_getBipod(); 
+      if(p){ p.variants['01'].quantity=0; } 
+      uiReset_bipod(); 
+      uiData_Bipod(); 
+      
+      // Update 3D model after UI update
+      updateModel_Bipod();
+    }); 
+  }
+  
+  // select bipod 00100101
+  const pick = bp_get('buttonItems_bipod00100101'); 
+  if(pick){ 
+    pick.addEventListener('click', function(){ 
+      const p=bp_getBipod(); 
+      if(!p) return; 
+      p.variants['01'].quantity=1; 
+      uiData_Bipod(); 
+      
+      // Update 3D model after UI update
+      const itemsID = "bipod00100101";
+      console.log(`🎯 Part button clicked: ${itemsID}`);
+      handleBipodSelection(itemsID);
+    }); 
+  }
+  
+  // Add toggle button listeners for Bipod states (A, B, C, D)
+  // Button A (Folded Long)
+  const toggleBtnA = bp_get('buttonModelController_bipod00100101_A');
+  if(toggleBtnA){
+    toggleBtnA.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: bipod00100101_A (Folded Long)`);
+      handleBipodToggle('bipod00100101', 'A');
+    });
+  }
+  
+  // Button B (Folded Short)
+  const toggleBtnB = bp_get('buttonModelController_bipod00100101_B');
+  if(toggleBtnB){
+    toggleBtnB.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: bipod00100101_B (Folded Short)`);
+      handleBipodToggle('bipod00100101', 'B');
+    });
+  }
+  
+  // Button C (Open Short)
+  const toggleBtnC = bp_get('buttonModelController_bipod00100101_C');
+  if(toggleBtnC){
+    toggleBtnC.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: bipod00100101_C (Open Short)`);
+      handleBipodToggle('bipod00100101', 'C');
+    });
+  }
+  
+  // Button D (Open Long)
+  const toggleBtnD = bp_get('buttonModelController_bipod00100101_D');
+  if(toggleBtnD){
+    toggleBtnD.addEventListener('click', function(){
+      console.log(`🔄 Toggle button clicked: bipod00100101_D (Open Long)`);
+      handleBipodToggle('bipod00100101', 'D');
+    });
+  }
 })();
 
 export function getSelectedBipod(){ const p=bp_getBipod(); if(!p) return null; return (p.variants['01'].quantity===1)? p.variants['01']: null; }

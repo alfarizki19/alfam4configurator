@@ -12,13 +12,7 @@
   background-color: #BDBDBD;
 }
 
-.modelControllerAccordionTypeA_button_active {
-  width: 125px;
-  height: 55px;
-  border: none;
-  outline: none;
-  border-radius: 6px;
-  margin: 4px;
+.modelControllerAccordionTypeA_button.active {
   background-color: #219FFF;
 }
 

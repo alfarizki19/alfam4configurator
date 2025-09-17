@@ -1,74 +1,87 @@
-// Model Controller for Ejection Port Cover (Upper)
+// Model Controller for Ejection Port Cover - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Ejection Port Cover parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_ejectionPortCover() {
-    const root = window?.part?.ejectionPortCover;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Ejection Port Cover model controller loaded (implemented version)');
 
-// Reset Ejection Port Cover Models
-export function resetModel_EjectionPortCover() {
-    const modelIDs = ['ejectionPortCover001'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Ejection Port Cover Models
+// Update Ejection Port Cover model based on current selection
 export function updateModel_EjectionPortCover() {
-    const variants = collectVariants_ejectionPortCover();
-    resetModel_EjectionPortCover();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Ejection Port Cover model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific ejection port cover selection
-export function handleEjectionPortCoverSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Ejection Port Cover model update - checking current selection');
+  
+  // Get current selected ejection port cover from dataController
+  const selected = getSelectedEjectionPortCover();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_EjectionPortCover();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Ejection Port Cover selected: ${itemsID} -> ${modelID}`);
+      // Hide all ejection port cover variants first
+      hideAllEjectionPortCoverVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Ejection Port Cover: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllEjectionPortCoverVariants();
+    console.log('👁️‍🗨️ No Ejection Port Cover selected - hiding all variants');
+  }
 }
 
-window.resetModel_EjectionPortCover = resetModel_EjectionPortCover;
+// Handle Ejection Port Cover selection from UI
+export function handleEjectionPortCoverSelection(itemsID) {
+  console.log(`🎯 Ejection Port Cover selection: ${itemsID}`);
+  
+  // Hide all ejection port cover variants first
+  hideAllEjectionPortCoverVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Ejection Port Cover: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Ejection Port Cover: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all ejection port cover variants
+function hideAllEjectionPortCoverVariants() {
+  const ejectionPortCoverModels = [
+    'modelID_ejectionPortCover00100101',
+    'modelID_ejectionPortCover00100102',
+    'modelID_ejectionPortCover00100103',
+    'modelID_ejectionPortCover00100104',
+    'modelID_ejectionPortCover00100105',
+    'modelID_ejectionPortCover00100106',
+    'modelID_ejectionPortCover00100107',
+    'modelID_ejectionPortCover00100108',
+    'modelID_ejectionPortCover00100109',
+    'modelID_ejectionPortCover00100110'
+  ];
+  
+  ejectionPortCoverModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected ejection port cover (from dataController)
+function getSelectedEjectionPortCover() {
+  if (window.part && window.part.ejectionPortCover) {
+    // Check all brands and products for ejection port cover
+    for (const [brandKey, brand] of Object.entries(window.part.ejectionPortCover)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_EjectionPortCover = updateModel_EjectionPortCover;
 window.handleEjectionPortCoverSelection = handleEjectionPortCoverSelection;

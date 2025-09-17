@@ -44,7 +44,7 @@ export function resetSummary_ChargingHandle() {
 
 function getTitleAndPriceById_CH(variantId) {
     const root = window?.part?.chargingHandle;
-    if (!root) return { title: "", price: undefined };
+    if (!root) return { title: "", price: undefined, variantTitle: "" };
     for (const brandKey in root) {
         const brandNode = root[brandKey];
         const products = brandNode?.products || {};
@@ -55,12 +55,16 @@ function getTitleAndPriceById_CH(variantId) {
             for (const vKey in variants) {
                 const v = variants[vKey];
                 if (v?.id === variantId) {
-                    return { title: productTitle, price: Number(v.price) };
+                    return { 
+                        title: productTitle, 
+                        price: Number(v.price),
+                        variantTitle: v?.variantTitle || ""
+                    };
                 }
             }
         }
     }
-    return { title: "", price: undefined };
+    return { title: "", price: undefined, variantTitle: "" };
 }
 
 function formatUsd(amount) {
@@ -111,5 +115,3 @@ export function updateSummary_ChargingHandle() {
 
 window.resetSummary_ChargingHandle = resetSummary_ChargingHandle;
 window.updateSummary_ChargingHandle = updateSummary_ChargingHandle;
-
-

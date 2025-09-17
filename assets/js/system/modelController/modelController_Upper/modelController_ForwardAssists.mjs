@@ -1,74 +1,79 @@
-// Model Controller for Forward Assist (Upper)
+// Model Controller for Forward Assist - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Forward Assist parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_forwardAssists() {
-    const root = window?.part?.forwardAssists;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Forward Assist model controller loaded (implemented version)');
 
-// Reset Forward Assist Models
-export function resetModel_ForwardAssists() {
-    const modelIDs = ['forwardAssists001'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Forward Assist Models
+// Update Forward Assist model based on current selection
 export function updateModel_ForwardAssists() {
-    const variants = collectVariants_forwardAssists();
-    resetModel_ForwardAssists();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Forward Assist model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific forward assist selection
-export function handleForwardAssistsSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Forward Assist model update - checking current selection');
+  
+  // Get current selected forward assist from dataController
+  const selected = getSelectedForwardAssists();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_ForwardAssists();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Forward Assist selected: ${itemsID} -> ${modelID}`);
+      // Hide all forward assist variants first
+      hideAllForwardAssistsVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Forward Assist: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllForwardAssistsVariants();
+    console.log('👁️‍🗨️ No Forward Assist selected - hiding all variants');
+  }
 }
 
-window.resetModel_ForwardAssists = resetModel_ForwardAssists;
+// Handle Forward Assist selection from UI
+export function handleForwardAssistsSelection(itemsID) {
+  console.log(`🎯 Forward Assist selection: ${itemsID}`);
+  
+  // Hide all forward assist variants first
+  hideAllForwardAssistsVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Forward Assist: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Forward Assist: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all forward assist variants
+function hideAllForwardAssistsVariants() {
+  const forwardAssistsModels = [
+    'modelID_forwardAssists00100101',
+    'modelID_forwardAssists00100102'
+  ];
+  
+  forwardAssistsModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected forward assist (from dataController)
+function getSelectedForwardAssists() {
+  if (window.part && window.part.forwardAssist) {
+    // Check all brands and products for forward assist
+    for (const [brandKey, brand] of Object.entries(window.part.forwardAssist)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_ForwardAssists = updateModel_ForwardAssists;
 window.handleForwardAssistsSelection = handleForwardAssistsSelection;

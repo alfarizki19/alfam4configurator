@@ -1,106 +1,92 @@
-// Model Controller for Magazine Release (Lower)
+// Model Controller for Magazine Release - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Magazine Release parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_magazineRelease() {
-    const root = window?.part?.magazineRelease;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Magazine Release model controller loaded (implemented version)');
 
-// Reset Magazine Release Models
-export function resetModel_MagazineRelease() {
-    // Hide all magazine release models
-    const modelIDs = ['modelID_magazineRelease001001', 'modelID_magazineRelease002001'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Magazine Release Models
+// Update Magazine Release model based on current selection
 export function updateModel_MagazineRelease() {
-    // Get variants from summary system
-    const variants = collectVariants_magazineRelease();
-    
-    // Reset all magazine release models first
-    resetModel_MagazineRelease();
-    
-    // Show models based on selected variants
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                // Show model
-                modelState[modelID] = 1;
-                
-                // Apply texture
-                applyTexture(v.id);
-                
-                console.log(`Magazine Release model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    // Update 3D scene
-    objectShowHideSystem();
+  console.log('🔧 Magazine Release model update - checking current selection');
+  
+  // Get current selected magazine release from dataController
+  const selected = getSelectedMagazineRelease();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
+    if (modelID) {
+      // Hide all magazine release variants first
+      hideAllMagazineReleaseVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Magazine Release: ${selected.id} -> ${modelID}`);
+    }
+  } else {
+    // No selection, hide all variants
+    hideAllMagazineReleaseVariants();
+    console.log('👁️‍🗨️ No Magazine Release selected - hiding all variants');
+  }
 }
 
-// Handle specific magazine release selection
+// Handle Magazine Release selection from UI
 export function handleMagazineReleaseSelection(itemsID) {
-    // Extract model info
-    const modelID = getModelIDFromItemsID(itemsID);
-    
-    if (modelID) {
-        // Reset all magazine release models
-        resetModel_MagazineRelease();
-        
-        // Show selected model
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
+  console.log(`🎯 Magazine Release selection: ${itemsID}`);
+  
+  // Hide all magazine release variants first
+  hideAllMagazineReleaseVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Magazine Release: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Magazine Release: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all magazine release variants
+function hideAllMagazineReleaseVariants() {
+  const magazineReleaseModels = [
+    // Group 001001 (3 variants)
+    'modelID_magazineRelease00100101',
+    'modelID_magazineRelease00100102',
+    'modelID_magazineRelease00100103',
+    // Group 002001 (10 variants)
+    'modelID_magazineRelease00200101',
+    'modelID_magazineRelease00200102',
+    'modelID_magazineRelease00200103',
+    'modelID_magazineRelease00200104',
+    'modelID_magazineRelease00200105',
+    'modelID_magazineRelease00200106',
+    'modelID_magazineRelease00200107',
+    'modelID_magazineRelease00200108',
+    'modelID_magazineRelease00200109',
+    'modelID_magazineRelease00200110'
+  ];
+  
+  magazineReleaseModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected magazine release (from dataController)
+function getSelectedMagazineRelease() {
+  if (window.part && window.part.magazineRelease) {
+    // Check all brands and products for magazine release
+    for (const [brandKey, brand] of Object.entries(window.part.magazineRelease)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
         }
-        
-        // Apply texture
-        applyTexture(itemsID);
-        
-        // Update 3D scene
-        objectShowHideSystem();
-        
-        console.log(`Magazine Release selected: ${itemsID} -> ${modelID}`);
+      }
     }
+  }
+  return null;
 }
 
 // Export for global access
-// Start Button Integration
-const startButton = document.getElementById("buttonModalStartMenu_StartButton");
-if (startButton) {
-    startButton.addEventListener("click", function () {
-        console.log("Start button clicked - Magazine Release");
-        // Wait for dataController to finish, then update model
-        setTimeout(() => {
-            updateModel_MagazineRelease();
-        }, 100);
-    });
-}
-
-window.resetModel_MagazineRelease = resetModel_MagazineRelease;
 window.updateModel_MagazineRelease = updateModel_MagazineRelease;
 window.handleMagazineReleaseSelection = handleMagazineReleaseSelection;

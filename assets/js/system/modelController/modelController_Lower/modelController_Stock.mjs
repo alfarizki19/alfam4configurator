@@ -1,74 +1,87 @@
-// Model Controller for Stock (Lower)
+// Model Controller for Stock - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Stock parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_stock() {
-    const root = window?.part?.stock;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Stock model controller loaded (implemented version)');
 
-// Reset Stock Models
-export function resetModel_Stock() {
-    const modelIDs = ['stock001', 'stock002'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Stock Models
+// Update Stock model based on current selection
 export function updateModel_Stock() {
-    const variants = collectVariants_stock();
-    resetModel_Stock();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Stock model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific stock selection
-export function handleStockSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Stock model update - checking current selection');
+  
+  // Get current selected stock from dataController
+  const selected = getSelectedStock();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_Stock();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Stock selected: ${itemsID} -> ${modelID}`);
+      // Hide all stock variants first
+      hideAllStockVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Stock: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllStockVariants();
+    console.log('👁️‍🗨️ No Stock selected - hiding all variants');
+  }
 }
 
-window.resetModel_Stock = resetModel_Stock;
+// Handle Stock selection from UI
+export function handleStockSelection(itemsID) {
+  console.log(`🎯 Stock selection: ${itemsID}`);
+  
+  // Hide all stock variants first
+  hideAllStockVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Stock: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Stock: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all stock variants
+function hideAllStockVariants() {
+  const stockModels = [
+    // Group 001001 (5 variants)
+    'modelID_stock00100101',
+    'modelID_stock00100102',
+    'modelID_stock00100103',
+    'modelID_stock00100104',
+    'modelID_stock00100105',
+    // Group 002001 (3 variants)
+    'modelID_stock00200101',
+    'modelID_stock00200102',
+    'modelID_stock00200103'
+  ];
+  
+  stockModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected stock (from dataController)
+function getSelectedStock() {
+  if (window.part && window.part.stock) {
+    // Check all brands and products for stock
+    for (const [brandKey, brand] of Object.entries(window.part.stock)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_Stock = updateModel_Stock;
 window.handleStockSelection = handleStockSelection;

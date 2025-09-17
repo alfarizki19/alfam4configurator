@@ -1,76 +1,93 @@
-// Model Controller for Takedown Pin Set (Lower)
+// Model Controller for Takedown Pin - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Takedown Pin parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_takedownPinSet() {
-    const root = window?.part?.takedownPinSet;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Takedown Pin model controller loaded (implemented version)');
 
-// Reset Takedown Pin Set Models
-export function resetModel_TakedownPinSet() {
-    const modelIDs = ['takedownPinSet001', 'takedownPinSet002', 'takedownPinSet003'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Takedown Pin Set Models
-export function updateModel_TakedownPinSet() {
-    const variants = collectVariants_takedownPinSet();
-    resetModel_TakedownPinSet();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Takedown Pin Set model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific takedown pin set selection
-export function handleTakedownPinSetSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+// Update Takedown Pin model based on current selection
+export function updateModel_TakedownPin() {
+  console.log('🔧 Takedown Pin model update - checking current selection');
+  
+  // Get current selected takedown pin from dataController
+  const selected = getSelectedTakedownPinSet();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_TakedownPinSet();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Takedown Pin Set selected: ${itemsID} -> ${modelID}`);
+      // Hide all takedown pin variants first
+      hideAllTakedownPinVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Takedown Pin: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllTakedownPinVariants();
+    console.log('👁️‍🗨️ No Takedown Pin selected - hiding all variants');
+  }
 }
 
-window.resetModel_TakedownPinSet = resetModel_TakedownPinSet;
-window.updateModel_TakedownPinSet = updateModel_TakedownPinSet;
-window.handleTakedownPinSetSelection = handleTakedownPinSetSelection;
+// Handle Takedown Pin selection from UI
+export function handleTakedownPinSelection(itemsID) {
+  console.log(`🎯 Takedown Pin selection: ${itemsID}`);
+  
+  // Hide all takedown pin variants first
+  hideAllTakedownPinVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Takedown Pin: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Takedown Pin: ${itemsID}`);
+  }
+}
 
+// Helper function to hide all takedown pin variants
+function hideAllTakedownPinVariants() {
+  const takedownPinModels = [
+    // Group 001001 (2 variants)
+    'modelID_takedownPinSet00100101',
+    'modelID_takedownPinSet00100102',
+    // Group 002001 (10 variants)
+    'modelID_takedownPinSet00200101',
+    'modelID_takedownPinSet00200102',
+    'modelID_takedownPinSet00200103',
+    'modelID_takedownPinSet00200104',
+    'modelID_takedownPinSet00200105',
+    'modelID_takedownPinSet00200106',
+    'modelID_takedownPinSet00200107',
+    'modelID_takedownPinSet00200108',
+    'modelID_takedownPinSet00200109',
+    'modelID_takedownPinSet00200110',
+    // Group 003001 (1 variant)
+    'modelID_takedownPinSet00300101'
+  ];
+  
+  takedownPinModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
 
+// Helper function to get selected takedown pin (from dataController)
+function getSelectedTakedownPinSet() {
+  if (window.part && window.part.takedownPin) {
+    // Check all brands and products for takedown pin
+    for (const [brandKey, brand] of Object.entries(window.part.takedownPin)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
+window.updateModel_TakedownPin = updateModel_TakedownPin;
+window.handleTakedownPinSelection = handleTakedownPinSelection;

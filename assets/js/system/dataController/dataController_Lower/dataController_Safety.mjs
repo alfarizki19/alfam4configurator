@@ -1,6 +1,9 @@
 // === dataController_Safety.mjs ===
 // Safety UI Controller (Lower Category) — two products with many variants
 
+// Import model controller functions
+import { updateModel_Safety, handleSafetySelection } from '../../modelController/modelController_Lower/modelController_Safety.mjs';
+
 function sf_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function sf_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function sf_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -86,14 +89,29 @@ export function uiData_Safety() {
             uiReset_safety001001(); uiReset_safety002001();
             window.part.safety["001"].products["001"].variants["01"].quantity = 1;
             uiData_Safety();
+            
+            // Update 3D model after UI update
+            updateModel_Safety();
         });
     }
 }
 
 // Variant listeners
 {
-    ["01","02","03","04"].forEach(function (v) { const b = document.getElementById("buttonItems_safety001001" + v); if (b) b.addEventListener("click", function () { uiReset_safety001001(); uiReset_safety002001(); window.part.safety["001"].products["001"].variants[v].quantity = 1; uiData_Safety(); }); });
-    ["01","02","03","04","05","06","07","08","09","10"].forEach(function (v) { const b = document.getElementById("buttonItems_safety002001" + v); if (b) b.addEventListener("click", function () { uiReset_safety001001(); uiReset_safety002001(); window.part.safety["002"].products["001"].variants[v].quantity = 1; uiData_Safety(); }); });
+    ["01","02","03","04"].forEach(function (v) { const b = document.getElementById("buttonItems_safety001001" + v); if (b) b.addEventListener("click", function () { uiReset_safety001001(); uiReset_safety002001(); window.part.safety["001"].products["001"].variants[v].quantity = 1; uiData_Safety(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "safety001001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleSafetySelection(itemsID);
+    }); });
+    ["01","02","03","04","05","06","07","08","09","10"].forEach(function (v) { const b = document.getElementById("buttonItems_safety002001" + v); if (b) b.addEventListener("click", function () { uiReset_safety001001(); uiReset_safety002001(); window.part.safety["002"].products["001"].variants[v].quantity = 1; uiData_Safety(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "safety002001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleSafetySelection(itemsID);
+    }); });
 }
 
 export function getSelectedSafety() {
@@ -103,8 +121,3 @@ export function getSelectedSafety() {
 }
 
 export function getSafetyTotalPrice() { const v = getSelectedSafety(); return v ? v.price : 0; }
-
-
-
-
-

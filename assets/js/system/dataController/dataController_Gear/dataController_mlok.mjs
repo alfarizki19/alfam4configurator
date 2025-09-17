@@ -1,6 +1,9 @@
 // === dataController_mlok.mjs ===
 // Gear & Acc: MLOK/Keymod Rail controller (non-bipod)
 
+// Import model controller functions
+import { updateModel_MLOK, handleMLOKSelection } from '../../modelController/modelController_Gear/modelController_Mlok.mjs';
+
 function ml_get(id){ return document.getElementById(id); }
 function ml_setText(id,t){ const el=ml_get(id); if(el) el.textContent=t; }
 function ml_addClass(id,c){ const el=ml_get(id); if(el) el.classList.add(c); }
@@ -105,13 +108,35 @@ export function uiData_mlok(){
 
 (function(){
   const start=ml_get('buttonModalStartMenu_StartButton');
-  if(start){ start.addEventListener('click', function(){ uiReset_mlok(); ml_setLastSelected(null); window.__mlokSummaryMode='normal'; uiData_mlok(); }); }
+  if(start){ start.addEventListener('click', function(){ uiReset_mlok(); ml_setLastSelected(null); window.__mlokSummaryMode='normal'; uiData_mlok(); 
+    
+    // Update 3D model after UI update
+    updateModel_MLOK();
+    }); }
   const noBtn=ml_get('buttonItems_noMlokAndKeymodRail');
-  if(noBtn){ noBtn.addEventListener('click', function(){ const a=ml_getProdA(); const b=ml_getProdB(); if(a) a.variants['01'].quantity = 0; if(b) b.variants['01'].quantity = 0; ml_setLastSelected(null); window.__mlokSummaryMode='normal'; uiData_mlok(); }); }
+  if(noBtn){ noBtn.addEventListener('click', function(){ const a=ml_getProdA(); const b=ml_getProdB(); if(a) a.variants['01'].quantity = 0; if(b) b.variants['01'].quantity = 0; ml_setLastSelected(null); window.__mlokSummaryMode='normal'; uiData_mlok(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "noMlokAndKeymodRail";
+    console.log(`🎯 No MLOK button clicked: ${itemsID}`);
+    handleMLOKSelection(itemsID);
+    }); }
   const aBtn=ml_get('buttonItems_mlokAndKeymodRail00100101');
-  if(aBtn){ aBtn.addEventListener('click', function(){ const a=ml_getProdA(); const b=ml_getProdB(); if(b && b.variants['01']) b.variants['01'].quantity = 0; if(a && a.variants['01']) a.variants['01'].quantity = Math.max(0,(a.variants['01'].quantity||0) + 1); ml_setLastSelected('A'); window.__mlokSummaryMode='normal'; uiData_mlok(); }); }
+  if(aBtn){ aBtn.addEventListener('click', function(){ const a=ml_getProdA(); const b=ml_getProdB(); if(b && b.variants['01']) b.variants['01'].quantity = 0; if(a && a.variants['01']) a.variants['01'].quantity = Math.max(0,(a.variants['01'].quantity||0) + 1); ml_setLastSelected('A'); window.__mlokSummaryMode='normal'; uiData_mlok(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "mlokAndKeymodRail00100101";
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleMLOKSelection(itemsID);
+    }); }
   const bBtn=ml_get('buttonItems_mlokAndKeymodRail00200101');
-  if(bBtn){ bBtn.addEventListener('click', function(){ const a=ml_getProdA(); const b=ml_getProdB(); if(a && a.variants['01']) a.variants['01'].quantity = 0; if(b && b.variants['01']) b.variants['01'].quantity = Math.max(0,(b.variants['01'].quantity||0) + 1); ml_setLastSelected('B'); window.__mlokSummaryMode='normal'; uiData_mlok(); }); }
+  if(bBtn){ bBtn.addEventListener('click', function(){ const a=ml_getProdA(); const b=ml_getProdB(); if(a && a.variants['01']) a.variants['01'].quantity = 0; if(b && b.variants['01']) b.variants['01'].quantity = Math.max(0,(b.variants['01'].quantity||0) + 1); ml_setLastSelected('B'); window.__mlokSummaryMode='normal'; uiData_mlok(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "mlokAndKeymodRail00200101";
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleMLOKSelection(itemsID);
+    }); }
 })();
 
 export function getMlokTotalPrice(){ const a=ml_getProdA(); const b=ml_getProdB(); const ap=(a&&a.variants['01'])? (a.variants['01'].price*(a.variants['01'].quantity||0)) : 0; const bp=(b&&b.variants['01'])? (b.variants['01'].price*(b.variants['01'].quantity||0)) : 0; return ap+bp; }

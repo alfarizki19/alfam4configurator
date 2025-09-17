@@ -1,6 +1,9 @@
 // === dataController_BufferTube.mjs ===
 // Buffer Tube UI Controller (Lower Category) — single product, single variant
 
+// Import model controller functions
+import { updateModel_BufferTube, handleBufferTubeSelection } from '../../modelController/modelController_Lower/modelController_BufferTube.mjs';
+
 function bt_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function bt_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function bt_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -35,12 +38,22 @@ export function uiData_BufferTube() {
 
 // Start default
 {
-    const btn = document.getElementById("buttonModalStartMenu_StartButton"); if (btn) btn.addEventListener("click", function(){ uiReset_bufferTube001001(); window.part.bufferTube["001"].products["001"].variants["01"].quantity = 1; uiData_BufferTube(); });
+    const btn = document.getElementById("buttonModalStartMenu_StartButton"); if (btn) btn.addEventListener("click", function(){ uiReset_bufferTube001001(); window.part.bufferTube["001"].products["001"].variants["01"].quantity = 1; uiData_BufferTube(); 
+    
+    // Update 3D model after UI update
+    updateModel_BufferTube();
+    });
 }
 
 // Selection button
 {
-    const b = document.getElementById("buttonItems_bufferTube00100101"); if (b) b.addEventListener("click", function(){ uiReset_bufferTube001001(); window.part.bufferTube["001"].products["001"].variants["01"].quantity = 1; uiData_BufferTube(); });
+    const b = document.getElementById("buttonItems_bufferTube00100101"); if (b) b.addEventListener("click", function(){ uiReset_bufferTube001001(); window.part.bufferTube["001"].products["001"].variants["01"].quantity = 1; uiData_BufferTube(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "bufferTube00100101";
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleBufferTubeSelection(itemsID);
+    });
 }
 
 export function getSelectedBufferTube(){ const v=window.part.bufferTube["001"].products["001"].variants["01"]; return v.quantity===1?v:null; }

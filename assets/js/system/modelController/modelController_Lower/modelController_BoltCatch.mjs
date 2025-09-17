@@ -1,74 +1,78 @@
-// Model Controller for Bolt Catch (Lower)
+// Model Controller for Bolt Catch - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Bolt Catch parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_boltCatch() {
-    const root = window?.part?.boltCatch;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Bolt Catch model controller loaded (implemented version)');
 
-// Reset Bolt Catch Models
-export function resetModel_BoltCatch() {
-    const modelIDs = ['boltCatch001'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Bolt Catch Models
+// Update Bolt Catch model based on current selection
 export function updateModel_BoltCatch() {
-    const variants = collectVariants_boltCatch();
-    resetModel_BoltCatch();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Bolt Catch model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific bolt catch selection
-export function handleBoltCatchSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Bolt Catch model update - checking current selection');
+  
+  // Get current selected bolt catch from dataController
+  const selected = getSelectedBoltCatch();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_BoltCatch();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Bolt Catch selected: ${itemsID} -> ${modelID}`);
+      // Hide all bolt catch variants first
+      hideAllBoltCatchVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Bolt Catch: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllBoltCatchVariants();
+    console.log('👁️‍🗨️ No Bolt Catch selected - hiding all variants');
+  }
 }
 
-window.resetModel_BoltCatch = resetModel_BoltCatch;
+// Handle Bolt Catch selection from UI
+export function handleBoltCatchSelection(itemsID) {
+  console.log(`🎯 Bolt Catch selection: ${itemsID}`);
+  
+  // Hide all bolt catch variants first
+  hideAllBoltCatchVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Bolt Catch: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Bolt Catch: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all bolt catch variants
+function hideAllBoltCatchVariants() {
+  const boltCatchModels = [
+    'modelID_boltCatch00100101'
+  ];
+  
+  boltCatchModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected bolt catch (from dataController)
+function getSelectedBoltCatch() {
+  if (window.part && window.part.boltCatch) {
+    // Check all brands and products for bolt catch
+    for (const [brandKey, brand] of Object.entries(window.part.boltCatch)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_BoltCatch = updateModel_BoltCatch;
 window.handleBoltCatchSelection = handleBoltCatchSelection;

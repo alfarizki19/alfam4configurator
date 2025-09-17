@@ -1,6 +1,9 @@
 // === dataController_Stock.mjs ===
 // Stock UI Controller (Lower Category)
 
+// Import model controller functions
+import { updateModel_Stock, handleStockSelection } from '../../modelController/modelController_Lower/modelController_Stock.mjs';
+
 function st_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function st_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function st_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -95,6 +98,9 @@ export function uiData_Stock() {
             uiReset_stock001001(); uiReset_stock002001();
             window.part.stock["001"].products["001"].variants["01"].quantity = 1;
             uiData_Stock();
+            
+            // Update 3D model after UI update
+            updateModel_Stock();
         });
     }
 }
@@ -107,6 +113,11 @@ export function uiData_Stock() {
             uiReset_stock001001(); uiReset_stock002001();
             const prod = window.part.stock["001"].products["001"]; if (prod.variants[v]) prod.variants[v].quantity = 1;
             uiData_Stock();
+            
+            // Update 3D model after UI update
+            const itemsID = "stock001001" + v;
+            console.log(`🎯 Part button clicked: ${itemsID}`);
+            handleStockSelection(itemsID);
         });
     });
     ["01","02","03"].forEach(function (v) {
@@ -115,6 +126,11 @@ export function uiData_Stock() {
             uiReset_stock001001(); uiReset_stock002001();
             const prod = window.part.stock["002"].products["001"]; if (prod.variants[v]) prod.variants[v].quantity = 1;
             uiData_Stock();
+            
+            // Update 3D model after UI update
+            const itemsID = "stock002001" + v;
+            console.log(`🎯 Part button clicked: ${itemsID}`);
+            handleStockSelection(itemsID);
         });
     });
 }

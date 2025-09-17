@@ -1,6 +1,9 @@
 // === dataController_mlokForBipod.mjs ===
 // Gear & Acc: MLOK for Bipod (alias UI for mlokAndKeymodRail)
 
+// Import model controller functions
+import { updateModel_MlokForBipod, handleMlokForBipodSelection } from '../../modelController/modelController_Gear/modelController_MlokForBipod.mjs';
+
 function mfb_get(id){ return document.getElementById(id); }
 function mfb_setText(id,t){ const el=mfb_get(id); if(el) el.textContent=t; }
 function mfb_addClass(id,c){ const el=mfb_get(id); if(el) el.classList.add(c); }
@@ -31,8 +34,64 @@ export function uiData_mlokForBipod(){ const a=mfb_getProdA(); const b=mfb_getPr
  if(a){ mfb_setText('productName_mlokAndKeymodRail001001_forbipod', a.productTitle); mfb_setText('productPricing_mlokAndKeymodRail001001_forbipod', a.variants['01'].price + ' USD'); }
 }
 
-(function(){ const start=mfb_get('buttonModalStartMenu_StartButton'); if(start){ start.addEventListener('click', function(){ uiReset_mlokForBipod001001(); uiReset_mlokForBipod002001(); window.__mlokSummaryMode='forBipod'; uiData_mlokForBipod(); }); }
- const aBtn=mfb_get('buttonItems_mlokAndKeymodRail00100101_forbipod'); if(aBtn){ aBtn.addEventListener('click', function(){ const a=mfb_getProdA(); const b=mfb_getProdB(); if(b && b.variants['01']) b.variants['01'].quantity = 0; if(a && a.variants['01']) a.variants['01'].quantity = Math.max(0,(a.variants['01'].quantity||0) + 1); window.__mlokLastSelected='A'; window.__mlokSummaryMode='forBipod'; uiData_mlokForBipod(); }); }
- const bBtn=mfb_get('buttonItems_mlokAndKeymodRail00200101_forbipod'); if(bBtn){ bBtn.addEventListener('click', function(){ const a=mfb_getProdA(); const b=mfb_getProdB(); if(a && a.variants['01']) a.variants['01'].quantity = 0; if(b && b.variants['01']) b.variants['01'].quantity = Math.max(0,(b.variants['01'].quantity||0) + 1); window.__mlokLastSelected='B'; window.__mlokSummaryMode='forBipod'; uiData_mlokForBipod(); }); }
- const jump=mfb_get('buttonKeMenuMlokForBipod_bipod001001'); if(jump){ jump.addEventListener('click', function(){ window.__mlokSummaryMode='forBipod'; uiData_mlokForBipod(); }); }
+(function(){ 
+  const start=mfb_get('buttonModalStartMenu_StartButton'); 
+  if(start){ 
+    start.addEventListener('click', function(){ 
+      uiReset_mlokForBipod001001(); 
+      uiReset_mlokForBipod002001(); 
+      window.__mlokSummaryMode='forBipod'; 
+      uiData_mlokForBipod(); 
+      
+      // Update 3D model after UI update
+      updateModel_MlokForBipod();
+    }); 
+  }
+  
+  const aBtn=mfb_get('buttonItems_mlokAndKeymodRail00100101_forbipod'); 
+  if(aBtn){ 
+    aBtn.addEventListener('click', function(){ 
+      const a=mfb_getProdA(); 
+      const b=mfb_getProdB(); 
+      if(b && b.variants['01']) b.variants['01'].quantity = 0; 
+      if(a && a.variants['01']) a.variants['01'].quantity = Math.max(0,(a.variants['01'].quantity||0) + 1); 
+      window.__mlokLastSelected='A'; 
+      window.__mlokSummaryMode='forBipod'; 
+      uiData_mlokForBipod(); 
+      
+      // Update 3D model after UI update
+      const itemsID = "mlokAndKeymodRail00100101";
+      console.log(`🎯 M-LOK for Bipod button clicked: ${itemsID}`);
+      handleMlokForBipodSelection(itemsID);
+    }); 
+  }
+  
+  const bBtn=mfb_get('buttonItems_mlokAndKeymodRail00200101_forbipod'); 
+  if(bBtn){ 
+    bBtn.addEventListener('click', function(){ 
+      const a=mfb_getProdA(); 
+      const b=mfb_getProdB(); 
+      if(a && a.variants['01']) a.variants['01'].quantity = 0; 
+      if(b && b.variants['01']) b.variants['01'].quantity = Math.max(0,(b.variants['01'].quantity||0) + 1); 
+      window.__mlokLastSelected='B'; 
+      window.__mlokSummaryMode='forBipod'; 
+      uiData_mlokForBipod(); 
+      
+      // Update 3D model after UI update
+      const itemsID = "mlokAndKeymodRail00200101";
+      console.log(`🎯 M-LOK for Bipod button clicked: ${itemsID}`);
+      handleMlokForBipodSelection(itemsID);
+    }); 
+  }
+  
+  const jump=mfb_get('buttonKeMenuMlokForBipod_bipod001001'); 
+  if(jump){ 
+    jump.addEventListener('click', function(){ 
+      window.__mlokSummaryMode='forBipod'; 
+      uiData_mlokForBipod(); 
+      
+      // Update 3D model after UI update
+      updateModel_MlokForBipod();
+    }); 
+  }
 })();

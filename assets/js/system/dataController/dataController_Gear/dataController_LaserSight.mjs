@@ -1,6 +1,9 @@
 // === dataController_LaserSight.mjs ===
 // Gear & Acc: Laser Sight controller
 
+// Import model controller functions
+import { updateModel_LaserSight, handleLaserSightSelection } from '../../modelController/modelController_Gear/modelController_LaserSight.mjs';
+
 function ls_get(id){ return document.getElementById(id); }
 function ls_setText(id,t){ const el=ls_get(id); if(el) el.textContent=t; }
 function ls_addClass(id,c){ const el=ls_get(id); if(el) el.classList.add(c); }
@@ -34,9 +37,48 @@ export function uiData_LaserSight(){ const p=ls_getProduct(); const sel=p && p.v
  ls_addClass('productHeader_laserSight00100101','active'); ls_addClass('productButtonIcon_laserSight001001','active'); ls_removeClass('productHeader_noLaserSight','active'); ls_removeClass('productButtonIcon_NoLaserSight','active');
 }
 
-(function(){ const start=ls_get('buttonModalStartMenu_StartButton'); if(start){ start.addEventListener('click', function(){ uiReset_laserSight(); uiData_LaserSight(); }); }
- const noBtn=ls_get('buttonItems_noLaserSight'); if(noBtn){ noBtn.addEventListener('click', function(){ uiReset_laserSight(); uiData_LaserSight(); }); }
- const pick=ls_get('buttonItems_laserSight00100101'); if(pick){ pick.addEventListener('click', function(){ const p=ls_getProduct(); if(p){ p.variants['01'].quantity=1; } uiData_LaserSight(); }); }
+(function(){ 
+	const start=ls_get('buttonModalStartMenu_StartButton'); 
+	if(start){ 
+		start.addEventListener('click', function(){ 
+			uiReset_laserSight(); 
+			uiData_LaserSight(); 
+			
+			// Update 3D model after UI update
+			updateModel_LaserSight();
+		}); 
+	}
+	
+	const noBtn=ls_get('buttonItems_noLaserSight'); 
+	if(noBtn){ 
+		noBtn.addEventListener('click', function(){ 
+			console.log(`🎯 No Laser Sight button clicked`);
+			
+			// 1. Reset UI and data (set quantity = 0) - same pattern as Warden
+			uiReset_laserSight(); 
+			uiData_LaserSight(); 
+			
+			// 2. Update 3D model after UI update (hide all laser sight models) - same pattern as Warden
+			updateModel_LaserSight();
+		}); 
+	}
+	
+	const pick=ls_get('buttonItems_laserSight00100101'); 
+	if(pick){ 
+		pick.addEventListener('click', function(){ 
+			// Same pattern as Warden: set quantity and update UI
+			const p=ls_getProduct(); 
+			if(p){ 
+				p.variants['01'].quantity=1; 
+			} 
+			uiData_LaserSight(); 
+			
+			// Update 3D model after UI update - same pattern as Warden
+			const itemsID = "laserSight00100101";
+			console.log(`🎯 Laser Sight button clicked: ${itemsID}`);
+			handleLaserSightSelection(itemsID);
+		}); 
+	}
 })();
 
 export function getSelectedLaserSight(){ const p=ls_getProduct(); if(p && p.variants['01'].quantity===1) return p.variants['01']; return null; }

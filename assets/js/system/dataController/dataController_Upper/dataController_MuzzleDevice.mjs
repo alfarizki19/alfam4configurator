@@ -1,6 +1,9 @@
 // === dataController_MuzzleDevice.mjs ===
 // Muzzle Device UI Controller (Upper Category)
 
+// Import model controller functions
+import { updateModel_MuzzleDevice, handleMuzzleDeviceSelection } from '../../modelController/modelController_Upper/modelController_MuzzleDevice.mjs';
+
 function md_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function md_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function md_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -195,6 +198,9 @@ export function uiData_MuzzleDevice() {
 			uiReset_muzzleDevice002002();
 			window.part.muzzleDevice["001"].products["001"].variants["01"].quantity = 1;
 			uiData_MuzzleDevice();
+			
+			// Update 3D model after UI update
+			updateModel_MuzzleDevice();
 		});
 	}
 }
@@ -206,27 +212,51 @@ export function uiData_MuzzleDevice() {
 		const wasSelected = !!(window.part && window.part.muzzleDevice && window.part.muzzleDevice["001"] && window.part.muzzleDevice["001"].products && window.part.muzzleDevice["001"].products["001"] && window.part.muzzleDevice["001"].products["001"].variants && window.part.muzzleDevice["001"].products["001"].variants["01"] && window.part.muzzleDevice["001"].products["001"].variants["01"].quantity === 1);
 		md_hideProductImages_002002(); md_showDefaultImage_00200201();
 		uiReset_muzzleDevice001001(); uiReset_muzzleDevice001002(); uiReset_muzzleDevice002002();
-		if (!wasSelected) { md_zeroWardenQuantities(); if (window.uiData_Warden) { try { window.uiData_Warden(); } catch(e){} } }
+		// Always reset warden when switching base muzzle device
+		if (window.noWarden) { try { window.noWarden(); } catch(e){} }
+		if (window.uiData_Warden) { try { window.uiData_Warden(); } catch(e){} }
 		window.part.muzzleDevice["001"].products["001"].variants["01"].quantity = 1;
 		uiData_MuzzleDevice();
+		
+		// Update 3D model after UI update (similar to buttonItems_noWarden)
+		updateModel_MuzzleDevice();
+		const itemsID = "muzzleDevice00100101";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleMuzzleDeviceSelection(itemsID);
 	});
 	const b100201 = document.getElementById("buttonItems_muzzleDevice00100201") || document.getElementById("buttonProductDetail_muzzleDevice001002");
 	if (b100201) b100201.addEventListener("click", function () {
 		const wasSelected = !!(window.part && window.part.muzzleDevice && window.part.muzzleDevice["001"] && window.part.muzzleDevice["001"].products && window.part.muzzleDevice["001"].products["002"] && window.part.muzzleDevice["001"].products["002"].variants && window.part.muzzleDevice["001"].products["002"].variants["01"] && window.part.muzzleDevice["001"].products["002"].variants["01"].quantity === 1);
 		md_hideProductImages_002002(); md_showDefaultImage_00200201();
 		uiReset_muzzleDevice001001(); uiReset_muzzleDevice001002(); uiReset_muzzleDevice002002();
-		if (!wasSelected) { md_zeroWardenQuantities(); if (window.uiData_Warden) { try { window.uiData_Warden(); } catch(e){} } }
+		// Always reset warden when switching base muzzle device
+		if (window.noWarden) { try { window.noWarden(); } catch(e){} }
+		if (window.uiData_Warden) { try { window.uiData_Warden(); } catch(e){} }
 		window.part.muzzleDevice["001"].products["002"].variants["01"].quantity = 1;
 		uiData_MuzzleDevice();
+		
+		// Update 3D model after UI update (similar to buttonItems_noWarden)
+		updateModel_MuzzleDevice();
+		const itemsID = "muzzleDevice00100201";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleMuzzleDeviceSelection(itemsID);
 	});
 	["01", "02"].forEach(function (v) {
 		const b2002 = document.getElementById("buttonItems_muzzleDevice002002" + v);
 		if (b2002) b2002.addEventListener("click", function () {
 			const wasSelected = !!(window.part && window.part.muzzleDevice && window.part.muzzleDevice["002"] && window.part.muzzleDevice["002"].products && window.part.muzzleDevice["002"].products["002"] && window.part.muzzleDevice["002"].products["002"].variants && window.part.muzzleDevice["002"].products["002"].variants[v] && window.part.muzzleDevice["002"].products["002"].variants[v].quantity === 1);
 			uiReset_muzzleDevice001001(); uiReset_muzzleDevice001002(); uiReset_muzzleDevice002002();
-			if (!wasSelected) { md_zeroWardenQuantities(); if (window.uiData_Warden) { try { window.uiData_Warden(); } catch(e){} } }
+			// Always reset warden when switching base muzzle device
+		if (window.noWarden) { try { window.noWarden(); } catch(e){} }
+		if (window.uiData_Warden) { try { window.uiData_Warden(); } catch(e){} }
 			window.part.muzzleDevice["002"].products["002"].variants[v].quantity = 1;
 			uiData_MuzzleDevice();
+			
+			// Update 3D model after UI update (similar to buttonItems_noWarden)
+			updateModel_MuzzleDevice();
+			const itemsID = "muzzleDevice002002" + v;
+			console.log(`🎯 Part button clicked: ${itemsID}`);
+			handleMuzzleDeviceSelection(itemsID);
 		});
 	});
 }

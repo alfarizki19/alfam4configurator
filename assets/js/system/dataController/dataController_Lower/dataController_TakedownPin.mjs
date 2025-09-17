@@ -1,6 +1,9 @@
 // === dataController_TakedownPin.mjs ===
 // Takedown Pin Set UI Controller (Lower Category)
 
+// Import model controller functions
+import { updateModel_TakedownPin, handleTakedownPinSelection } from '../../modelController/modelController_Lower/modelController_TakedownPin.mjs';
+
 // Helpers
 function tk_setText(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
 function tk_addClass(id,c){ const el=document.getElementById(id); if(el) el.classList.add(c); }
@@ -138,12 +141,33 @@ export function uiData_TakedownPinSet(){
     tk_hideLowerImages(); tk_showLower("001001","01");
     window.part.takedownPin["001"].products["001"].variants["01"].quantity=1;
     uiData_TakedownPinSet();
+    
+    // Update 3D model after UI update
+    updateModel_TakedownPin();
 }); }
 
 // Selection listeners
-{ ["01","02"].forEach(function(v){ const b=document.getElementById("buttonItems_takedownPinSet001001"+v); if(b) b.addEventListener("click", function(){ uiReset_takedownPinSet001001(); uiReset_takedownPinSet002001(); uiReset_takedownPinSet003001(); window.part.takedownPin["001"].products["001"].variants[v].quantity=1; uiData_TakedownPinSet(); }); }); }
-{ ["01","02","03","04","05","06","07","08","09","10"].forEach(function(v){ const b=document.getElementById("buttonItems_takedownPinSet002001"+v); if(b) b.addEventListener("click", function(){ uiReset_takedownPinSet001001(); uiReset_takedownPinSet002001(); uiReset_takedownPinSet003001(); window.part.takedownPin["002"].products["001"].variants[v].quantity=1; uiData_TakedownPinSet(); }); }); }
-{ const b=document.getElementById("buttonItems_takedownPinSet003001"); if(b) b.addEventListener("click", function(){ uiReset_takedownPinSet001001(); uiReset_takedownPinSet002001(); uiReset_takedownPinSet003001(); window.part.takedownPin["003"].products["001"].variants["01"].quantity=1; uiData_TakedownPinSet(); }); }
+{ ["01","02"].forEach(function(v){ const b=document.getElementById("buttonItems_takedownPinSet001001"+v); if(b) b.addEventListener("click", function(){ uiReset_takedownPinSet001001(); uiReset_takedownPinSet002001(); uiReset_takedownPinSet003001(); window.part.takedownPin["001"].products["001"].variants[v].quantity=1; uiData_TakedownPinSet(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "takedownPinSet001001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleTakedownPinSelection(itemsID);
+    }); }); }
+{ ["01","02","03","04","05","06","07","08","09","10"].forEach(function(v){ const b=document.getElementById("buttonItems_takedownPinSet002001"+v); if(b) b.addEventListener("click", function(){ uiReset_takedownPinSet001001(); uiReset_takedownPinSet002001(); uiReset_takedownPinSet003001(); window.part.takedownPin["002"].products["001"].variants[v].quantity=1; uiData_TakedownPinSet(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "takedownPinSet002001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleTakedownPinSelection(itemsID);
+    }); }); }
+{ const b=document.getElementById("buttonItems_takedownPinSet003001"); if(b) b.addEventListener("click", function(){ uiReset_takedownPinSet001001(); uiReset_takedownPinSet002001(); uiReset_takedownPinSet003001(); window.part.takedownPin["003"].products["001"].variants["01"].quantity=1; uiData_TakedownPinSet(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "takedownPinSet00300101";
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleTakedownPinSelection(itemsID);
+    }); }
 
 // Exports for price calc
 export function getSelectedTakedownPinSet(){

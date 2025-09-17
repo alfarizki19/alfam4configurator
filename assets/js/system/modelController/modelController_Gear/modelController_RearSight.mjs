@@ -1,139 +1,222 @@
-// Model Controller for Rear Sight (Gear) - with state controls
+// Model Controller for Rear Sight - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Rear Sight parts with Open/Folded toggle
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_rearSight() {
-    const root = window?.part?.rearSight;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Rear Sight model controller loaded (implemented version)');
 
-// Reset Rear Sight Models
-export function resetModel_RearSight() {
-    const modelIDs = ['rearSight001', 'rearSight002'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
+// Global state for tracking current rear sight state
+let currentRearSightState = {
+  selected: null, // 'rearSight00100101' or 'rearSight00200101'
+  mode: 'A' // 'A' (open) or 'B' (folded)
+};
 
-// Update Rear Sight Models
+// Update Rear Sight model based on current selection
 export function updateModel_RearSight() {
-    const variants = collectVariants_rearSight();
-    resetModel_RearSight();
+  console.log('🔧 Rear Sight model update - checking current selection');
+  
+  // Get current selected rear sight from dataController
+  const selected = getSelectedRearSight();
+  if (selected) {
+    currentRearSightState.selected = selected.id;
+    currentRearSightState.mode = 'A'; // Default to open (A)
     
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                // Show default state (_A)
-                const defaultModelID = modelID + 'A';
-                if (modelState.hasOwnProperty(defaultModelID)) {
-                    modelState[defaultModelID] = 1;
-                }
-                
-                // Apply texture
-                applyTexture(v.id);
-                
-                console.log(`Rear Sight model shown: ${defaultModelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
+    // Hide all rear sight variants first
+    hideAllRearSightVariants();
     
-    objectShowHideSystem();
+    // Show selected variant in default mode (A - open)
+    const modelID = `modelID_${selected.id}_A`;
+    showModel(modelID);
+    console.log(`✅ Showing Rear Sight: ${selected.id} -> ${modelID} (default open mode)`);
+    
+    // Update button states
+    updateRearSightButtonStates();
+  } else {
+    // No selection, hide all variants
+    currentRearSightState.selected = null;
+    currentRearSightState.mode = 'A';
+    hideAllRearSightVariants();
+    clearRearSightButtonStates();
+    console.log('👁️‍🗨️ No Rear Sight selected - hiding all variants');
+  }
 }
 
-// Handle Rear Sight State Changes
-export function handleRearSightStateChange(brand, state) {
-    // Check if rear sight is selected
-    const variants = collectVariants_rearSight();
-    const selectedVariant = variants.find(v => v.quantity > 0);
-    
-    if (selectedVariant) {
-        const modelID = getModelIDFromItemsID(selectedVariant.id);
-        if (modelID) {
-            // Hide all rear sight states for this brand
-            const states = ['A', 'B'];
-            states.forEach(s => {
-                const stateModelID = modelID + s;
-                if (modelState.hasOwnProperty(stateModelID)) {
-                    modelState[stateModelID] = 0;
-                }
-            });
-            
-            // Show selected state
-            const selectedModelID = modelID + state;
-            if (modelState.hasOwnProperty(selectedModelID)) {
-                modelState[selectedModelID] = 1;
-            }
-            
-            // Update 3D scene
-            objectShowHideSystem();
-            
-            console.log(`Rear Sight ${brand} state changed to: ${state} (${selectedModelID})`);
-        }
-    }
-}
-
-// Handle specific rear sight selection
+// Handle Rear Sight selection from UI
 export function handleRearSightSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
-    if (modelID) {
-        resetModel_RearSight();
-        
-        // Show default state (_A)
-        const defaultModelID = modelID + 'A';
-        if (modelState.hasOwnProperty(defaultModelID)) {
-            modelState[defaultModelID] = 1;
-        }
-        
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Rear Sight selected: ${itemsID} -> ${defaultModelID} (default state)`);
-    }
+  console.log(`🎯 Rear Sight selection: ${itemsID}`);
+  
+  // Hide all rear sight variants first
+  hideAllRearSightVariants();
+  
+  // Set current state
+  currentRearSightState.selected = itemsID;
+  currentRearSightState.mode = 'A'; // Default to open (A)
+  
+  // Show selected variant in default mode (A - open)
+  const modelID = `modelID_${itemsID}_A`;
+  showModel(modelID);
+  console.log(`✅ Showing Rear Sight: ${itemsID} -> ${modelID} (default open mode)`);
+  
+  // Update button states
+  updateRearSightButtonStates();
 }
 
-// Get current rear sight state
-export function getCurrentRearSightState() {
-    const variants = collectVariants_rearSight();
-    const selectedVariant = variants.find(v => v.quantity > 0);
+// Handle Rear Sight Open/Folded toggle
+export function handleRearSightToggle(itemsID) {
+  console.log(`🔄 Rear Sight toggle: ${itemsID}`);
+  console.log(`🔍 Current state - selected: ${currentRearSightState.selected}, mode: ${currentRearSightState.mode}`);
+  
+  // If no rear sight is selected, try to select the one being toggled
+  if (!currentRearSightState.selected) {
+    console.log(`🔧 No rear sight selected, attempting to select: ${itemsID}`);
     
-    if (selectedVariant) {
-        const modelID = getModelIDFromItemsID(selectedVariant.id);
-        if (modelID) {
-            const states = ['A', 'B'];
-            for (const state of states) {
-                const stateModelID = modelID + state;
-                if (modelState.hasOwnProperty(stateModelID) && modelState[stateModelID] === 1) {
-                    return state;
-                }
-            }
-        }
+    // Check if this rear sight exists in the data
+    const selected = getSelectedRearSight();
+    if (!selected || selected.id !== itemsID) {
+      console.warn(`⚠️ Cannot toggle ${itemsID} - not selected in data controller`);
+      return;
     }
-    return 'A'; // Default state
+    
+    // Set the current state to the toggled item
+    currentRearSightState.selected = itemsID;
+    currentRearSightState.mode = 'A'; // Default to open (A)
+    
+    // Show the rear sight in default mode (A - open)
+    hideAllRearSightVariants();
+    const modelID = `modelID_${itemsID}_A`;
+    showModel(modelID);
+    console.log(`✅ Showing Rear Sight: ${itemsID} -> ${modelID} (default open mode)`);
+    
+    // Update button states
+    updateRearSightButtonStates();
+    return;
+  }
+  
+  // Check if the toggle is for the currently selected rear sight
+  if (currentRearSightState.selected !== itemsID) {
+    console.warn(`⚠️ Toggle requested for ${itemsID} but current selection is ${currentRearSightState.selected}`);
+    return;
+  }
+  
+  // Toggle between A (open) and B (folded)
+  const newMode = currentRearSightState.mode === 'A' ? 'B' : 'A';
+  console.log(`🔄 Toggling from ${currentRearSightState.mode} to ${newMode}`);
+  currentRearSightState.mode = newMode;
+  
+  // Hide all rear sight variants first
+  hideAllRearSightVariants();
+  
+  // Show selected variant in new mode
+  const modelID = `modelID_${currentRearSightState.selected}_${newMode}`;
+  showModel(modelID);
+  console.log(`✅ Showing Rear Sight: ${currentRearSightState.selected} -> ${modelID} (${newMode === 'A' ? 'open' : 'folded'} mode)`);
+  
+  // Update button states
+  updateRearSightButtonStates();
 }
 
-window.resetModel_RearSight = resetModel_RearSight;
+// Helper function to hide all rear sight variants
+function hideAllRearSightVariants() {
+  const rearSightModels = [
+    // Group 001001 (2 variants: A=open, B=folded)
+    'modelID_rearSight00100101_A',
+    'modelID_rearSight00100101_B',
+    // Group 002001 (2 variants: A=open, B=folded)
+    'modelID_rearSight00200101_A',
+    'modelID_rearSight00200101_B'
+  ];
+  
+  rearSightModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to update button states
+function updateRearSightButtonStates() {
+  console.log(`🔧 Updating button states for: ${currentRearSightState.selected}, mode: ${currentRearSightState.mode}`);
+  
+  if (!currentRearSightState.selected) {
+    clearRearSightButtonStates();
+    return;
+  }
+  
+  // Get both A and B buttons
+  const buttonA_ID = `buttonModelController_${currentRearSightState.selected}_A`;
+  const buttonB_ID = `buttonModelController_${currentRearSightState.selected}_B`;
+  const buttonA = document.getElementById(buttonA_ID);
+  const buttonB = document.getElementById(buttonB_ID);
+  
+  console.log(`🔍 Looking for buttons: ${buttonA_ID}, ${buttonB_ID}`);
+  console.log(`🔍 Button A found: ${!!buttonA}, Button B found: ${!!buttonB}`);
+  
+  // Clear all states first
+  if (buttonA) {
+    buttonA.classList.remove('active');
+    console.log(`🔘 Cleared button A: ${buttonA_ID}`);
+  }
+  if (buttonB) {
+    buttonB.classList.remove('active');
+    console.log(`🔘 Cleared button B: ${buttonB_ID}`);
+  }
+  
+  // Set active state based on current mode
+  if (currentRearSightState.mode === 'A' && buttonA) {
+    buttonA.classList.add('active');
+    console.log(`🔘 Updated button state: ${buttonA_ID} -> active (open mode)`);
+  } else if (currentRearSightState.mode === 'B' && buttonB) {
+    buttonB.classList.add('active');
+    console.log(`🔘 Updated button state: ${buttonB_ID} -> active (folded mode)`);
+  } else {
+    console.warn(`⚠️ Could not set button state - mode: ${currentRearSightState.mode}, buttonA: ${!!buttonA}, buttonB: ${!!buttonB}`);
+  }
+}
+
+// Helper function to clear button states
+function clearRearSightButtonStates() {
+  const buttonIDs = [
+    'buttonModelController_rearSight00100101_A',
+    'buttonModelController_rearSight00100101_B',
+    'buttonModelController_rearSight00200101_A',
+    'buttonModelController_rearSight00200101_B'
+  ];
+  
+  buttonIDs.forEach(buttonID => {
+    const button = document.getElementById(buttonID);
+    if (button) {
+      button.classList.remove('active');
+    }
+  });
+}
+
+// Helper function to get selected rear sight (from dataController)
+function getSelectedRearSight() {
+  if (window.part && window.part.rearSight) {
+    // Check group 001
+    const group001 = window.part.rearSight["001"];
+    if (group001 && group001.products && group001.products["001"]) {
+      const variants = group001.products["001"].variants;
+      for (const [key, variant] of Object.entries(variants)) {
+        if (variant.quantity === 1) {
+          return variant;
+        }
+      }
+    }
+    
+    // Check group 002
+    const group002 = window.part.rearSight["002"];
+    if (group002 && group002.products && group002.products["001"]) {
+      const variants = group002.products["001"].variants;
+      for (const [key, variant] of Object.entries(variants)) {
+        if (variant.quantity === 1) {
+          return variant;
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_RearSight = updateModel_RearSight;
-window.handleRearSightStateChange = handleRearSightStateChange;
 window.handleRearSightSelection = handleRearSightSelection;
-window.getCurrentRearSightState = getCurrentRearSightState;
+window.handleRearSightToggle = handleRearSightToggle;

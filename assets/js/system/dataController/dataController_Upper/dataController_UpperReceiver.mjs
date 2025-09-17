@@ -1,6 +1,9 @@
 // === dataController_UpperReceiver.mjs ===
 // Upper Receiver UI Controller (Upper Category)
 
+// Import model controller functions
+import { updateModel_UpperReceiver, handleUpperReceiverSelection } from '../../modelController/modelController_Upper/modelController_UpperReceiver.mjs';
+
 function ur_setText(id, text) {
 	const el = document.getElementById(id);
 	if (el) el.textContent = text;
@@ -35,6 +38,12 @@ function ur_clearVariantButtons() {
 		const btn = document.getElementById("buttonItems_upperReceiver001001" + v);
 		if (btn) btn.classList.remove("active");
 	});
+}
+
+function ur_showDefaultProductImages() {
+	// Show default variant image (01) for product group
+	const defaultImg = document.getElementById("productImgID_upperReceiver00100101");
+	if (defaultImg) defaultImg.style.display = "flex";
 }
 
 export function uiReset_upperReceiver001001() {
@@ -94,9 +103,19 @@ export function uiData_UpperReceiver() {
 	const btn = document.getElementById("buttonModalStartMenu_StartButton");
 	if (btn) {
 		btn.addEventListener("click", function () {
+			// Hide all product images then show default variant image (01)
+			ur_hideProductImages();
+			ur_showDefaultProductImages();
+			
+			// Reset UI states
 			uiReset_upperReceiver001001();
+			
+			// Select default variant: 00100101
 			window.part.upperReceiver["001"].products["001"].variants["01"].quantity = 1;
 			uiData_UpperReceiver();
+			
+			// Update 3D model after UI update
+			updateModel_UpperReceiver();
 		});
 	}
 }
@@ -105,15 +124,39 @@ export function uiData_UpperReceiver() {
 {
 	const b01 = document.getElementById("buttonItems_upperReceiver00100101");
 	if (b01) b01.addEventListener("click", function () {
+		// Hide all product images then show default variant image (01)
+		ur_hideProductImages();
+		ur_showDefaultProductImages();
+		
+		// Reset UI states
 		uiReset_upperReceiver001001();
+		
+		// Select variant
 		window.part.upperReceiver["001"].products["001"].variants["01"].quantity = 1;
 		uiData_UpperReceiver();
+		
+		// Update 3D model after UI update
+		const itemsID = "upperReceiver00100101";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleUpperReceiverSelection(itemsID);
 	});
 	const b02 = document.getElementById("buttonItems_upperReceiver00100102");
 	if (b02) b02.addEventListener("click", function () {
+		// Hide all product images then show default variant image (01)
+		ur_hideProductImages();
+		ur_showDefaultProductImages();
+		
+		// Reset UI states
 		uiReset_upperReceiver001001();
+		
+		// Select variant
 		window.part.upperReceiver["001"].products["001"].variants["02"].quantity = 1;
 		uiData_UpperReceiver();
+		
+		// Update 3D model after UI update
+		const itemsID = "upperReceiver00100102";
+		console.log(`🎯 Part button clicked: ${itemsID}`);
+		handleUpperReceiverSelection(itemsID);
 	});
 }
 
@@ -129,5 +172,3 @@ export function getUpperReceiverTotalPrice() {
 	const v = getSelectedUpperReceiver();
 	return v ? v.price : 0;
 }
-
-

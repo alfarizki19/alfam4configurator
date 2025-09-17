@@ -1,6 +1,9 @@
 // === dataController_ForwardAssists.mjs ===
 // Forward Assist UI Controller (Upper Category)
 
+// Import model controller functions
+import { updateModel_ForwardAssists, handleForwardAssistsSelection } from '../../modelController/modelController_Upper/modelController_ForwardAssists.mjs';
+
 function fa_setText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function fa_addClass(id, c) { const el = document.getElementById(id); if (el) el.classList.add(c); }
 function fa_removeClass(id, c) { const el = document.getElementById(id); if (el) el.classList.remove(c); }
@@ -22,6 +25,12 @@ function fa_clearVariantButtons() {
 		const btn = document.getElementById("buttonItems_forwardAssists001001" + v);
 		if (btn) btn.classList.remove("active");
 	});
+}
+
+function fa_showDefaultProductImages() {
+	// Show default variant image (01) for product group
+	const defaultImg = document.getElementById("productImgID_forwardAssists00100101");
+	if (defaultImg) defaultImg.style.display = "flex";
 }
 
 export function uiReset_forwardAssists001001() {
@@ -75,9 +84,19 @@ export function uiData_ForwardAssists() {
 	const btn = document.getElementById("buttonModalStartMenu_StartButton");
 	if (btn) {
 		btn.addEventListener("click", function () {
+			// Hide all product images then show default variant image (01)
+			fa_hideProductImages();
+			fa_showDefaultProductImages();
+			
+			// Reset UI states
 			uiReset_forwardAssists001001();
+			
+			// Select default variant: 00100101
 			window.part.forwardAssist["001"].products["001"].variants["01"].quantity = 1;
 			uiData_ForwardAssists();
+			
+			// Update 3D model after UI update
+			updateModel_ForwardAssists();
 		});
 	}
 }
@@ -88,9 +107,21 @@ export function uiData_ForwardAssists() {
 		const b = document.getElementById("buttonItems_forwardAssists001001" + v);
 		if (!b) return;
 		b.addEventListener("click", function () {
+			// Hide all product images then show default variant image (01)
+			fa_hideProductImages();
+			fa_showDefaultProductImages();
+			
+			// Reset UI states
 			uiReset_forwardAssists001001();
+			
+			// Select variant
 			window.part.forwardAssist["001"].products["001"].variants[v].quantity = 1;
 			uiData_ForwardAssists();
+			
+			// Update 3D model after UI update
+			const itemsID = "forwardAssists001001" + v;
+			console.log(`🎯 Part button clicked: ${itemsID}`);
+			handleForwardAssistsSelection(itemsID);
 		});
 	});
 }
@@ -102,5 +133,3 @@ export function getSelectedForwardAssists() {
 export function getForwardAssistsTotalPrice() {
 	const v = getSelectedForwardAssists(); return v ? v.price : 0;
 }
-
-

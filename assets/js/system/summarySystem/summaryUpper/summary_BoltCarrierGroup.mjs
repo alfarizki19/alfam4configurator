@@ -86,5 +86,3 @@ export function updateSummary_BoltCarrierGroup() {
 
 window.resetSummary_BoltCarrierGroup = resetSummary_BoltCarrierGroup;
 window.updateSummary_BoltCarrierGroup = updateSummary_BoltCarrierGroup;
-
-

@@ -1,6 +1,9 @@
 // === dataController_Trigger.mjs ===
 // Trigger UI Controller (Lower Category)
 
+// Import model controller functions
+import { updateModel_Trigger, handleTriggerSelection } from '../../modelController/modelController_Lower/modelController_Trigger.mjs';
+
 // Helpers
 function tr_setText(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
 function tr_addClass(id,c){ const el=document.getElementById(id); if(el) el.classList.add(c); }
@@ -23,11 +26,27 @@ export function uiReset_trigger002001(){ const p=window.part.trigger['002'].prod
 export function uiData_Trigger(){ let sel=null,g=null,title=''; { const v=window.part.trigger['001'].products['001'].variants['01']; if(v.quantity===1){ sel=v; g='001001'; title=window.part.trigger['001'].products['001'].productTitle; } } { const v=window.part.trigger['002'].products['001'].variants; for(const k of ['01','02','03']){ if(v[k]&&v[k].quantity===1){ sel=v[k]; g='002001'; title=window.part.trigger['002'].products['001'].productTitle; } } } if(!sel) return; tr_setText('productPricing_trigger'+g, sel.price+' USD'); tr_addClass('productHeader_trigger'+g, 'active'); tr_hideHeaderImages(g); const h=document.getElementById('productImgID_'+sel.id); if(h) h.style.display='flex'; ['001001','002001'].forEach(function(x){ if(x!==g){ tr_hideHeaderImages(x); tr_showHeaderDefault(x); }}); const suffix = (sel.variantTitle && sel.variantTitle.toLowerCase()!=='no variant') ? (' - '+sel.variantTitle) : ''; tr_setText('productName_trigger'+g, title+suffix); tr_hideLowerImages(); const wrap=tr_getLowerWrap(); let lower = document.getElementById('partImgID_'+sel.id); if(!lower && wrap){ lower = Array.from(wrap.querySelectorAll('img, image, Image')).find(function(el){ const src=(el.getAttribute('src')||''); return src.indexOf(sel.id) !== -1; }); } if(lower) lower.style.display='flex'; tr_setText('partName_Trigger', title+suffix); tr_setText('partPrice_Trigger', sel.price+' USD'); tr_clearHeaderIcons(); tr_setHeaderIconActive(g); tr_clearVariantButtons(g); const vb=document.getElementById('buttonItems_'+sel.id); if(vb) vb.classList.add('active'); }
 
 // Start default: 00100101
-{ const btn=document.getElementById('buttonModalStartMenu_StartButton'); if(btn) btn.addEventListener('click', function(){ uiReset_trigger001001(); uiReset_trigger002001(); tr_hideHeaderImages('001001'); tr_hideHeaderImages('002001'); tr_showHeaderDefault('001001'); tr_showHeaderDefault('002001'); tr_hideLowerImages(); const d1=document.getElementById('partImgID_trigger00100101'); if(d1) d1.style.display='flex'; window.part.trigger['001'].products['001'].variants['01'].quantity=1; uiData_Trigger(); }); }
+{ const btn=document.getElementById('buttonModalStartMenu_StartButton'); if(btn) btn.addEventListener('click', function(){ uiReset_trigger001001(); uiReset_trigger002001(); tr_hideHeaderImages('001001'); tr_hideHeaderImages('002001'); tr_showHeaderDefault('001001'); tr_showHeaderDefault('002001'); tr_hideLowerImages(); const d1=document.getElementById('partImgID_trigger00100101'); if(d1) d1.style.display='flex'; window.part.trigger['001'].products['001'].variants['01'].quantity=1; uiData_Trigger(); 
+    
+    // Update 3D model after UI update
+    updateModel_Trigger();
+    }); }
 
 // Item listeners
-{ const b=document.getElementById('buttonItems_trigger00100101'); if(b) b.addEventListener('click', function(){ uiReset_trigger001001(); uiReset_trigger002001(); window.part.trigger['001'].products['001'].variants['01'].quantity=1; uiData_Trigger(); }); }
-{ ['01','02','03'].forEach(function(v){ const b=document.getElementById('buttonItems_trigger002001'+v); if(b) b.addEventListener('click', function(){ uiReset_trigger001001(); uiReset_trigger002001(); window.part.trigger['002'].products['001'].variants[v].quantity=1; uiData_Trigger(); }); }); }
+{ const b=document.getElementById('buttonItems_trigger00100101'); if(b) b.addEventListener('click', function(){ uiReset_trigger001001(); uiReset_trigger002001(); window.part.trigger['001'].products['001'].variants['01'].quantity=1; uiData_Trigger(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "trigger00100101";
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleTriggerSelection(itemsID);
+    }); }
+{ ['01','02','03'].forEach(function(v){ const b=document.getElementById('buttonItems_trigger002001'+v); if(b) b.addEventListener('click', function(){ uiReset_trigger001001(); uiReset_trigger002001(); window.part.trigger['002'].products['001'].variants[v].quantity=1; uiData_Trigger(); 
+    
+    // Update 3D model after UI update
+    const itemsID = "trigger002001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleTriggerSelection(itemsID);
+    }); }); }
 
 export function getSelectedTrigger(){ const a=window.part.trigger['001'].products['001'].variants['01']; if(a.quantity===1) return a; const b=window.part.trigger['002'].products['001'].variants; for(const k of ['01','02','03']){ if(b[k]&&b[k].quantity===1) return b[k]; } return null; }
 export function getTriggerTotalPrice(){ const v=getSelectedTrigger(); return v? v.price:0; }

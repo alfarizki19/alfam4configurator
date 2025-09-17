@@ -1,139 +1,222 @@
-// Model Controller for Front Sight (Gear) - with state controls
+// Model Controller for Front Sight - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Front Sight parts with Open/Folded toggle
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_frontSight() {
-    const root = window?.part?.frontSight;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Front Sight model controller loaded (implemented version)');
 
-// Reset Front Sight Models
-export function resetModel_FrontSight() {
-    const modelIDs = ['frontSight001', 'frontSight002'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
+// Global state for tracking current front sight state
+let currentFrontSightState = {
+  selected: null, // 'frontSight00100101' or 'frontSight00200101'
+  mode: 'B' // 'A' (folded) or 'B' (open)
+};
 
-// Update Front Sight Models
+// Update Front Sight model based on current selection
 export function updateModel_FrontSight() {
-    const variants = collectVariants_frontSight();
-    resetModel_FrontSight();
+  console.log('🔧 Front Sight model update - checking current selection');
+  
+  // Get current selected front sight from dataController
+  const selected = getSelectedFrontSight();
+  if (selected) {
+    currentFrontSightState.selected = selected.id;
+    currentFrontSightState.mode = 'B'; // Default to open (B)
     
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                // Show default state (_A)
-                const defaultModelID = modelID + 'A';
-                if (modelState.hasOwnProperty(defaultModelID)) {
-                    modelState[defaultModelID] = 1;
-                }
-                
-                // Apply texture
-                applyTexture(v.id);
-                
-                console.log(`Front Sight model shown: ${defaultModelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
+    // Hide all front sight variants first
+    hideAllFrontSightVariants();
     
-    objectShowHideSystem();
+    // Show selected variant in default mode (B - open)
+    const modelID = `modelID_${selected.id}_B`;
+    showModel(modelID);
+    console.log(`✅ Showing Front Sight: ${selected.id} -> ${modelID} (default open mode)`);
+    
+    // Update button states
+    updateFrontSightButtonStates();
+  } else {
+    // No selection, hide all variants
+    currentFrontSightState.selected = null;
+    currentFrontSightState.mode = 'B';
+    hideAllFrontSightVariants();
+    clearFrontSightButtonStates();
+    console.log('👁️‍🗨️ No Front Sight selected - hiding all variants');
+  }
 }
 
-// Handle Front Sight State Changes
-export function handleFrontSightStateChange(brand, state) {
-    // Check if front sight is selected
-    const variants = collectVariants_frontSight();
-    const selectedVariant = variants.find(v => v.quantity > 0);
-    
-    if (selectedVariant) {
-        const modelID = getModelIDFromItemsID(selectedVariant.id);
-        if (modelID) {
-            // Hide all front sight states for this brand
-            const states = ['A', 'B'];
-            states.forEach(s => {
-                const stateModelID = modelID + s;
-                if (modelState.hasOwnProperty(stateModelID)) {
-                    modelState[stateModelID] = 0;
-                }
-            });
-            
-            // Show selected state
-            const selectedModelID = modelID + state;
-            if (modelState.hasOwnProperty(selectedModelID)) {
-                modelState[selectedModelID] = 1;
-            }
-            
-            // Update 3D scene
-            objectShowHideSystem();
-            
-            console.log(`Front Sight ${brand} state changed to: ${state} (${selectedModelID})`);
-        }
-    }
-}
-
-// Handle specific front sight selection
+// Handle Front Sight selection from UI
 export function handleFrontSightSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
-    if (modelID) {
-        resetModel_FrontSight();
-        
-        // Show default state (_A)
-        const defaultModelID = modelID + 'A';
-        if (modelState.hasOwnProperty(defaultModelID)) {
-            modelState[defaultModelID] = 1;
-        }
-        
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Front Sight selected: ${itemsID} -> ${defaultModelID} (default state)`);
-    }
+  console.log(`🎯 Front Sight selection: ${itemsID}`);
+  
+  // Hide all front sight variants first
+  hideAllFrontSightVariants();
+  
+  // Set current state
+  currentFrontSightState.selected = itemsID;
+  currentFrontSightState.mode = 'B'; // Default to open (B)
+  
+  // Show selected variant in default mode (B - open)
+  const modelID = `modelID_${itemsID}_B`;
+  showModel(modelID);
+  console.log(`✅ Showing Front Sight: ${itemsID} -> ${modelID} (default open mode)`);
+  
+  // Update button states
+  updateFrontSightButtonStates();
 }
 
-// Get current front sight state
-export function getCurrentFrontSightState() {
-    const variants = collectVariants_frontSight();
-    const selectedVariant = variants.find(v => v.quantity > 0);
+// Handle Front Sight Open/Folded toggle
+export function handleFrontSightToggle(itemsID) {
+  console.log(`🔄 Front Sight toggle: ${itemsID}`);
+  console.log(`🔍 Current state - selected: ${currentFrontSightState.selected}, mode: ${currentFrontSightState.mode}`);
+  
+  // If no front sight is selected, try to select the one being toggled
+  if (!currentFrontSightState.selected) {
+    console.log(`🔧 No front sight selected, attempting to select: ${itemsID}`);
     
-    if (selectedVariant) {
-        const modelID = getModelIDFromItemsID(selectedVariant.id);
-        if (modelID) {
-            const states = ['A', 'B'];
-            for (const state of states) {
-                const stateModelID = modelID + state;
-                if (modelState.hasOwnProperty(stateModelID) && modelState[stateModelID] === 1) {
-                    return state;
-                }
-            }
-        }
+    // Check if this front sight exists in the data
+    const selected = getSelectedFrontSight();
+    if (!selected || selected.id !== itemsID) {
+      console.warn(`⚠️ Cannot toggle ${itemsID} - not selected in data controller`);
+      return;
     }
-    return 'A'; // Default state
+    
+    // Set the current state to the toggled item
+    currentFrontSightState.selected = itemsID;
+    currentFrontSightState.mode = 'B'; // Default to open (B)
+    
+    // Show the front sight in default mode (B - open)
+    hideAllFrontSightVariants();
+    const modelID = `modelID_${itemsID}_B`;
+    showModel(modelID);
+    console.log(`✅ Showing Front Sight: ${itemsID} -> ${modelID} (default open mode)`);
+    
+    // Update button states
+    updateFrontSightButtonStates();
+    return;
+  }
+  
+  // Check if the toggle is for the currently selected front sight
+  if (currentFrontSightState.selected !== itemsID) {
+    console.warn(`⚠️ Toggle requested for ${itemsID} but current selection is ${currentFrontSightState.selected}`);
+    return;
+  }
+  
+  // Toggle between A (folded) and B (open)
+  const newMode = currentFrontSightState.mode === 'A' ? 'B' : 'A';
+  console.log(`🔄 Toggling from ${currentFrontSightState.mode} to ${newMode}`);
+  currentFrontSightState.mode = newMode;
+  
+  // Hide all front sight variants first
+  hideAllFrontSightVariants();
+  
+  // Show selected variant in new mode
+  const modelID = `modelID_${currentFrontSightState.selected}_${newMode}`;
+  showModel(modelID);
+  console.log(`✅ Showing Front Sight: ${currentFrontSightState.selected} -> ${modelID} (${newMode === 'A' ? 'folded' : 'open'} mode)`);
+  
+  // Update button states
+  updateFrontSightButtonStates();
 }
 
-window.resetModel_FrontSight = resetModel_FrontSight;
+// Helper function to hide all front sight variants
+function hideAllFrontSightVariants() {
+  const frontSightModels = [
+    // Group 001001 (2 variants: A=open, B=folded)
+    'modelID_frontSight00100101_A',
+    'modelID_frontSight00100101_B',
+    // Group 002001 (2 variants: A=open, B=folded)
+    'modelID_frontSight00200101_A',
+    'modelID_frontSight00200101_B'
+  ];
+  
+  frontSightModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to update button states
+function updateFrontSightButtonStates() {
+  console.log(`🔧 Updating button states for: ${currentFrontSightState.selected}, mode: ${currentFrontSightState.mode}`);
+  
+  if (!currentFrontSightState.selected) {
+    clearFrontSightButtonStates();
+    return;
+  }
+  
+  // Get both A and B buttons
+  const buttonA_ID = `buttonModelController_${currentFrontSightState.selected}_A`;
+  const buttonB_ID = `buttonModelController_${currentFrontSightState.selected}_B`;
+  const buttonA = document.getElementById(buttonA_ID);
+  const buttonB = document.getElementById(buttonB_ID);
+  
+  console.log(`🔍 Looking for buttons: ${buttonA_ID}, ${buttonB_ID}`);
+  console.log(`🔍 Button A found: ${!!buttonA}, Button B found: ${!!buttonB}`);
+  
+  // Clear all states first
+  if (buttonA) {
+    buttonA.classList.remove('active');
+    console.log(`🔘 Cleared button A: ${buttonA_ID}`);
+  }
+  if (buttonB) {
+    buttonB.classList.remove('active');
+    console.log(`🔘 Cleared button B: ${buttonB_ID}`);
+  }
+  
+  // Set active state based on current mode
+  if (currentFrontSightState.mode === 'A' && buttonA) {
+    buttonA.classList.add('active');
+    console.log(`🔘 Updated button state: ${buttonA_ID} -> active (folded mode)`);
+  } else if (currentFrontSightState.mode === 'B' && buttonB) {
+    buttonB.classList.add('active');
+    console.log(`🔘 Updated button state: ${buttonB_ID} -> active (open mode)`);
+  } else {
+    console.warn(`⚠️ Could not set button state - mode: ${currentFrontSightState.mode}, buttonA: ${!!buttonA}, buttonB: ${!!buttonB}`);
+  }
+}
+
+// Helper function to clear button states
+function clearFrontSightButtonStates() {
+  const buttonIDs = [
+    'buttonModelController_frontSight00100101_A',
+    'buttonModelController_frontSight00100101_B',
+    'buttonModelController_frontSight00200101_A',
+    'buttonModelController_frontSight00200101_B'
+  ];
+  
+  buttonIDs.forEach(buttonID => {
+    const button = document.getElementById(buttonID);
+    if (button) {
+      button.classList.remove('active');
+    }
+  });
+}
+
+// Helper function to get selected front sight (from dataController)
+function getSelectedFrontSight() {
+  if (window.part && window.part.frontSight) {
+    // Check group 001
+    const group001 = window.part.frontSight["001"];
+    if (group001 && group001.products && group001.products["001"]) {
+      const variants = group001.products["001"].variants;
+      for (const [key, variant] of Object.entries(variants)) {
+        if (variant.quantity === 1) {
+          return variant;
+        }
+      }
+    }
+    
+    // Check group 002
+    const group002 = window.part.frontSight["002"];
+    if (group002 && group002.products && group002.products["001"]) {
+      const variants = group002.products["001"].variants;
+      for (const [key, variant] of Object.entries(variants)) {
+        if (variant.quantity === 1) {
+          return variant;
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_FrontSight = updateModel_FrontSight;
-window.handleFrontSightStateChange = handleFrontSightStateChange;
 window.handleFrontSightSelection = handleFrontSightSelection;
-window.getCurrentFrontSightState = getCurrentFrontSightState;
+window.handleFrontSightToggle = handleFrontSightToggle;

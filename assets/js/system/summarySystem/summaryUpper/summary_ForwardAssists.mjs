@@ -30,7 +30,7 @@ export function resetSummary_ForwardAssists() {
 
 function getTitleAndPriceById_FA(variantId) {
     const root = window?.part?.forwardAssist;
-    if (!root) return { title: "", price: undefined };
+    if (!root) return { title: "", price: undefined, variantTitle: "" };
     for (const brandKey in root) {
         const brandNode = root[brandKey];
         const products = brandNode?.products || {};
@@ -41,12 +41,16 @@ function getTitleAndPriceById_FA(variantId) {
             for (const vKey in variants) {
                 const v = variants[vKey];
                 if (v?.id === variantId) {
-                    return { title: productTitle, price: Number(v.price) };
+                    return { 
+                        title: productTitle, 
+                        price: Number(v.price),
+                        variantTitle: v?.variantTitle || ""
+                    };
                 }
             }
         }
     }
-    return { title: "", price: undefined };
+    return { title: "", price: undefined, variantTitle: "" };
 }
 
 function formatUsd(amount) {
@@ -83,5 +87,3 @@ export function updateSummary_ForwardAssists() {
 
 window.resetSummary_ForwardAssists = resetSummary_ForwardAssists;
 window.updateSummary_ForwardAssists = updateSummary_ForwardAssists;
-
-

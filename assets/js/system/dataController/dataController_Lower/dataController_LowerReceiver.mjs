@@ -1,6 +1,9 @@
 // === dataController_LowerReceiver.mjs ===
 // Lower Receiver UI Controller (Lower Category)
 
+// Import model controller functions
+import { updateModel_LowerReceiver, handleLowerReceiverSelection } from '../../modelController/modelController_Lower/modelController_LowerReceiver.mjs';
+
 function lr_setText(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
 function lr_addClass(id,c){ const el=document.getElementById(id); if(el) el.classList.add(c); }
 function lr_removeClass(id,c){ const el=document.getElementById(id); if(el) el.classList.remove(c); }
@@ -25,6 +28,9 @@ export function uiData_LowerReceiver(){ const prod=window.part.lowerReceiver["00
     // enforce icon active and lower menu 01 image for default
     lr_setHeaderIconActive();
     lr_updateLowerMenuImage('01');
+    
+    // Update 3D model after UI update
+    updateModel_LowerReceiver();
 }); }
 
 // Lower menu sync (hide all then show selected)
@@ -44,13 +50,12 @@ function lr_updateLowerMenuImage(key){ const wrap = lr_getLowerMenuWrap(); if(!w
 
 // Hook into selection flow by wrapping original uiData
 
-{ ["01","02"].forEach(v=>{ const b=document.getElementById("buttonItems_lowerReceiver001001"+v); if(b) b.addEventListener("click", function(){ uiReset_lowerReceiver001001(); window.part.lowerReceiver["001"].products["001"].variants[v].quantity=1; uiData_LowerReceiver(); }); }); }
+{ ["01","02"].forEach(v=>{ const b=document.getElementById("buttonItems_lowerReceiver001001"+v); if(b) b.addEventListener("click", function(){ uiReset_lowerReceiver001001(); window.part.lowerReceiver["001"].products["001"].variants[v].quantity=1; uiData_LowerReceiver(); 
+    // Update 3D model after UI update
+    const itemsID = "lowerReceiver001001" + v;
+    console.log(`🎯 Part button clicked: ${itemsID}`);
+    handleLowerReceiverSelection(itemsID);
+}); }); }
 
 export function getSelectedLowerReceiver(){ const p=window.part.lowerReceiver["001"].products["001"].variants; if(p["01"].quantity===1) return p["01"]; if(p["02"].quantity===1) return p["02"]; return null; }
 export function getLowerReceiverTotalPrice(){ const v=getSelectedLowerReceiver(); return v? v.price:0; }
-
-
-
-
-
-

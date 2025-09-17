@@ -1,76 +1,78 @@
-// Model Controller for Buffer Tube (Lower)
+// Model Controller for Buffer Tube - IMPLEMENTED VERSION
+// Handles 3D model show/hide for Buffer Tube parts
 
-import { modelState, objectShowHideSystem, applyTexture, getModelIDFromItemsID, getPartNameFromItemsID } from '../modelController_Core/sketchfabAPI.mjs';
+import { modelState, showModel, hideModel, getModelIDFromItemsID, objectShowHideSystem } from '../modelController_Core/sketchfabAPI.mjs';
 
-// Import summary functions to reuse data collection
-function collectVariants_bufferTube() {
-    const root = window?.part?.bufferTube;
-    const items = [];
-    if (!root) return items;
-    for (const brandKey in root) {
-        const brandNode = root[brandKey];
-        const products = brandNode?.products || {};
-        for (const productKey in products) {
-            const productNode = products[productKey];
-            const productTitle = productNode?.productTitle || "";
-            const variants = productNode?.variants || {};
-            for (const vKey in variants) {
-                const v = variants[vKey];
-                if (!v?.id) continue;
-                items.push({ id: v.id, quantity: Number(v.quantity) || 0, title: productTitle, price: Number(v.price) });
-            }
-        }
-    }
-    return items;
-}
+console.log('📋 Buffer Tube model controller loaded (implemented version)');
 
-// Reset Buffer Tube Models
-export function resetModel_BufferTube() {
-    const modelIDs = ['bufferTube001'];
-    modelIDs.forEach(modelID => {
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 0;
-        }
-    });
-    objectShowHideSystem();
-}
-
-// Update Buffer Tube Models
+// Update Buffer Tube model based on current selection
 export function updateModel_BufferTube() {
-    const variants = collectVariants_bufferTube();
-    resetModel_BufferTube();
-    
-    variants.forEach(v => {
-        if (v.quantity > 0) {
-            const modelID = getModelIDFromItemsID(v.id);
-            if (modelID && modelState.hasOwnProperty(modelID)) {
-                modelState[modelID] = 1;
-                applyTexture(v.id);
-                console.log(`Buffer Tube model shown: ${modelID} with texture: ${v.id}_base`);
-            }
-        }
-    });
-    
-    objectShowHideSystem();
-}
-
-// Handle specific buffer tube selection
-export function handleBufferTubeSelection(itemsID) {
-    const modelID = getModelIDFromItemsID(itemsID);
-    
+  console.log('🔧 Buffer Tube model update - checking current selection');
+  
+  // Get current selected buffer tube from dataController
+  const selected = getSelectedBufferTube();
+  if (selected) {
+    const modelID = getModelIDFromItemsID(selected.id);
     if (modelID) {
-        resetModel_BufferTube();
-        if (modelState.hasOwnProperty(modelID)) {
-            modelState[modelID] = 1;
-        }
-        applyTexture(itemsID);
-        objectShowHideSystem();
-        console.log(`Buffer Tube selected: ${itemsID} -> ${modelID}`);
+      // Hide all buffer tube variants first
+      hideAllBufferTubeVariants();
+      
+      // Show selected variant
+      showModel(modelID);
+      console.log(`✅ Showing Buffer Tube: ${selected.id} -> ${modelID}`);
     }
+  } else {
+    // No selection, hide all variants
+    hideAllBufferTubeVariants();
+    console.log('👁️‍🗨️ No Buffer Tube selected - hiding all variants');
+  }
 }
 
-window.resetModel_BufferTube = resetModel_BufferTube;
+// Handle Buffer Tube selection from UI
+export function handleBufferTubeSelection(itemsID) {
+  console.log(`🎯 Buffer Tube selection: ${itemsID}`);
+  
+  // Hide all buffer tube variants first
+  hideAllBufferTubeVariants();
+  
+  // Show selected variant
+  const modelID = getModelIDFromItemsID(itemsID);
+  if (modelID) {
+    showModel(modelID);
+    console.log(`✅ Showing Buffer Tube: ${itemsID} -> ${modelID}`);
+  } else {
+    console.warn(`⚠️ Model ID not found for Buffer Tube: ${itemsID}`);
+  }
+}
+
+// Helper function to hide all buffer tube variants
+function hideAllBufferTubeVariants() {
+  const bufferTubeModels = [
+    'modelID_bufferTube00100101'
+  ];
+  
+  bufferTubeModels.forEach(modelID => {
+    hideModel(modelID);
+  });
+}
+
+// Helper function to get selected buffer tube (from dataController)
+function getSelectedBufferTube() {
+  if (window.part && window.part.bufferTube) {
+    // Check all brands and products for buffer tube
+    for (const [brandKey, brand] of Object.entries(window.part.bufferTube)) {
+      for (const [productKey, product] of Object.entries(brand.products)) {
+        for (const [variantKey, variant] of Object.entries(product.variants)) {
+          if (variant.quantity === 1) {
+            return variant;
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Export for global access
 window.updateModel_BufferTube = updateModel_BufferTube;
 window.handleBufferTubeSelection = handleBufferTubeSelection;
-
-
